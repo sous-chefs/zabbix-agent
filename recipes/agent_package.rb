@@ -10,4 +10,4 @@
 include_recipe 'zabbix::agent_common'
 include_recipe 'zabbix::_package_common'
 
-package "zabbix-agent"
+package 'zabbix-agent'
