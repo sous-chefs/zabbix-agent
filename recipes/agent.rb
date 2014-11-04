@@ -22,7 +22,7 @@ template 'user_params.conf' do
     group 'root'
     mode '644'
   end
-  notifies :restart, "service[zabbix_agentd]"
+  notifies :restart, 'service[zabbix_agentd]'
   only_if { node['zabbix']['agent']['user_parameter'].length > 0 }
 end
 
