@@ -7,7 +7,7 @@
 # Apache 2.0
 #
 
-include_recipe 'zabbix::agent_common'
+include_recipe 'zabbix-agent::agent_common'
 
 # Install prerequisite RPM
 package 'redhat-lsb' if node['platform_family'] == 'rhel'

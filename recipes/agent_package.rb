@@ -8,7 +8,7 @@
 #
 node.default['zabbix']['agent']['service_name'] = 'zabbix-agent'
 
-include_recipe 'zabbix::agent_common'
-include_recipe 'zabbix::_package_common'
+include_recipe 'zabbix-agent::agent_common'
+include_recipe 'zabbix-agent::_package_common'
 
 package 'zabbix-agent'

@@ -1,12 +1,12 @@
 # Author:: Guilhem Lettron (<guilhem.lettron@youscribe.com>)
-# Cookbook Name:: zabbix
+# Cookbook Name:: zabbix-agent
 # Recipe:: agent_registration
 #
 # Apache 2.0
 #
 
 if !Chef::Config[:solo]
-  zabbix_server = search(:node, 'recipe:zabbix\\:\\:server').first
+  zabbix_server = search(:node, 'recipes:zabbix\:\:server').first
 else
   if node['zabbix']['web']['fqdn']
     zabbix_server = node

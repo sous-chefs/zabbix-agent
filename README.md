@@ -2,7 +2,7 @@
 
 # DESCRIPTION
 
-This cookbook install zabbix-agent.
+This cookbook installs and configures the zabbix-agent.
 
 # USAGE
 
