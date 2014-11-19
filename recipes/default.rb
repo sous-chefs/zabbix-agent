@@ -7,7 +7,7 @@
 # Apache 2.0
 #
 
-include_recipe "zabbix-agent::agent_#{node['zabbix']['agent']['install_method']}"
+include_recipe "zabbix-agent::install_#{node['zabbix']['agent']['install_method']}"
 include_recipe 'zabbix-agent::agent_common'
 
 # Install configuration
@@ -61,4 +61,3 @@ when 'windows'
     action :nothing
   end
 end
-

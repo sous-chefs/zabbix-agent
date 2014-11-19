@@ -14,21 +14,22 @@ else
   default['zabbix']['etc_dir']      = '/etc/zabbix'
 end
 
+default['zabbix']['agent']['version']           = '2.2.0'
+
 default['zabbix']['agent']['install']           = true
 default['zabbix']['agent']['service_state']     = [:start, :enable]
 default['zabbix']['agent']['service_name']      = 'zabbix_agentd'
-
-default['zabbix']['agent']['branch']            = 'ZABBIX%20Latest%20Stable'
-default['zabbix']['agent']['version']           = '2.2.0'
-default['zabbix']['agent']['source_url']        = nil
 default['zabbix']['agent']['servers']           = []
 default['zabbix']['agent']['servers_active']    = []
 default['zabbix']['agent']['hostname']          = node['fqdn']
+default['zabbix']['agent']['enable_remote_commands'] = true
+default['zabbix']['agent']['timeout']           = '3'
+default['zabbix']['agent']['listen_port']       = '10050'
+
+default['zabbix']['agent']['branch']            = 'ZABBIX%20Latest%20Stable'
+default['zabbix']['agent']['source_url']        = nil
 default['zabbix']['agent']['configure_options'] = ['--with-libcurl']
 default['zabbix']['agent']['include_dir']       = ::File.join(node['zabbix']['etc_dir'], 'agent_include')
-default['zabbix']['agent']['enable_remote_commands'] = true
-default['zabbix']['agent']['listen_port']       = '10050'
-default['zabbix']['agent']['timeout']           = '3'
 
 default['zabbix']['agent']['config_file']               = ::File.join(node['zabbix']['etc_dir'], 'zabbix_agentd.conf')
 default['zabbix']['agent']['userparams_config_file']    = ::File.join(node['zabbix']['agent']['include_dir'], 'user_params.conf')
@@ -51,7 +52,6 @@ when 'windows'
 end
 
 default['zabbix']['agent']['log_file']           = nil # default (Syslog / windows event).
-# default['zabbix']['agent']['log_file']           = ::File.join(node['zabbix']['log_dir'], "zabbix_agentd.log"
 default['zabbix']['agent']['start_agents']       = nil # default (3)
 default['zabbix']['agent']['debug_level']        = nil # default (3)
 default['zabbix']['agent']['templates']          = []
@@ -63,9 +63,7 @@ default['zabbix']['agent']['snmp_port']          = '161'
 default['zabbix']['agent']['user_parameter'] = []
 
 default['zabbix']['install_dir']  = '/opt/zabbix'
-default['zabbix']['web_dir']      = '/opt/zabbix/web'
 default['zabbix']['external_dir'] = '/opt/zabbix/externalscripts'
-default['zabbix']['alert_dir']    = '/opt/zabbix/AlertScriptsPath'
 default['zabbix']['lock_dir']     = '/var/lock/subsys'
 default['zabbix']['src_dir']      = '/opt'
 default['zabbix']['log_dir']      = '/var/log/zabbix'
@@ -88,8 +86,7 @@ case node['platform']
 when 'ubuntu', 'debian'
   default['zabbix']['agent']['package']['repo_uri'] = "http://repo.zabbix.com/zabbix/2.4/#{node['platform']}/"
   default['zabbix']['agent']['package']['repo_key'] = 'http://repo.zabbix.com/zabbix-official-repo.key'
-when 'redhat', 'centos'
+when 'redhat', 'centos', 'scientific', 'oracle', 'amazon'
   default['zabbix']['agent']['package']['repo_uri'] = "http://repo.zabbix.com/zabbix/2.4/rhel/#{node['platform_version'].to_i}/$basesearch"
   default['zabbix']['agent']['package']['repo_key'] = 'http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX'
 end
-

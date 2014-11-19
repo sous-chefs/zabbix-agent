@@ -8,7 +8,7 @@
 #
 case node['platform']
 when 'ubuntu', 'debian'
-  include_recipe "apt"
+  include_recipe 'apt'
   apt_repository 'zabbix' do
     uri node['zabbix']['agent']['package']['repo_uri']
     distribution node['lsb']['codename']
@@ -16,7 +16,7 @@ when 'ubuntu', 'debian'
     key node['zabbix']['agent']['package']['repo_key']
   end
 when 'redhat', 'centos', 'scientific', 'oracle', 'amazon'
-  include_recipe "yum"
+  include_recipe 'yum'
   yum_repository 'zabbix' do
     repositoryid 'zabbix'
     description 'Zabbix Official Repository - $basearch'
