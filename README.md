@@ -1,5 +1,10 @@
 [![Build Status](https://travis-ci.org/laradji/zabbix.png?branch=master)](https://travis-ci.org/laradji/zabbix)
 
+# WARNING
+
+This is an initial strip of code from the original laradji/zabbix code.  It is completely untested
+and only here to see what would be required to make a real project out of this idea.
+
 # DESCRIPTION
 
 This cookbook installs and configures the zabbix-agent.
