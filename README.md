@@ -10,6 +10,24 @@ and only here to see what would be required to make a real project out of this i
 This cookbook installs and configures the zabbix-agent.
 
 # USAGE
+Update the metadata.rb and change your package type from "suggests" to "depends."
+
+Install packages from repo.zabbix.com and run the Agent:
+
+    "recipe[zabbix]"
+
+Alternativly you can just install, or install and configure:
+
+    "recipe[zabbix::install]"
+  or
+    "recipe[zabbix::configure]"
+
+Install Method options are:
+
+    node['zabbix']['agent']['install_method'] = package # Default
+    node['zabbix']['agent']['install_method'] = source
+    node['zabbix']['agent']['install_method'] = prebuild
+    node['zabbix']['agent']['install_method'] = chocolatey # Windows
 
 If you do not specify source\_url attributes for agent it will be set to download the specified
 branch and version from the official Zabbix source repository. If you want to upgrade later, you need to
@@ -18,10 +36,6 @@ either nil out the source\_url attributes or set them to the url you wish to dow
     node['zabbix']['agent']['source_url'] = nil
 
 Please include the default recipe before using any other recipe.
-
-Installing the Agent :
-
-    "recipe[zabbix]"
 
 NOTE:
 
