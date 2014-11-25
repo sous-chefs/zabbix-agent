@@ -91,3 +91,5 @@ root_dirs.each do |dir|
     notifies :restart, 'service[zabbix_agentd]'
   end
 end
+
+include_recipe "zabbix-agent::install_#{node['zabbix']['agent']['install_method']}"
