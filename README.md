@@ -5,72 +5,74 @@
 This is an initial strip of code from the original laradji/zabbix code.  It is completely untested
 and only here to see what would be required to make a real project out of this idea.
 
-# DESCRIPTION
-
+# zabbix-agent
 This cookbook installs and configures the zabbix-agent.
 
-# USAGE
-Update the metadata.rb and change your package type from "suggests" to "depends."
+## USAGE
+Update the metadata.rb and change your package type from "recommends" to "depends."
 
 Install packages from repo.zabbix.com and run the Agent:
 
+```json
+{
+  "run_list": [
     "recipe[zabbix]"
+  ]
+}
+```
 
 Alternativly you can just install, or install and configure:
 
+```json
+{
+  "run_list": [
     "recipe[zabbix::install]"
+  ]
+}
+```
   or
+```json
+{
+  "run_list": [
     "recipe[zabbix::configure]"
+  ]
+}
+```
+
+### ATTRIBUTES
 
 Install Method options are:
-
     node['zabbix']['agent']['install_method'] = package # Default
     node['zabbix']['agent']['install_method'] = source
     node['zabbix']['agent']['install_method'] = prebuild
-    node['zabbix']['agent']['install_method'] = chocolatey # Windows
+    node['zabbix']['agent']['install_method'] = chocolatey # Default for Windows
 
+Version
+    node['zabbix']['agent']['install_method']
+
+Don't forget to set :
+    node.set['zabbix']['agent']['servers'] = ["Your_zabbix_server.com","secondaryserver.com"]
+
+#### Package install
+
+#### Source install
 If you do not specify source\_url attributes for agent it will be set to download the specified
 branch and version from the official Zabbix source repository. If you want to upgrade later, you need to
 either nil out the source\_url attributes or set them to the url you wish to download from.
 
     node['zabbix']['agent']['source_url'] = nil
+    node['zabbix']['agent']['branch'] = "ZABBIX%20Latest%20Stable"
+    node['zabbix']['agent']['version']
+    node['zabbix']['agent']['configure_options']
 
-Please include the default recipe before using any other recipe.
+#### Prebuild install
 
-NOTE:
+#### Chocolatey install
 
-If you are running on Redhat, Centos, Scientific or Amazon, you will need packages from EPEL.
-Include "recipe[yum::epel]" in your runlist or satisfy these requirements some other way.
-
-    "recipe[yum::epel]"
-
-# ATTRIBUTES
-
-Don't forget to set :
-
-    node.set['zabbix']['agent']['servers'] = ["Your_zabbix_server.com","secondaryserver.com"]
-
-Note :
-
+### Note :
 A Zabbix agent running on the Zabbix server will need to :
-
 * use a different account than the on the server uses or it will be able to spy on private data.
 * specify the local Zabbix server using the localhost (127.0.0.1, ::1) address.
-
-example :
-
-## Agent
-
-	  node.set['zabbix']['agent']['branch'] = "ZABBIX%20Latest%20Stable"
-	  node.set['zabbix']['agent']['version'] = "2.0.0"
-	  node.set['zabbix']['agent']['source_url'] = nil
-	  node.set['zabbix']['agent']['install_method'] = "prebuild"
-
-If you are using AWS RDS
-
-    node.set['zabbix']['database']['install_method'] = 'rds_mysql'
-    node.set['zabbix']['database']['rds_master_user'] = 'username'
-    node.set['zabbix']['database']['rds_master_password'] = 'password'
 
 
 
@@ -89,20 +91,7 @@ You can control the agent install with the following attributes:
   or
     node['zabbix']['agent']['install_method'] = 'package'
 
-## agent\_prebuild
-
-Downloads and installs the Zabbix agent from a pre built package
-
-If you are on a machine in the RHEL family of platforms, then you must have your
-package manager setup to allow installation of:
-
-    package "redhat-lsb"
-
-You can control the agent version with:
-
-    node['zabbix']['agent']['version']
-
-## agent\_source
+## install\_source
 
 Downloads and installs the Zabbix agent from source
 
@@ -114,19 +103,27 @@ is to add the following recipe to your runlist before zabbix::agent\_source
 
 You can control the agent install with:
 
-    node['zabbix']['agent']['branch']
-    node['zabbix']['agent']['version']
-    node['zabbix']['agent']['configure_options']
 
-## agent\_package
+## install\_package
 
 Sets up the Zabbix default repository and installs the agent from there
 
-## firewall
-
-Opens firewall rules to allow Zabbix nodes to communicate with each other.
-
 # LWRPs
+
+zabbix-agent\_api\_call
+zabbix-agent\_application
+zabbix-agent\_discovery\_rule
+zabbix-agent\_graph
+zabbix-agent\_host\_group
+zabbix-agent\_hostgroup
+zabbix-agent\_host
+zabbix-agent\_interface
+zabbix-agent\_item
+zabbix-agent\_source
+zabbix-agent\_template
+zabbix-agent\_trigger\_dependency
+zabbix-agent\_trigger
+zabbix-agent\_user
 
 
 # TODO
