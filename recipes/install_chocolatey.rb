@@ -18,5 +18,3 @@
 #
 
 include_recipe 'zabbix-agent::_package_common'
-
-include_recipe 'zabbix-agent::agent_common'

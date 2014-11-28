@@ -88,7 +88,7 @@ root_dirs.each do |dir|
       mode '755'
     end
     recursive true
-    notifies :restart, 'service[zabbix_agentd]'
+    notifies :restart, 'service[zabbix-agent]'
   end
 end
 

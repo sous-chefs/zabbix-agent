@@ -83,7 +83,6 @@ The default recipe creates the Zabbix user and directories.
 
 You can control the agent install with the following attributes:
 
-    node['zabbix']['agent']['install'] = true
     node['zabbix']['agent']['install_method'] = 'source'
   or
     node['zabbix']['agent']['install_method'] = 'prebuild'
@@ -145,7 +144,7 @@ zabbix-agent\_user
 * Fix Add missing shabang for init file. (Thanks justinabrahms)
   * Fix FC045 foodcritic
   * new dependencies version on database and mysql cookbook
-* Add support for custom config file location to zabbix_agentd.init-rh.erb (Thanks charlesjohnson)
+* Add support for custom config file location to zabbix-agent.init-rh.erb (Thanks charlesjohnson)
 
 ### 0.0.40
   * Refactoring for passing foodcritic with help from dkarpenko
@@ -164,7 +163,7 @@ zabbix-agent\_user
 * Having run dir in /tmp is not so good (Guilhem Lettron)
 
 ### 0.0.36
-* added restart option to zabbix_agentd service definitions (Paul Rossman Patch)
+* added restart option to zabbix-agent service definitions (Paul Rossman Patch)
 
 ### 0.0.35
   * Fix from Amiando about server_alias how should be a Array.

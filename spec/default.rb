@@ -1,6 +1,7 @@
 require 'chefspec'
 
 describe 'zabbix-agent' do
+  # default run
   let(:chef_run) { ChefSpec::SoloRunner.converge('zabbix-agent') }
 
   it 'includes zabbix-agent::service' do
@@ -13,5 +14,9 @@ describe 'zabbix-agent' do
 
   it 'includes zabbix-agent::install' do
     expect(chef_run).to include_recipe('zabbix-agent::install')
+  end
+
+  it 'includes zabbix-agent::install_package' do
+    expect(chef_run).to include_recipe('zabbix-agent::install_package')
   end
 end
