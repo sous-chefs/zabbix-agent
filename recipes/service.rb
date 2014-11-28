@@ -32,9 +32,11 @@ when 'windows'
     supports :restart => true
     action :nothing
   end
-end
+else
+  # Define zabbix-agent service
   service 'zabbix-agent' do
     pattern 'zabbix_agentd'
     supports :status => true, :start => true, :stop => true, :restart => true
     action [:enable, :start]
   end
+end

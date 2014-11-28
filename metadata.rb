@@ -13,6 +13,6 @@ supports 'oracle', '>= 5.0'
 supports 'windows'
 
 recommends 'chocolatey'
-recommends 'apt'
+depends 'apt'
 recommends 'yum'
 recommends 'java'
