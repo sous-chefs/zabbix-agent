@@ -33,7 +33,7 @@ when 'windows'
     action :nothing
   end
 else
-  # Define zabbix-agent service
+  # Define just the zabbix-agent service
   service 'zabbix-agent' do
     pattern 'zabbix_agentd'
     supports :status => true, :start => true, :stop => true, :restart => true

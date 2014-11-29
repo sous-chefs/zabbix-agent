@@ -15,12 +15,12 @@ else
   default['zabbix']['etc_dir']      = '/etc/zabbix'
 end
 default['zabbix']['agent']['include_dir']       = ::File.join(node['zabbix']['etc_dir'], 'agent_include')
-default['zabbix']['agent']['config_file']               = ::File.join(node['zabbix']['etc_dir'], 'zabbix-agent.conf')
+default['zabbix']['agent']['config_file']               = ::File.join(node['zabbix']['etc_dir'], 'zabbix_agentd.conf')
 default['zabbix']['agent']['userparams_config_file']    = ::File.join(node['zabbix']['agent']['include_dir'], 'user_params.conf')
 
 default['zabbix']['agent']['version']           = '2.2.0'
-default['zabbix']['agent']['servers']           = []
-default['zabbix']['agent']['servers_active']    = []
+default['zabbix']['agent']['servers']           = ['zabbix']
+default['zabbix']['agent']['servers_active']    = ['zabbix']
 
 # primary config options
 default['zabbix']['agent']['hostname']          = node['fqdn']
@@ -51,7 +51,7 @@ default['zabbix']['gid']    = nil
 default['zabbix']['home']   = '/opt/zabbix'
 default['zabbix']['shell']  = '/bin/bash'
 
-#source install
+# source install
 default['zabbix']['agent']['branch']            = 'ZABBIX%20Latest%20Stable'
 default['zabbix']['agent']['source_url']        = nil
 default['zabbix']['agent']['configure_options'] = ['--with-libcurl']

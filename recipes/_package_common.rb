@@ -16,7 +16,7 @@ when 'ubuntu', 'debian'
     key node['zabbix']['agent']['package']['repo_key']
   end
 when 'redhat', 'centos', 'scientific', 'oracle', 'amazon'
-  include_recipe 'yum'
+  include_recipe 'yum' # ~FC007
   yum_repository 'zabbix' do
     repositoryid 'zabbix'
     description 'Zabbix Official Repository - $basearch'
@@ -35,6 +35,6 @@ when 'redhat', 'centos', 'scientific', 'oracle', 'amazon'
     action :create
   end
 when 'windows'
-  include_recipe 'chocolatey'
+  include_recipe 'chocolatey' # ~FC007
   chocolatey 'zabbix-agent'
 end

@@ -21,10 +21,6 @@ describe 'zabbix-agent with default settings' do
     expect(chef_run).to include_recipe('zabbix-agent::install')
   end
 
-  it 'includes zabbix-agent::install_package to install the zabbix agent from the package' do
-    expect(chef_run).to include_recipe('zabbix-agent::install_package')
-  end
-
   it 'includes zabbix-agent::_package_common to configure zabbix package repository' do
     expect(chef_run).to include_recipe('zabbix-agent::_package_common')
   end
@@ -69,8 +65,26 @@ describe 'zabbix-agent with default settings' do
     )
   end
 
+  it 'includes zabbix-agent::install_package to install the zabbix agent from the package' do
+    expect(chef_run).to include_recipe('zabbix-agent::install_package')
+  end
+
   it 'installs the package zabbix-agent from the zabbix repository' do
     expect(chef_run).to install_package('zabbix-agent')
+  end
+
+  it 'creates the template /etc/zabbix/zabbix_agentd.conf with the default configuration' do
+    expect(chef_run).to create_template('zabbix_agentd.conf').with(
+      path:   '/etc/zabbix/zabbix_agentd.conf',
+      user:   'root',
+      group:  'root',
+      mode:   '644'
+    )
+  end
+
+  it 'starts and enables the zabbix-agent service with an explicit action' do
+    expect(chef_run).to start_service('zabbix-agent')
+    expect(chef_run).to enable_service('zabbix-agent')
   end
 end
 
@@ -84,6 +98,22 @@ describe 'zabbix-agent with default settings + source install' do
 
   it 'includes zabbix-agent::install_source to compile and install the zabbix agent from source' do
     expect(chef_run).to include_recipe('zabbix-agent::install_source')
+  end
+
+  it 'includes uses the source lwrp to download and compile the source' do
     expect(chef_run).to source_agent_install('install_zabbix_agent')
   end
 end
+
+# describe 'zabbix-agent with default settings + prebuild binary' do
+#  let(:chef_run) { ChefSpec::SoloRunner.converge('zabbix-agent::default') }
+#  let(:chef_run) do
+#    ChefSpec::SoloRunner.new do |node|
+#      node.set['zabbix']['agent']['install_method'] = 'prebuild'
+#    end.converge('zabbix-agent::default')
+#  end
+#
+#  it 'includes zabbix-agent::install_source to compile and install the zabbix agent from source' do
+#    expect(chef_run).to include_recipe('zabbix-agent::install_prebuild')
+#  end
+# end

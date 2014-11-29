@@ -5,7 +5,7 @@
 # Apache 2.0
 #
 
-include_recipe 'java'
+include_recipe 'java' # ~FC007
 
 template '/etc/zabbix/zabbix_java_gateway.conf' do
   source 'zabbix-java-gateway/zabbix_java_gateway.conf.erb'

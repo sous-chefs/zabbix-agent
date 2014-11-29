@@ -12,7 +12,9 @@ supports 'centos', '>= 5.0'
 supports 'oracle', '>= 5.0'
 supports 'windows'
 
-recommends 'chocolatey'
-depends 'apt'
-recommends 'yum'
-recommends 'java'
+# change the needed recommends to depends below
+recommends 'chocolatey' # For windows
+depends 'apt'           # For Debian family OSs
+recommends 'yum'        # For Redhat family OSs
+recommends 'ark'        # to install the prebuild packages
+recommends 'java'       # if using the java gateway
