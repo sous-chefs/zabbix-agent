@@ -10,6 +10,19 @@ This cookbook installs and configures the zabbix-agent.
 ## USAGE
 Update the metadata.rb and change your package type from "recommends" to "depends."
 
+If you have internet access and a searchable dns alias so "zabbix" will resolve to 
+your zabbix server this cookbook may work with no aditional changes.  Otherwise you
+will need to modify
+
+    node['zabbix']['agent']['servers']
+
+and
+
+    default['zabbix']['agent']['package']['repo_uri']
+    default['zabbix']['agent']['package']['repo_key']
+
+or try one of the other install methods
+
 Install packages from repo.zabbix.com and run the Agent:
 
 ```json
