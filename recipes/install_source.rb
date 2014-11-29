@@ -6,6 +6,11 @@
 #
 # Apache 2.0
 #
+
+unless node['zabbix']['agent']['source_url']
+  node.default['zabbix']['agent']['source_url'] = Chef::Zabbix.default_download_url(node['zabbix']['agent']['branch'], node['zabbix']['agent']['version'])
+end
+
 case node['platform']
 when 'ubuntu', 'debian'
   # install some dependencies
@@ -30,7 +35,7 @@ configure_options = (configure_options || Array.new).delete_if do |option|
 end
 node.normal['zabbix']['agent']['configure_options'] = configure_options
 
-zabbix_source 'install_zabbix_agent' do
+zabbix_agent_source 'install_zabbix_agent' do
   branch node['zabbix']['agent']['branch']
   version node['zabbix']['agent']['version']
   source_url node['zabbix']['agent']['source_url']
