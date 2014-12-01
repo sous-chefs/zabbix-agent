@@ -1,4 +1,4 @@
-cookbook "zabbix" do
+cookbook "zabbix-agent" do
 	configuration "default"
 	exclude :platform => 'centos'
 	exclude :platform => 'debian'

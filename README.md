@@ -2,7 +2,8 @@
 
 # WARNING
 This is an initial refactor/strip of the code from the original laradji/zabbix zabbix cookbook.  It is 
-completely untested and only here to see what would be required to make a real project out of this idea.
+passing kitchen tests for ubuntu, I'm having an issue with the Redhat box.  I'm not yet using this for
+production deployments but expect to be doing so soon.
 
 # zabbix-agent
 This cookbook installs and configures the zabbix-agent.

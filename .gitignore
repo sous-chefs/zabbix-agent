@@ -22,7 +22,6 @@ tmp
 *.sw[op]
 \.\#*
 rerun.txt
-.rspec
 .kitchen
 .vagrant
 vendor

@@ -31,11 +31,14 @@ namespace :unit do
   begin
     require 'rspec/core/rake_task'
     desc 'Runs specs with chefspec.'
-    RSpec::Core::RakeTask.new(:chefspec)
+    RSpec::Core::RakeTask.new(:rspec)
   rescue LoadError
     puts '>>>>> chefspec gem not loaded, omitting tasks' unless ENV['CI']
   end
 end
+
+desc 'Run all unit tests'
+task unit: ['unit:rspec']
 
 # Integration tests. Kitchen.ci
 namespace :integration do
@@ -50,7 +53,8 @@ namespace :integration do
 end
 
 desc 'Run all tests on Travis'
-task travis: ['style']
+task travis: ['style', 'unit']
 
 # Default
-task default: ['style', 'integration:kitchen:all']
+# task default: ['unit', 'style', 'integration:kitchen:all']
+task default: ['unit', 'style', 'integration:kitchen:all']

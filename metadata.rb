@@ -15,6 +15,6 @@ supports 'windows'
 # change the needed recommends to depends below
 recommends 'chocolatey' # For windows
 depends 'apt'           # For Debian family OSs
-recommends 'yum'        # For Redhat family OSs
+depends 'yum'        # For Redhat family OSs
 recommends 'ark'        # to install the prebuild packages
 recommends 'java'       # if using the java gateway
