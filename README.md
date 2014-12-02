@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/laradji/zabbix.png?branch=master)](https://travis-ci.org/laradji/zabbix)
+[![Build Status](https://secure.travis-ci.org/TD-4242/zabbix-agent.png)](http://travis-ci.org/TD-4242/zabbix-agent)
+
 
 # WARNING
 This is an initial refactor/strip of the code from the original laradji/zabbix zabbix cookbook.  It is 
