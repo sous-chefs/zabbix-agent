@@ -19,7 +19,7 @@ when 'redhat', 'centos', 'scientific', 'oracle', 'amazon'
   include_recipe 'yum' # ~FC007
   yum_repository 'zabbix' do
     repositoryid 'zabbix'
-    description 'Zabbix Official Repository - $basearch'
+    description 'Zabbix Official Repository'
     baseurl node['zabbix']['agent']['package']['repo_uri']
     gpgkey node['zabbix']['agent']['package']['repo_key']
     sslverify false
