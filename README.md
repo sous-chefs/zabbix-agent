@@ -1,20 +1,16 @@
 [![Build Status](https://secure.travis-ci.org/TD-4242/zabbix-agent.png)](http://travis-ci.org/TD-4242/zabbix-agent)
 
-
-# WARNING
-This is an initial refactor/strip of the code from the original laradji/zabbix zabbix cookbook.  It is 
-passing kitchen tests for ubuntu, I'm having an issue with the Redhat box.  I'm not yet using this for
-production deployments but expect to be doing so soon.
-
 # zabbix-agent
-This cookbook installs and configures the zabbix-agent.
+This cookbook installs and configures the zabbix-agent.  It is a refactoring of the
+zabbix cookbook that strips out the server install dependancies and focuses only
+on installing the agent.
 
-## USAGE
-Update the metadata.rb and change your package type from "recommends" to "depends."
+# USAGE
+Update the metadata.rb and change your package type (apt, yum) from "recommends" to "depends."
 
-If you have internet access and a searchable dns alias so "zabbix" will resolve to 
-your zabbix server this cookbook may work with no aditional changes.  Otherwise you
-will need to modify
+If you have internet access and a searchable dns alias so "zabbix" will resolve to your zabbix server this cookbook may work with no aditional changes.  Just include recipe[zabbix-agent] in your runlist. 
+
+Otherwise you will need to modify:
 
     node['zabbix']['agent']['servers']
 
@@ -25,6 +21,7 @@ and
 
 or try one of the other install methods
 
+## Default Install, Configure and run zabbix agent
 Install packages from repo.zabbix.com and run the Agent:
 
 ```json
@@ -35,6 +32,7 @@ Install packages from repo.zabbix.com and run the Agent:
 }
 ```
 
+## Selective Install or Install and Configure (don't state zabbix-agent)
 Alternativly you can just install, or install and configure:
 
 ```json
@@ -56,18 +54,25 @@ Alternativly you can just install, or install and configure:
 ### ATTRIBUTES
 
 Install Method options are:
-    node['zabbix']['agent']['install_method'] = package # Default
-    node['zabbix']['agent']['install_method'] = source
-    node['zabbix']['agent']['install_method'] = prebuild
-    node['zabbix']['agent']['install_method'] = chocolatey # Default for Windows
+    node['zabbix']['agent']['install_method'] = 'package' # Default
+
+Other options are less tested:
+
+    node['zabbix']['agent']['install_method'] = 'source'
+    node['zabbix']['agent']['install_method'] = 'prebuild'
+    node['zabbix']['agent']['install_method'] = 'chocolatey' # Default for Windows
 
 Version
-    node['zabbix']['agent']['install_method']
+    node['zabbix']['agent']['version']
 
 Don't forget to set :
-    node.set['zabbix']['agent']['servers'] = ["Your_zabbix_server.com","secondaryserver.com"]
+    node['zabbix']['agent']['servers'] = ["Your_zabbix_server.com","secondaryserver.com"]
+    node['zabbix']['agent']['servers_active'] = ["Your_zabbix_active_server.com"]
 
 #### Package install
+If you do not set any attributes you will get an install of zabbix agent version 2.2.7 with
+what should be a working configuration if your DNS has aliases for zabbix.yourdomain.com and
+your hosts search yourdomain.com.
 
 #### Source install
 If you do not specify source\_url attributes for agent it will be set to download the specified
@@ -80,15 +85,15 @@ either nil out the source\_url attributes or set them to the url you wish to dow
     node['zabbix']['agent']['configure_options']
 
 #### Prebuild install
+Currently untested.  Pull requests and kitchen tests desired.
 
 #### Chocolatey install
+Currently untested.  Pull requests and kitchen tests desired.
 
 ### Note :
 A Zabbix agent running on the Zabbix server will need to :
 * use a different account than the on the server uses or it will be able to spy on private data.
 * specify the local Zabbix server using the localhost (127.0.0.1, ::1) address.
-
-
 
 # RECIPES
 
@@ -122,6 +127,7 @@ You can control the agent install with:
 Sets up the Zabbix default repository and installs the agent from there
 
 # LWRPs
+Currently the LWRPs have not been completely ported to the new zabbix-agent cookbook.
 
 zabbix-agent\_api\_call
 zabbix-agent\_application
@@ -142,24 +148,31 @@ zabbix-agent\_user
 # TODO
 
 * Support more platform on agent side windows ?
-* LWRP Magic ?
+* LWRP cleanup, port and testing
 
 # CHANGELOG
+### 0.9.0
+  * Major refactor of all code.  
+  * Rename cookbook to zabbix-agent, strip out all server, web, java-gateway dependancies.
+  * Add default code path chefspec tests
+  * Update kitchen tests
+  * Added package install from repo.zabbix.com
+  * Rename many cookbooks to follow a Install->Configure->Service design pattern.
 
 ### 0.8.0
-* This version is a big change with a lot of bugfix and change. Please be carefull if you are updated from previous version
+  * This version is a big change with a lot of bugfix and change. Please be carefull if you are updated from previous version
 
 ### 0.0.42
-* Adds Berkshelf/Vagrant 1.1 compatibility (andrewGarson)
+  * Adds Berkshelf/Vagrant 1.1 compatibility (andrewGarson)
   * Moves recipe[yum::epel] to a documented runlist dependency instead of forcing you to use it via include_recipe
 
 ### 0.0.41
   * Format metadata and add support for Oracle linux (Thanks to tas50 and his love for oracle Linux)
   * Fix about redhat LSB in agent-prebuild recipe (Thanks nutznboltz)
-* Fix Add missing shabang for init file. (Thanks justinabrahms)
+  * Fix Add missing shabang for init file. (Thanks justinabrahms)
   * Fix FC045 foodcritic
   * new dependencies version on database and mysql cookbook
-* Add support for custom config file location to zabbix-agent.init-rh.erb (Thanks charlesjohnson)
+  * Add support for custom config file location to zabbix-agent.init-rh.erb (Thanks charlesjohnson)
 
 ### 0.0.40
   * Refactoring for passing foodcritic with help from dkarpenko
@@ -168,17 +181,17 @@ zabbix-agent\_user
   * Modified firewall recipe to accept connection to localhost zabbix_server
 
 ### 0.0.39
-* Added zabbix bin patch in init script (deprecate change made in 0.0.38)
+  * Added zabbix bin patch in init script (deprecate change made in 0.0.38)
   * Changed default zabbix version to 2.0.3
 
 ### 0.0.38
-* Added zabbix_agent bin dir into PATH for Debian/Ubuntu (Some script need zabbix_sender)
+  * Added zabbix_agent bin dir into PATH for Debian/Ubuntu (Some script need zabbix_sender)
 
 ### 0.0.37
-* Having run dir in /tmp is not so good (Guilhem Lettron)
+  * Having run dir in /tmp is not so good (Guilhem Lettron)
 
 ### 0.0.36
-* added restart option to zabbix-agent service definitions (Paul Rossman Patch)
+  * added restart option to zabbix-agent service definitions (Paul Rossman Patch)
 
 ### 0.0.35
   * Fix from Amiando about server_alias how should be a Array.
@@ -199,7 +212,7 @@ zabbix-agent\_user
 ### 0.0.30
   * Thanks to Paul Rossman for this release
   * Zabbix default install version is now 2.0.0
-* Option to install Zabbix database on RDS node (default remains localhost MySQL)
+  * Option to install Zabbix database on RDS node (default remains localhost MySQL)
   * MySQL client now installed with Zabbix server
   * Added missing node['zabbix']['server']['dbport'] to templates/default/zabbix_web.conf.php.erb
   * Fixed recipe name typo in recipes/web.rb
