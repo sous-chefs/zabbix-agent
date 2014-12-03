@@ -1,9 +1,7 @@
 [![Build Status](https://secure.travis-ci.org/TD-4242/zabbix-agent.png)](http://travis-ci.org/TD-4242/zabbix-agent)
 
 # zabbix-agent
-This cookbook installs and configures the zabbix-agent.  It is a refactoring of the
-zabbix cookbook that strips out the server install dependancies and focuses only
-on installing the agent.
+This cookbook installs and configures the zabbix-agent.  It is a refactoring of the zabbix cookbook from https://github.com/laradji/zabbix that strips out the server install dependancies and focuses only on installing the agent.
 
 # USAGE
 Update the metadata.rb and change your package type (apt, yum) from "recommends" to "depends."
@@ -75,9 +73,7 @@ what should be a working configuration if your DNS has aliases for zabbix.yourdo
 your hosts search yourdomain.com.
 
 #### Source install
-If you do not specify source\_url attributes for agent it will be set to download the specified
-branch and version from the official Zabbix source repository. If you want to upgrade later, you need to
-either nil out the source\_url attributes or set them to the url you wish to download from.
+If you do not specify source\_url attributes for agent it will be set to download the specified branch and version from the official Zabbix source repository. If you want to upgrade later, you need to either nil out the source\_url attributes or set them to the url you wish to download from.
 
     node['zabbix']['agent']['source_url'] = nil
     node['zabbix']['agent']['branch'] = "ZABBIX%20Latest%20Stable"
@@ -149,6 +145,7 @@ zabbix-agent\_user
 
 * Support more platform on agent side windows ?
 * LWRP cleanup, port and testing
+* Update documentation
 
 # CHANGELOG
 ### 0.9.0
