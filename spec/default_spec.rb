@@ -9,7 +9,6 @@ end
 describe 'zabbix-agent with default settings' do
   let(:chef_run) { ChefSpec::SoloRunner.converge('zabbix-agent::default') }
 
-
   it 'includes zabbix-agent::service to insure the zabbix agent will run' do
     expect(chef_run).to include_recipe('zabbix-agent::service')
   end
