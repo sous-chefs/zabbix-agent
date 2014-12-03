@@ -1,6 +1,7 @@
 [![Build Status](https://secure.travis-ci.org/TD-4242/zabbix-agent.png)](http://travis-ci.org/TD-4242/zabbix-agent)
 
 # zabbix-agent
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/TD-4242/zabbix-agent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 This cookbook installs and configures the zabbix-agent.  It is a refactoring of the zabbix cookbook from https://github.com/laradji/zabbix that strips out the server install dependancies and focuses only on installing the agent.
 
 # USAGE
