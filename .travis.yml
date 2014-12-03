@@ -3,5 +3,4 @@ bundler_args: --without integration
 rvm:
   - 2.1.4
 script: 
-  - bundle exec berks install --shims cookbooks/
   - bundle exec rake travis
