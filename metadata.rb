@@ -17,4 +17,3 @@ recommends 'chocolatey' # For windows
 depends 'apt'           # For Debian family OSs
 depends 'yum'        # For Redhat family OSs
 recommends 'ark'        # to install the prebuild packages
-recommends 'java'       # if using the java gateway

@@ -9,6 +9,7 @@ end
 describe 'zabbix-agent with default settings' do
   let(:chef_run) { ChefSpec::SoloRunner.converge('zabbix-agent::default') }
 
+
   it 'includes zabbix-agent::service to insure the zabbix agent will run' do
     expect(chef_run).to include_recipe('zabbix-agent::service')
   end
@@ -87,16 +88,3 @@ describe 'zabbix-agent with default settings' do
     expect(chef_run).to enable_service('zabbix-agent')
   end
 end
-
-# describe 'zabbix-agent with default settings + prebuild binary' do
-#  let(:chef_run) { ChefSpec::SoloRunner.converge('zabbix-agent::default') }
-#  let(:chef_run) do
-#    ChefSpec::SoloRunner.new do |node|
-#      node.set['zabbix']['agent']['install_method'] = 'prebuild'
-#    end.converge('zabbix-agent::default')
-#  end
-#
-#  it 'includes zabbix-agent::install_source to compile and install the zabbix agent from source' do
-#    expect(chef_run).to include_recipe('zabbix-agent::install_prebuild')
-#  end
-# end

@@ -22,6 +22,7 @@ tmp
 *.sw[op]
 \.\#*
 rerun.txt
-.kitchen
 .vagrant
 vendor
+.kitchen/
+.kitchen.local.yml
