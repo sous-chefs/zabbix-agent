@@ -21,10 +21,6 @@ describe 'zabbix-agent with default settings' do
     expect(chef_run).to include_recipe('zabbix-agent::install')
   end
 
-  it 'includes zabbix-agent::_package_common to configure zabbix package repository' do
-    expect(chef_run).to include_recipe('zabbix-agent::_package_common')
-  end
-
   it 'adds the group "zabbix"' do
     expect(chef_run).to create_group('zabbix')
   end
