@@ -26,3 +26,4 @@ rerun.txt
 vendor
 .kitchen/
 .kitchen.local.yml
+Guardfile
