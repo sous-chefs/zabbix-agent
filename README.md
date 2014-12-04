@@ -22,7 +22,7 @@ and
 
 or try one of the other install methods
 
-## Default Install, Configure and run zabbix agent
+### Default Install, Configure and run zabbix agent
 Install packages from repo.zabbix.com and run the Agent:
 
 ```json
@@ -33,7 +33,7 @@ Install packages from repo.zabbix.com and run the Agent:
 }
 ```
 
-## Selective Install or Install and Configure (don't state zabbix-agent)
+### Selective Install or Install and Configure (don't start zabbix-agent)
 Alternativly you can just install, or install and configure:
 
 ```json
@@ -97,8 +97,7 @@ A Zabbix agent running on the Zabbix server will need to :
 # RECIPES
 
 ## default
-
-The default recipe creates the Zabbix user and directories.
+The default recipe installs, configures and starts the zabbix_agentd.
 
 You can control the agent install with the following attributes:
 
@@ -108,22 +107,32 @@ You can control the agent install with the following attributes:
   or
     node['zabbix']['agent']['install_method'] = 'package'
 
-## install\_source
+### service
+Controls the service start/stop/restart
 
+### configure
+applies the provided attributes to the configurable items
+
+### install
+Installs the cookbook based on the 'install_method'.  Includse one of the following recipies
+
+#### install\_source
 Downloads and installs the Zabbix agent from source
 
-If you are on a machine in the RHEL family of platforms, then you will
-need to install packages from the EPEL repository. The easiest way to do this
-is to add the following recipe to your runlist before zabbix::agent\_source
+If you are on a machine in the RHEL family of platforms, then you will need to install packages from the EPEL repository. The easiest way to do this is to add the following recipe to your runlist before zabbix::agent\_source
 
     recipe "yum::epel"
 
 You can control the agent install with:
 
-
-## install\_package
-
+#### install\_package
 Sets up the Zabbix default repository and installs the agent from there
+
+#### install\_prebuild
+Needs testing
+
+#### install\_chocolatey
+Needs testing
 
 # LWRPs
 Currently the LWRPs have not been completely ported to the new zabbix-agent cookbook.

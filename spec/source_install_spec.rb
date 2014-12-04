@@ -17,8 +17,4 @@ describe 'zabbix-agent with default settings + source install' do
   it 'includes zabbix-agent::install_source to compile and install the zabbix agent from source' do
     expect(chef_run).to include_recipe('zabbix-agent::install_source')
   end
-
-  it 'uses the source lwrp to download and compile the source' do
-    expect(chef_run).to source_agent_install('install_zabbix_agent')
-  end
 end

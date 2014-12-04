@@ -18,3 +18,10 @@ suites:
   run_list:
     - "recipe[zabbix-agent]"
   attributes:
+- name: source
+  run_list:
+    - "recipe[zabbix-agent]"
+  attributes:
+    zabbix:
+      agent:
+        install_method: "source"
