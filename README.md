@@ -78,10 +78,12 @@ your hosts search yourdomain.com.
 #### Source install
 If you do not specify source\_url attributes for agent it will be set to download the specified branch and version from the official Zabbix source repository. If you want to upgrade later, you need to either nil out the source\_url attributes or set them to the url you wish to download from.
 
-    node['zabbix']['agent']['source_url'] = nil
-    node['zabbix']['agent']['branch'] = "ZABBIX%20Latest%20Stable"
     node['zabbix']['agent']['version']
     node['zabbix']['agent']['configure_options']
+
+to install an alternative branch or tar file you can specify it here
+
+    node['zabbix']['agent']['source_url'] = "http://domain.com/path/to/source.tar.gz"
 
 #### Prebuild install
 Currently untested.  Pull requests and kitchen tests desired.
