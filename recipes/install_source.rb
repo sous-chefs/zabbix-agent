@@ -51,4 +51,3 @@ bash 'install_program' do
   EOH
   action :nothing
 end
-
