@@ -6,13 +6,11 @@
 #
 # Apache 2.0
 #
-
-unless node['zabbix']['agent']['source_url']
-  node.default['zabbix']['agent']['source_url'] = Chef::Zabbix.default_download_url(node['zabbix']['agent']['branch'], node['zabbix']['agent']['version'])
-end
+include_recipe 'build-essential'
 
 case node['platform']
 when 'ubuntu', 'debian'
+  include_recipe 'apt'
   # install some dependencies
   %w(fping libcurl3 libiksemel-dev libiksemel3 libsnmp-dev libiksemel-utils libcurl4-openssl-dev).each do |pck|
     package pck do
@@ -35,14 +33,21 @@ configure_options = (configure_options || Array.new).delete_if do |option|
 end
 node.normal['zabbix']['agent']['configure_options'] = configure_options
 
-zabbix_agent_source 'install_zabbix_agent' do
-  branch node['zabbix']['agent']['branch']
-  version node['zabbix']['agent']['version']
-  source_url node['zabbix']['agent']['source_url']
-  code_dir node['zabbix']['src_dir']
-  target_dir "zabbix-#{node['zabbix']['agent']['version']}-agent"
-  install_dir node['zabbix']['install_dir']
-  configure_options configure_options.join(' ')
+remote_file "#{Chef::Config[:file_cache_path]}/#{node['zabbix']['agent']['tar_file']}" do
+  source node['zabbix']['agent']['source_url']
+  mode '0644'
+  action :create
+  notifies :run, 'bash[install_program]', :immediately
+end
 
-  action :install_agent
+source_dir = "#{node['zabbix']['src_dir']}/zabbix-#{node['zabbix']['agent']['version']}"
+bash 'install_program' do
+  user 'root'
+  cwd node['zabbix']['src_dir']
+  code <<-EOH
+    tar -zxf #{Chef::Config[:file_cache_path]}/#{node['zabbix']['agent']['tar_file']}
+    (cd #{source_dir} && ./configure --enable-agent --prefix=#{node['zabbix']['install_dir']} #{node['zabbix']['agent']['configure_options'].join(' ')})
+    (cd #{source_dir} && make install && touch already_built)
+  EOH
+  action :nothing
 end
