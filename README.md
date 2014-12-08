@@ -1,18 +1,10 @@
-<table>
-  <tr>
-    <th>Chef Supermarket</th>
-    <th>Travis-CI Build</th>
-    <th>Open Chat</th>
-  </tr>
-  <tr>
-    <td>
-[![CK Version](http://img.shields.io/cookbook/v/nodejs.svg)](https://supermarket.getchef.com/cookbooks/zabbix-agent)</td>
-    <td>
-[![Build Status](https://secure.travis-ci.org/TD-4242/zabbix-agent.png)](http://travis-ci.org/TD-4242/zabbix-agent)</td>
-    <td>
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/TD-4242/zabbix-agent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)</td>
-  </tr>
-</table>
+#### Chef Supermarket
+[![CK Version](http://img.shields.io/cookbook/v/nodejs.svg)](https://supermarket.getchef.com/cookbooks/zabbix-agent)
+#### Travis-CI Build
+[![Build Status](https://secure.travis-ci.org/TD-4242/zabbix-agent.png)](http://travis-ci.org/TD-4242/zabbix-agent)
+#### Open Chat
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/TD-4242/zabbix-agent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 # Chef Cookbook - zabbix-agent
 This cookbook installs and configures the zabbix-agent.  It is a refactoring of the zabbix cookbook from https://github.com/laradji/zabbix that strips out the server install dependancies and focuses only on installing the agent.
 
