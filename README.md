@@ -5,9 +5,12 @@
     <th>Open Chat</th>
   </tr>
   <tr>
-    <td>[![CK Version](http://img.shields.io/cookbook/v/nodejs.svg)](https://supermarket.getchef.com/cookbooks/zabbix-agent)</td>
-    <td>[![Build Status](https://secure.travis-ci.org/TD-4242/zabbix-agent.png)](http://travis-ci.org/TD-4242/zabbix-agent)</td>
-    <td>[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/TD-4242/zabbix-agent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)</td>
+    <td>
+[![CK Version](http://img.shields.io/cookbook/v/nodejs.svg)](https://supermarket.getchef.com/cookbooks/zabbix-agent)</td>
+    <td>
+[![Build Status](https://secure.travis-ci.org/TD-4242/zabbix-agent.png)](http://travis-ci.org/TD-4242/zabbix-agent)</td>
+    <td>
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/TD-4242/zabbix-agent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)</td>
   </tr>
 </table>
 # Chef Cookbook - zabbix-agent
