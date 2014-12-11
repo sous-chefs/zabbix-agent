@@ -6,19 +6,18 @@
 #
 # Apache 2.0
 #
+remote_file "#{Chef::Config[:file_cache_path]}/#{node['zabbix']['agent']['prebuild_file']}" do
+  source node['zabbix']['agent']['prebuild_url']
+  mode '0644'
+  action :create
+  notifies :run, 'bash[install_program]', :immediately
+end
 
-# Install prerequisite RPM
-package 'redhat-lsb' if node['platform_family'] == 'rhel'
-
-ark 'zabbix_agent' do
-  name 'zabbix'
-  url node['zabbix']['agent']['prebuild']['url']
-  owner node['zabbix']['agent']['user']
-  group node['zabbix']['agent']['group']
-  action :put
-  path '/opt'
-  strip_components 0
-  has_binaries ['bin/zabbix_sender', 'bin/zabbix_get', 'sbin/zabbix_agent', 'sbin/zabbix_agentd']
-  notifies :restart, 'service[zabbix-agent]'
-  checksum node['zabbix']['agent']['checksum']
+bash 'install_program' do
+  user 'root'
+  cwd node['zabbix']['inst_dir']
+  code <<-EOH
+    tar -zxf #{Chef::Config[:file_cache_path]}/#{node['zabbix']['agent']['tar_file']}
+  EOH
+  action :nothing
 end
