@@ -13,8 +13,7 @@ supports 'oracle', '>= 5.0'
 supports 'windows'
 
 # change the needed recommends to depends below
-depends 'apt'           # For Debian family OSs
-depends 'yum'        # For Redhat family OSs
-depends 'build-essential' # for source install
-recommends 'ark'        # to install the prebuild packages
-recommends 'chocolatey' # For windows
+depends 'apt'             # For Debian family OSs
+depends 'yum'             # For Redhat family OSs
+recommends 'chocolatey'   # For Windows family OSs
+depends 'build-essential' # for source build/install
