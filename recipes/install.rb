@@ -31,6 +31,11 @@ when 'windows'
     rights :read, 'Everyone', :applies_to_children => true
     recursive true
   end
+  directory node['zabbix']['agent']['scripts'] do
+    owner 'Administrator'
+    rights :read, 'Everyone', :applies_to_children => true
+    recursive true
+  end
   directory node['zabbix']['agent']['include_dir'] do
     owner 'Administrator'
     rights :read, 'Everyone', :applies_to_children => true
@@ -44,12 +49,18 @@ else
     mode '755'
     recursive true
   end
-  directory node['zabbix']['agent']['include_dir'] do
-    recursive true
-    notifies :restart, 'service[zabbix-agent]'
+  directory node['zabbix']['agent']['scripts'] do
     owner 'root'
     group 'root'
     mode '755'
+    recursive true
+  end
+  directory node['zabbix']['agent']['include_dir'] do
+    recursive true
+    owner 'root'
+    group 'root'
+    mode '755'
+    notifies :restart, 'service[zabbix-agent]'
   end
 end
 
