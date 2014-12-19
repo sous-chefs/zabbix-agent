@@ -14,7 +14,7 @@ when 'windows'
 else
   default['zabbix']['etc_dir']      = '/etc/zabbix'
 end
-default['zabbix']['agent']['include_dir']            = ::File.join(node['zabbix']['etc_dir'], 'agent_include')
+default['zabbix']['agent']['include_dir']            = ::File.join(node['zabbix']['etc_dir'], 'zabbix_agentd.d')
 default['zabbix']['agent']['config_file']            = ::File.join(node['zabbix']['etc_dir'], 'zabbix_agentd.conf')
 default['zabbix']['agent']['userparams_config_file'] = ::File.join(node['zabbix']['agent']['include_dir'], 'user_params.conf')
 
@@ -37,9 +37,9 @@ default['zabbix']['agent']['zabbix_agent_port'] = '10050'
 default['zabbix']['agent']['snmp_port']         = '161'
 default['zabbix']['agent']['install_method']    = 'package'
 default['zabbix']['agent']['user_parameter']    = []
+default['zabbix']['agent']['scripts']           = '/etc/zabbix/scripts'
 
 default['zabbix']['install_dir']  = '/opt/zabbix'
-default['zabbix']['external_dir'] = '/opt/zabbix/externalscripts'
 default['zabbix']['lock_dir']     = '/var/lock/subsys'
 default['zabbix']['src_dir']      = '/opt'
 default['zabbix']['log_dir']      = '/var/log/zabbix'
@@ -82,7 +82,7 @@ default['zabbix']['agent']['groups']            = ['chef-agent']
 case node['platform_family']
 when 'rhel', 'debian'
   default['zabbix']['agent']['init_style']      = 'sysvinit'
-  default['zabbix']['agent']['pid_file']        = ::File.join(node['zabbix']['run_dir'], 'zabbix-agent.pid')
+  default['zabbix']['agent']['pid_file']        = ::File.join(node['zabbix']['run_dir'], 'zabbix_agentd.pid')
 
   default['zabbix']['agent']['user']            = 'zabbix'
   default['zabbix']['agent']['group']           = node['zabbix']['agent']['user']
