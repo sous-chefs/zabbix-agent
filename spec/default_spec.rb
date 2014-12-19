@@ -37,8 +37,16 @@ describe 'zabbix-agent with default settings' do
     )
   end
 
-  it 'creates the directory /etc/zabbix/agent_include owned by root.root and mode 755 to store configurations, scripts and UserParamiters' do
-    expect(chef_run).to create_directory('/etc/zabbix/agent_include').with(
+  it 'creates the directory /etc/zabbix/zabbix_agentd.d owned by root.root and mode 755 to store configurations, UserParamiters' do
+    expect(chef_run).to create_directory('/etc/zabbix/zabbix_agentd.d').with(
+      user:   'root',
+      group:  'root',
+      mode:   '755'
+    )
+  end
+
+  it 'creates the directory /etc/zabbix/scripts owned by root.root and mode 755 to store custom scripts' do
+    expect(chef_run).to create_directory('/etc/zabbix/scripts').with(
       user:   'root',
       group:  'root',
       mode:   '755'
