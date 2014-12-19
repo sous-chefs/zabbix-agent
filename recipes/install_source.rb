@@ -40,10 +40,10 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{node['zabbix']['agent']['tar_fi
   notifies :run, 'bash[install_program]', :immediately
 end
 
-source_dir = "#{node['zabbix']['src_dir']}/zabbix-#{node['zabbix']['agent']['version']}"
+source_dir = "#{node['zabbix']['inst_dir']}/zabbix-#{node['zabbix']['agent']['version']}"
 bash 'install_program' do
   user 'root'
-  cwd node['zabbix']['src_dir']
+  cwd node['zabbix']['inst_dir']
   code <<-EOH
     tar -zxf #{Chef::Config[:file_cache_path]}/#{node['zabbix']['agent']['tar_file']}
     (cd #{source_dir} && ./configure --enable-agent --prefix=#{node['zabbix']['install_dir']} #{node['zabbix']['agent']['configure_options'].join(' ')})

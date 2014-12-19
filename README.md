@@ -1,5 +1,5 @@
 #### Chef Supermarket
-[![CK Version](http://img.shields.io/cookbook/v/nodejs.svg)](https://supermarket.getchef.com/cookbooks/zabbix-agent)
+[![CK Version](http://img.shields.io/cookbook/v/zabbix-agent.svg)](https://supermarket.getchef.com/cookbooks/zabbix-agent)
 #### Travis-CI Build
 [![Build Status](https://secure.travis-ci.org/TD-4242/zabbix-agent.png)](http://travis-ci.org/TD-4242/zabbix-agent)
 #### Open Chat

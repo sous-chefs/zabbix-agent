@@ -1,5 +1,13 @@
 #!/usr/bin/env rake
 
+#
+# Berkshelf
+#
+desc 'Install berkshelf cookbooks locally'
+task :berkshelf do
+  system('berks install')
+end
+
 # Style tests. Rubocop and Foodcritic
 namespace :style do
   begin

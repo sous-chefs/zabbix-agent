@@ -72,9 +72,12 @@ when 'redhat', 'centos', 'scientific', 'oracle', 'amazon'
 end
 
 # prebuild install
-default['zabbix']['agent']['prebuild']['arch'] = node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'
-default['zabbix']['agent']['prebuild']['url']  = "http://www.zabbix.com/downloads/#{node['zabbix']['agent']['version']}/zabbix_agents_#{node['zabbix']['agent']['version']}.linux2_6.#{node['zabbix']['agent']['prebuild']['arch']}.tar.gz"
-default['zabbix']['agent']['checksum']         = 'ec3d19dcdf484f60bc4583a84a39a3bd59c34ba1e7f8abf9438606eb14b90211'
+prebuild_url = 'http://www.zabbix.com/downloads/'
+arch = node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'
+default['zabbix']['agent']['prebuild_file'] = "zabbix_agents_#{version}.linux2_6.#{arch}.tar.gz"
+
+default['zabbix']['agent']['prebuild_url']  = "#{prebuild_url}#{version}/zabbix_agents_#{version}.linux2_6.#{arch}.tar.gz"
+default['zabbix']['agent']['checksum']         = 'bf2ebb48fbbca66418350f399819966e'
 
 # auto-regestration
 default['zabbix']['agent']['groups']            = ['chef-agent']
