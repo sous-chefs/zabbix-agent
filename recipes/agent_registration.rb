@@ -72,7 +72,7 @@ interface_list.each do |interface|
   end
 end
 
-zabbix_host node['zabbix']['agent']['hostname'] do
+zabbix_host node['hostname'] do
   create_missing_groups true
   server_connection connection_info
   parameters(
@@ -86,5 +86,5 @@ end
 
 log 'Delay agent registration to wait for server to be started' do
   level :debug
-  notifies :create_or_update, "zabbix_host[#{node['zabbix']['agent']['hostname']}]", :delayed
+  notifies :create_or_update, "zabbix_host[#{node['hostname']}]", :delayed
 end
