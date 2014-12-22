@@ -24,7 +24,8 @@ default['zabbix']['agent']['servers_active']    = ['zabbix']
 
 # primary config options
 default['zabbix']['agent']['hostname']          = node['fqdn']
-default['zabbix']['agent']['enable_remote_commands'] = true
+default['zabbix']['agent']['user']              = 'zabbix'
+default['zabbix']['agent']['group']             = node['zabbix']['agent']['user']
 default['zabbix']['agent']['timeout']           = '3'
 default['zabbix']['agent']['listen_port']       = '10050'
 default['zabbix']['agent']['log_file']          = nil # default (Syslog / windows event).
@@ -34,22 +35,18 @@ default['zabbix']['agent']['templates']         = []
 default['zabbix']['agent']['interfaces']        = ['zabbix_agent']
 default['zabbix']['agent']['jmx_port']          = '10052'
 default['zabbix']['agent']['zabbix_agent_port'] = '10050'
+default['zabbix']['agent']['enable_remote_commands'] = true
 default['zabbix']['agent']['snmp_port']         = '161'
 default['zabbix']['agent']['install_method']    = 'package'
 default['zabbix']['agent']['user_parameter']    = []
 default['zabbix']['agent']['scripts']           = '/etc/zabbix/scripts'
+default['zabbix']['agent']['shell']  = '/bin/bash'
 
 default['zabbix']['install_dir']  = '/opt/zabbix'
+
 default['zabbix']['lock_dir']     = '/var/lock/subsys'
-default['zabbix']['src_dir']      = '/opt'
 default['zabbix']['log_dir']      = '/var/log/zabbix'
 default['zabbix']['run_dir']      = '/var/run/zabbix'
-default['zabbix']['login']  = 'zabbix'
-default['zabbix']['group']  = 'zabbix'
-default['zabbix']['uid']    = nil
-default['zabbix']['gid']    = nil
-default['zabbix']['home']   = '/opt/zabbix'
-default['zabbix']['shell']  = '/bin/bash'
 
 # source install
 default['zabbix']['agent']['configure_options'] = ['--with-libcurl']
@@ -86,11 +83,6 @@ case node['platform_family']
 when 'rhel', 'debian'
   default['zabbix']['agent']['init_style']      = 'sysvinit'
   default['zabbix']['agent']['pid_file']        = ::File.join(node['zabbix']['run_dir'], 'zabbix_agentd.pid')
-
-  default['zabbix']['agent']['user']            = 'zabbix'
-  default['zabbix']['agent']['group']           = node['zabbix']['agent']['user']
-
-  default['zabbix']['agent']['shell']           = node['zabbix']['shell']
 when 'windows'
   default['zabbix']['agent']['init_style']      = 'windows'
   default['zabbix']['agent']['install_method']  = 'chocolatey'
