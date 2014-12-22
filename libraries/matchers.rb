@@ -1,5 +1,8 @@
 if defined?(ChefSpec)
-  def source_agent_install(install)
-    ChefSpec::Matchers::ResourceMatcher.new(:zabbix_agent_source, :install_agent, install)
+  def create_yum_repository(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:yum_repository, :create, resource_name)
+  end
+  def add_apt_repository(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:apt_repository, :add, resource_name)
   end
 end
