@@ -15,7 +15,6 @@ end
 
 # Create zabbix User
 user node['zabbix']['agent']['user'] do
-  home node['zabbix']['install_dir']
   shell node['zabbix']['agent']['shell']
   uid node['zabbix']['agent']['uid'] if node['zabbix']['agent']['uid']
   gid node['zabbix']['agent']['gid'] || node['zabbix']['agent']['group']
@@ -73,8 +72,8 @@ zabbix_dirs = [
 # Create zabbix folders
 zabbix_dirs.each do |dir|
   directory dir do
-    owner node['zabbix']['login']
-    group node['zabbix']['group']
+    owner node['zabbix']['agent']['user']
+    group node['zabbix']['agent']['group']
     mode '755'
     recursive true
     # Only execute this if zabbix can't write to it. This handles cases of
