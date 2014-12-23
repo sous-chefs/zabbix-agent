@@ -1,12 +1,9 @@
-#### Chef Supermarket
+# Chef Cookbook - zabbix-agent
 [![CK Version](http://img.shields.io/cookbook/v/zabbix-agent.svg)](https://supermarket.getchef.com/cookbooks/zabbix-agent)
-#### Travis-CI Build
 [![Build Status](https://secure.travis-ci.org/TD-4242/zabbix-agent.png)](http://travis-ci.org/TD-4242/zabbix-agent)
-#### Open Chat
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/TD-4242/zabbix-agent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-# Chef Cookbook - zabbix-agent
-This cookbook installs and configures the zabbix-agent.  It is a refactoring of the zabbix cookbook from https://github.com/laradji/zabbix that strips out the server install dependancies and focuses only on installing the agent.
+This cookbook installs and configures the zabbix-agent.  It is a re-factoring of the zabbix cookbook from https://github.com/laradji/zabbix that strips out the server install dependencies and focuses only on installing the agent.
 
 ## Supported OS Distributions
 * RHEL/CentOS 5, 6, 7
@@ -16,7 +13,7 @@ This cookbook installs and configures the zabbix-agent.  It is a refactoring of 
 ## USAGE
 Update the metadata.rb and change your package type (apt, yum) from "recommends" to "depends."
 
-If you have internet access and a searchable dns alias so "zabbix" will resolve to your zabbix server this cookbook may work with no aditional changes.  Just include recipe[zabbix-agent] in your runlist. 
+If you have internet access and a searchable DNS alias so "zabbix" will resolve to your zabbix server this cookbook may work with no additional changes.  Just include recipe[zabbix-agent] in your run_list. 
 
 Otherwise you will need to modify:
 
@@ -28,6 +25,27 @@ and
     default['zabbix']['agent']['package']['repo_key']
 
 or try one of the other install methods
+
+### zabbix_agentd.conf file
+All attributes in the zabbix_agentd.conf file can be controlled from the ``node['zabbix']['agent']['conf']`` attribute.  This will require a change in attribute naming for upgrades from 0.9.0.
+
+```
+default['zabbix']['agent']['conf']['Timeout'] = '10'
+```
+
+or
+
+```json
+{
+  "default_attributes": {
+    "zabbix": {
+      "agent": {
+          "servers": ["zabbix.example.com"]
+      }
+    }
+  }
+}
+```
 
 ### Default Install, Configure and run zabbix agent
 Install packages from repo.zabbix.com and run the Agent:
@@ -41,7 +59,7 @@ Install packages from repo.zabbix.com and run the Agent:
 ```
 
 ### Selective Install or Install and Configure (don't start zabbix-agent)
-Alternativly you can just install, or install and configure:
+Alternatively you can just install, or install and configure:
 
 ```json
 {
@@ -83,7 +101,7 @@ what should be a working configuration if your DNS has aliases for zabbix.yourdo
 your hosts search yourdomain.com.
 
 #### Source install
-If you do not specify source\_url attributes for agent it will be set to download the specified branch and version from the official Zabbix source repository. If you want to upgrade later, you need to either nil out the source\_url attributes or set them to the url you wish to download from.
+If you do not specify source\_url attributes for agent it will be set to download the specified branch and version from the official Zabbix source repository. If you want to upgrade later, you need to either nil out the source\_url attributes or set them to the URL you wish to download from.
 
     node['zabbix']['agent']['version']
     node['zabbix']['agent']['configure_options']
@@ -123,22 +141,16 @@ Controls the service start/stop/restart
 applies the provided attributes to the configurable items
 
 ### install
-Installs the cookbook based on the 'install_method'.  Includse one of the following recipies
+Installs the cookbook based on the 'install_method'.  Includes one of the following recipes
 
 #### install\_source
 Downloads and installs the Zabbix agent from source
-
-If you are on a machine in the RHEL family of platforms, then you will need to install packages from the EPEL repository. The easiest way to do this is to add the following recipe to your runlist before zabbix::agent\_source
-
-    recipe "yum::epel"
-
-You can control the agent install with:
 
 #### install\_package
 Sets up the Zabbix default repository and installs the agent from there
 
 #### install\_prebuild
-Needs testing
+Downloads the Zabbix prebuilt tar.gz file and installs it
 
 #### install\_chocolatey
 Needs testing
@@ -164,21 +176,26 @@ zabbix-agent\_user
 
 # TODO
 
-* Support more platform on agent side windows ?
-* LWRP cleanup, port and testing
+* LWRP clean up, port and testing
 * Update documentation
 
 # CHANGELOG
+### 0.10.0
+  * Upgrading from 0.9.0 may require some slight changes to attribute names that control the configuration file.
+  * Migrate zabbix_agentd.conf to a fully dynamically generated template
+  * Include many more tests
+  * General clean-up of code
+  
 ### 0.9.0
   * Major refactor of all code.  
-  * Rename cookbook to zabbix-agent, strip out all server, web, java-gateway dependancies.
+  * Rename cookbook to zabbix-agent, strip out all server, web, java-gateway dependencies.
   * Add default code path chefspec tests
   * Update kitchen tests
   * Added package install from repo.zabbix.com
   * Rename many cookbooks to follow a Install->Configure->Service design pattern.
 
 ### 0.8.0
-  * This version is a big change with a lot of bugfix and change. Please be carefull if you are updated from previous version
+  * This version is a big change with a lot of bugfix and change. Please be careful if you are updated from previous version
 
 ### 0.0.42
   * Adds Berkshelf/Vagrant 1.1 compatibility (andrewGarson)
@@ -253,7 +270,7 @@ zabbix-agent\_user
 ### 0.0.27
   * Configuration error about include_dir in zabbix_agentd.conf.erb
 
-###	0.0.26
+### 0.0.26
   * zabbix agent and zabbix server don't want the same include_dir, be carefull if you use include_dir
   * noob error on zabbix::server
 
