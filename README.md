@@ -8,6 +8,11 @@
 # Chef Cookbook - zabbix-agent
 This cookbook installs and configures the zabbix-agent.  It is a refactoring of the zabbix cookbook from https://github.com/laradji/zabbix that strips out the server install dependancies and focuses only on installing the agent.
 
+## Supported OS Distributions
+* RHEL/CentOS 5, 6, 7
+* Ubuntu trusty precise
+* Debian wheezy
+
 ## USAGE
 Update the metadata.rb and change your package type (apt, yum) from "recommends" to "depends."
 
