@@ -21,9 +21,10 @@ describe 'zabbix-agent' do
       expect(get_file).to notify('bash[install_program]').to(:run).immediately
     end
   end
+
   context 'install_method=source' do
     cached(:chef_source) do
-      ChefSpec::ServerRunner.new do |node|
+      ChefSpec::ServerRunner.new(:platform => 'centos', :version => '6.5') do |node|
         node.set['zabbix']['agent']['install_method'] = 'source'
       end.converge('zabbix-agent::install_source')
     end
