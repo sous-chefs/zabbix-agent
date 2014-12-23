@@ -32,6 +32,10 @@ describe 'zabbix-agent' do
       expect(chef_source).to include_recipe('zabbix-agent::install_source')
     end
 
+    it 'includes the build-essential cookbook' do
+      expect(chef_source).to include_recipe('build-essential')
+    end
+
     it 'gets the zabbix archive zabbix-2.2.7.tar.gz' do
       expect(chef_source).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix-2.2.7.tar.gz")
     end
