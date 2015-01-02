@@ -5,6 +5,7 @@ describe 'zabbix-agent' do
     cached(:chef_prebuild) do
       ChefSpec::ServerRunner.new do |node|
         node.set['zabbix']['agent']['install_method'] = 'prebuild'
+        node.set['zabbix']['agent']['init_style'] = 'sysvinit'
       end.converge('zabbix-agent::default')
     end
     # changed node['zabbix']['agent']['install_method'] = prebuild
@@ -12,21 +13,33 @@ describe 'zabbix-agent' do
       expect(chef_prebuild).to include_recipe('zabbix-agent::install_prebuild')
     end
 
-    it 'gets the zabbix archive zabbix-2.2.7.tar.gz' do
-      expect(chef_prebuild).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix_agents_2.2.7.linux2_6.i386.tar.gz")
+    it "gets the zabbix binary prebuild archive from 'http://www.zabbix.com/downloads/ and puts it  #{Chef::Config[:file_cache_path]}/zabbix_agents_2.2.7.linux2_6.i386.tar.gz" do
+      expect(chef_prebuild).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix_agents_2.2.7.linux2_6.i386.tar.gz").with(
+        source: 'http://www.zabbix.com/downloads/2.2.7/zabbix_agents_2.2.7.linux2_6.i386.tar.gz'
+      )
     end
 
     it 'notifies the bash install_program when the archive is downloaded' do
       get_file = chef_prebuild.remote_file("#{Chef::Config[:file_cache_path]}/zabbix_agents_2.2.7.linux2_6.i386.tar.gz")
       expect(get_file).to notify('bash[install_program]').to(:run).immediately
     end
+
+    it 'does not run the install program if the archive is not downloaded' do
+      expect(chef_prebuild).to_not run_bash('install_program')
+    end
+
+    it 'creates the zabbix-agent init script' do
+      expect(chef_prebuild).to create_template('/etc/init.d/zabbix-agent')
+    end
+
   end
 
   context 'install_method=source' do
     cached(:chef_source) do
       ChefSpec::ServerRunner.new(:platform => 'centos', :version => '6.5') do |node|
         node.set['zabbix']['agent']['install_method'] = 'source'
-      end.converge('zabbix-agent::install_source')
+        node.set['zabbix']['agent']['init_style'] = 'sysvinit'
+      end.converge('zabbix-agent::default')
     end
     # changed node['zabbix']['agent']['install_method'] = source
     it 'includes zabbix-agent::install_source to install zabbbix from source' do
@@ -37,13 +50,65 @@ describe 'zabbix-agent' do
       expect(chef_source).to include_recipe('build-essential')
     end
 
-    it 'gets the zabbix archive zabbix-2.2.7.tar.gz' do
-      expect(chef_source).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix-2.2.7.tar.gz")
+    it "gets the zabbix source archive from http://downloads.sourceforge.net and puts it in #{Chef::Config[:file_cache_path]}/zabbix-2.2.7.tar.gz" do
+      expect(chef_source).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix-2.2.7.tar.gz").with(
+        source: 'http://downloads.sourceforge.net/project/zabbix//ZABBIX%20Latest%20Stable/2.2.7/zabbix-2.2.7.tar.gz'
+      )
     end
 
-    it 'the zabbix archive zabbix-2.2.7.tar.gz notifies the bash install_program' do
+    it 'the download of the zabbix source archive zabbix-2.2.7.tar.gz notifies the bash install_program' do
       get_file = chef_source.remote_file("#{Chef::Config[:file_cache_path]}/zabbix-2.2.7.tar.gz")
       expect(get_file).to notify('bash[install_program]').to(:run).immediately
+    end
+
+    it 'creates the zabbix-agent init script' do
+      expect(chef_source).to create_template('/etc/init.d/zabbix-agent')
+    end
+  end
+
+  context 'install_method=source if centos' do
+    cached(:chef_source) do
+      ChefSpec::ServerRunner.new(:platform => 'centos', :version => '6.5') do |node|
+        node.set['zabbix']['agent']['install_method'] = 'source'
+      end.converge('zabbix-agent::install_source')
+    end
+
+    it 'installs the package fping' do
+      expect(chef_source).to install_package('fping')
+    end
+
+    it 'installs the package curl-devel' do
+      expect(chef_source).to install_package('curl-devel')
+    end
+
+    it 'installs the package iksemel-devel' do
+      expect(chef_source).to install_package('iksemel-devel')
+    end
+
+    it 'installs the package iksemel-utils' do
+      expect(chef_source).to install_package('iksemel-utils')
+    end
+
+    it 'installs the package net-snmp-libs' do
+      expect(chef_source).to install_package('net-snmp-libs')
+    end
+
+    it 'installs the package net-snmp-devel' do
+      expect(chef_source).to install_package('net-snmp-devel')
+    end
+
+    it 'installs the package openssl-devel' do
+      expect(chef_source).to install_package('openssl-devel')
+    end
+
+    it 'installs the package redhat-lsb' do
+      expect(chef_source).to install_package('redhat-lsb')
+    end
+
+    it "gets the zabbix source archive from http://downloads.sourceforge.net and puts it in #{Chef::Config[:file_cache_path]}/zabbix-2.2.7.tar.gz" do
+      expect(chef_source).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix-2.2.7.tar.gz").with(
+        source: 'http://downloads.sourceforge.net/project/zabbix//ZABBIX%20Latest%20Stable/2.2.7/zabbix-2.2.7.tar.gz'
+      )
     end
   end
 end

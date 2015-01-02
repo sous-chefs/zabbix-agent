@@ -73,6 +73,10 @@ describe 'zabbix-agent' do
       expect(chef_run).to install_package('zabbix-agent')
     end
 
+    it 'skips creating user_params.conf by default due to no entries in array' do
+      expect(chef_run).to_not create_template('user_params.conf')
+    end
+
     it 'creates the template /etc/zabbix/zabbix_agentd.conf with the default configuration' do
       expect(chef_run).to create_template('zabbix_agentd.conf').with(
         path:   '/etc/zabbix/zabbix_agentd.conf',
@@ -80,6 +84,10 @@ describe 'zabbix-agent' do
         group:  'root',
         mode:   '644'
       )
+    end
+
+    it 'skips creating the zabbix-agent init script because the package includes one' do
+      expect(chef_run).to_not create_template('/etc/init.d/zabbix-agent')
     end
 
     it 'starts and enables the zabbix-agent service with an explicit action' do
@@ -102,6 +110,10 @@ describe 'zabbix-agent' do
         key: 'http://repo.zabbix.com/zabbix-official-repo.key'
       )
     end
+
+    it 'installs the zabbix-agent package' do
+      expect(chef_run).to install_apt_package('zabbix-agent')
+    end
   end
 
   context 'if centos' do
@@ -117,8 +129,22 @@ describe 'zabbix-agent' do
         description: 'Zabbix Official Repository',
         baseurl: 'http://repo.zabbix.com/zabbix/2.4/rhel/$releasever/$basearch/',
         gpgkey: 'http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX',
-        sslverify: false,
+        sslverify: false
       )
+    end
+
+    it 'adds the yum repository for zabbix-non-supported' do
+      expect(chef_run).to create_yum_repository('zabbix-non-supported').with(
+        repositoryid: 'zabbix-non-supported',
+        description: 'Zabbix Official Repository non-supported - $basearch',
+        baseurl: 'http://repo.zabbix.com/zabbix/2.4/rhel/$releasever/$basearch/',
+        gpgkey: 'http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX',
+        sslverify: false
+      )
+    end
+
+    it 'installs the zabbix-agent package' do
+      expect(chef_run).to install_yum_package('zabbix-agent')
     end
   end
 end
