@@ -112,7 +112,7 @@ describe 'zabbix-agent' do
     end
 
     it 'installs the zabbix-agent package' do
-      expect(chef_run).to install_apt_package('zabbix-agent')
+      expect(chef_run).to install_package('zabbix-agent')
     end
   end
 
@@ -144,7 +144,7 @@ describe 'zabbix-agent' do
     end
 
     it 'installs the zabbix-agent package' do
-      expect(chef_run).to install_yum_package('zabbix-agent')
+      expect(chef_run).to install_package('zabbix-agent')
     end
   end
 end
