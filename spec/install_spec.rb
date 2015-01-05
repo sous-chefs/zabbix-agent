@@ -32,6 +32,10 @@ describe 'zabbix-agent' do
       expect(chef_prebuild).to create_template('/etc/init.d/zabbix-agent')
     end
 
+    it 'renders the zabbix-agent init script file with content from ./spec/rendered_templates/zabbix-agent' do
+      zabbix_agent = File.read('./spec/rendered_templates/zabbix-agent')
+      expect(chef_prebuild).to render_file('/etc/init.d/zabbix-agent').with_content(zabbix_agent)
+    end
   end
 
   context 'install_method=source' do
@@ -63,6 +67,11 @@ describe 'zabbix-agent' do
 
     it 'creates the zabbix-agent init script' do
       expect(chef_source).to create_template('/etc/init.d/zabbix-agent')
+    end
+
+    it 'renders the zabbix-agent init script file with content from ./spec/rendered_templates/zabbix-agent-rh' do
+      zabbix_agent = File.read('./spec/rendered_templates/zabbix-agent-rh')
+      expect(chef_source).to render_file('/etc/init.d/zabbix-agent').with_content(zabbix_agent)
     end
   end
 

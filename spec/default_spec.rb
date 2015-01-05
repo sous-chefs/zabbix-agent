@@ -86,6 +86,11 @@ describe 'zabbix-agent' do
       )
     end
 
+    it 'renders the file with content from ./spec/rendered_templates/zabbix_agentd.conf' do
+      zabbix_agentd_conf = File.read('./spec/rendered_templates/zabbix_agentd.conf')
+      expect(chef_run).to render_file('/etc/zabbix/zabbix_agentd.conf').with_content(zabbix_agentd_conf)
+    end
+
     it 'skips creating the zabbix-agent init script because the package includes one' do
       expect(chef_run).to_not create_template('/etc/init.d/zabbix-agent')
     end
