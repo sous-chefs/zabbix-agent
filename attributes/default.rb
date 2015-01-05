@@ -110,7 +110,6 @@ default['zabbix']['agent']['groups']            = ['chef-agent']
 case node['platform_family']
 when 'rhel', 'debian'
   default['zabbix']['agent']['init_style']      = 'sysvinit'
-  default['zabbix']['agent']['pid_file']        = ::File.join(node['zabbix']['run_dir'], 'zabbix_agentd.pid')
 when 'windows'
   default['zabbix']['agent']['init_style']      = 'windows'
   default['zabbix']['agent']['install_method']  = 'chocolatey'
