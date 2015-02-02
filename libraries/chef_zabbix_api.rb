@@ -7,12 +7,13 @@ class Chef
         extend Forwardable
         def_delegators :@options, :[], :[]=, :delete
         def initialize(options)
-          if options[:item_template].to_s.empty? && options[:host].to_s.empty?
-            Chef::Application.fatal! ':item_template or :host is required'
+          %w(item_template host item_key).each do |option|
+            Chef::Application.fatal! ':host, :item_template and :item_key are all required' if options[option].to_s.empty?
           end
-          Chef::Application.fatal! ':item_key is required' if options[:item_key].to_s.empty?
+
           Chef::Application.fatal! ':calc_function must be a Zabbix::API::GraphItemCalcFunction' unless options[:calc_function].is_a?(GraphItemCalcFunction)
           Chef::Application.fatal! ':type must be a Zabbix::API::GraphItemType' unless options[:type].is_a?(GraphItemType)
+
           @options = options
         end
 
