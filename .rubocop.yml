@@ -7,8 +7,6 @@ AllCops:
     - Guardfile
   Exclude:
     - vendor/**/*
-    - libraries/**/*
-    - providers/**/*
 
 ClassLength:
   Enabled: false
