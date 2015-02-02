@@ -23,7 +23,6 @@ end
 
 action :create do
   Chef::Zabbix.with_connection(new_resource.server_connection) do |connection|
-
     all_are_host_interfaces = new_resource.interfaces.all? { |interface| interface.is_a?(Chef::Zabbix::API::HostInterface) }
     unless all_are_host_interfaces
       Chef::Application.fatal!(':interfaces must only contain Chef::Zabbix::API::HostInterface')
@@ -124,7 +123,6 @@ end
 
 action :update do
   Chef::Zabbix.with_connection(new_resource.server_connection) do |connection|
-
     get_host_request = {
       :method => 'host.get',
       :params => {

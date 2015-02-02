@@ -23,7 +23,6 @@ end
 
 action :create do
   Chef::Zabbix.with_connection(new_resource.server_connection) do |connection|
-
     Chef::Application.fatal! "Please supply a password for creating this user: '#{new_resource.alias}'" if new_resource.password.nil? || new_resource.password.empty?
 
     groups = check_and_create_groups(new_resource, connection)
@@ -48,7 +47,6 @@ end
 
 action :update do
   Chef::Zabbix.with_connection(new_resource.server_connection) do |connection|
-
     get_user_request = {
       :method => 'user.get',
       :params => {
@@ -102,13 +100,11 @@ action :update do
     else
       Chef::Log.info "The attributes of user '#{new_resource.alias}' are already up-to-date, doing nothing"
     end
-
   end
 end
 
 action :delete do
   Chef::Zabbix.with_connection(new_resource.server_connection) do |connection|
-
     get_user_request = {
       :method => 'user.get',
       :params => {
