@@ -15,6 +15,6 @@ supports 'windows'
 # change the needed recommends to depends below
 depends 'apt'             # For Debian family OSs
 depends 'yum'             # For Redhat family OSs
-recommends 'chocolatey'   # For Windows family OSs
 depends 'build-essential' # for source build/install
-depends 'libzabbix'       # LWRPs to connect to zabbix server
+recommends 'chocolatey'   # For Windows family OSs
+recommends 'libzabbix'    # LWRPs to connect to zabbix server
