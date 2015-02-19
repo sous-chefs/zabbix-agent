@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe 'zabbix-agent' do
-  context 'install_method=prebuild' do
+describe 'zabbix-agent install method tests' do
+  context 'with install_method=prebuild it' do
     cached(:chef_prebuild) do
       ChefSpec::ServerRunner.new do |node|
         node.set['zabbix']['agent']['install_method'] = 'prebuild'
@@ -38,7 +38,7 @@ describe 'zabbix-agent' do
     end
   end
 
-  context 'install_method=source' do
+  context 'with install_method=source it' do
     cached(:chef_source) do
       ChefSpec::ServerRunner.new(:platform => 'centos', :version => '6.5') do |node|
         node.set['zabbix']['agent']['install_method'] = 'source'
@@ -75,7 +75,7 @@ describe 'zabbix-agent' do
     end
   end
 
-  context 'install_method=source if centos' do
+  context 'with install_method=source and on CentOS platform it' do
     cached(:chef_source) do
       ChefSpec::ServerRunner.new(:platform => 'centos', :version => '6.5') do |node|
         node.set['zabbix']['agent']['install_method'] = 'source'

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe 'zabbix-agent' do
-  context 'default' do
+describe 'zabbix-agent::default' do
+  context 'with default settings' do
     cached(:chef_run) { ChefSpec::ServerRunner.converge(described_recipe) }
 
     it 'includes zabbix-agent::service to insure the zabbix agent will run' do
@@ -101,7 +101,7 @@ describe 'zabbix-agent' do
     end
   end
 
-  context 'if ubuntu' do
+  context 'if installed on Ubuntu it' do
     let(:chef_run) { ChefSpec::ServerRunner.new(:platform => 'ubuntu', :version => '14.04').converge(described_recipe) }
 
     it 'includes the apt cookbook' do
@@ -121,7 +121,7 @@ describe 'zabbix-agent' do
     end
   end
 
-  context 'if centos' do
+  context 'if installed on CentOS it' do
     let(:chef_run) { ChefSpec::ServerRunner.new(:platform => 'centos', :version => '6.5').converge(described_recipe) }
 
     it 'includes the yum cookbook' do
