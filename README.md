@@ -157,30 +157,17 @@ Downloads the Zabbix prebuilt tar.gz file and installs it
 Needs testing
 
 # LWRPs
-Currently the LWRPs have not been completely ported to the new zabbix-agent cookbook.
-
-zabbix-agent\_api\_call
-zabbix-agent\_application
-zabbix-agent\_discovery\_rule
-zabbix-agent\_graph
-zabbix-agent\_host\_group
-zabbix-agent\_hostgroup
-zabbix-agent\_host
-zabbix-agent\_interface
-zabbix-agent\_item
-zabbix-agent\_source
-zabbix-agent\_template
-zabbix-agent\_trigger\_dependency
-zabbix-agent\_trigger
-zabbix-agent\_user
-
-
+The LWRPs have been moved to the libzabbix cookbook.  https://github.com/TD-4242/cookbook-libzabbix
 # TODO
 
-* LWRP clean up, port and testing
-* Update documentation
+* Verify and test on Windows
+* Create kitchen tests
 
 # CHANGELOG
+### 0.11.0
+  * Move LWRPs to their own cookbook to clean up zabbix-agent
+  * Clean up linting and unit tests
+
 ### 0.10.0
   * Upgrading from 0.9.0 may require some slight changes to attribute names that control the configuration file.
   * Migrate zabbix_agentd.conf to a fully dynamically generated template
