@@ -19,7 +19,7 @@ user node['zabbix']['agent']['user'] do
   uid node['zabbix']['agent']['uid'] if node['zabbix']['agent']['uid']
   gid node['zabbix']['agent']['gid'] || node['zabbix']['agent']['group']
   system true
-  supports :manage_home => true
+  supports manage_home: true
 end
 
 # Create root folders
@@ -27,17 +27,17 @@ case node['platform_family']
 when 'windows'
   directory node['zabbix']['etc_dir'] do
     owner 'Administrator'
-    rights :read, 'Everyone', :applies_to_children => true
+    rights :read, 'Everyone', applies_to_children: true
     recursive true
   end
   directory node['zabbix']['agent']['scripts'] do
     owner 'Administrator'
-    rights :read, 'Everyone', :applies_to_children => true
+    rights :read, 'Everyone', applies_to_children: true
     recursive true
   end
   directory node['zabbix']['agent']['include_dir'] do
     owner 'Administrator'
-    rights :read, 'Everyone', :applies_to_children => true
+    rights :read, 'Everyone', applies_to_children: true
     recursive true
     notifies :restart, 'service[zabbix-agent]'
   end

@@ -22,21 +22,21 @@ when 'sysvinit'
   # Define zabbix-agent service
   service 'zabbix-agent' do
     pattern 'zabbix_agentd'
-    supports :status => true, :start => true, :stop => true, :restart => true
+    supports status: true, start: true, stop: true, restart: true
     action [:enable, :start]
   end
 when 'windows'
   service 'zabbix-agent' do
     service_name 'Zabbix Agent'
     provider Chef::Provider::Service::Windows
-    supports :restart => true
+    supports restart: true
     action :nothing
   end
 else
   # Define just the zabbix-agent service
   service 'zabbix-agent' do
     pattern 'zabbix_agentd'
-    supports :status => true, :start => true, :stop => true, :restart => true
+    supports status: true, start: true, stop: true, restart: true
     action [:enable, :start]
   end
 end

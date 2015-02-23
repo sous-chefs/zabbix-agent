@@ -18,9 +18,9 @@ else
 end
 
 connection_info = {
-  :url => "http://#{zabbix_server['zabbix']['web']['fqdn']}/api_jsonrpc.php",
-  :user => zabbix_server['zabbix']['web']['login'],
-  :password => zabbix_server['zabbix']['web']['password']
+  url: "http://#{zabbix_server['zabbix']['web']['fqdn']}/api_jsonrpc.php",
+  user: zabbix_server['zabbix']['web']['login'],
+  password: zabbix_server['zabbix']['web']['password']
 }
 
 ip_address = node['ipaddress']
@@ -35,29 +35,29 @@ if node['zabbix']['agent']['network_interface']
 end
 
 interface_definitions = {
-  :zabbix_agent => {
-    :type => 1,
-    :main => 1,
-    :useip => 1,
-    :ip => ip_address,
-    :dns => node['fqdn'],
-    :port => node['zabbix']['agent']['zabbix_agent_port']
+  zabbix_agent: {
+    type: 1,
+    main: 1,
+    useip: 1,
+    ip: ip_address,
+    dns: node['fqdn'],
+    port: node['zabbix']['agent']['zabbix_agent_port']
   },
-  :jmx => {
-    :type => 4,
-    :main => 1,
-    :useip => 1,
-    :ip => ip_address,
-    :dns => node['fqdn'],
-    :port => node['zabbix']['agent']['jmx_port']
+  jmx: {
+    type: 4,
+    main: 1,
+    useip: 1,
+    ip: ip_address,
+    dns: node['fqdn'],
+    port: node['zabbix']['agent']['jmx_port']
   },
-  :snmp => {
-    :type => 2,
-    :main => 1,
-    :useip => 1,
-    :ip => ip_address,
-    :dns => node['fqdn'],
-    :port => node['zabbix']['agent']['snmp_port']
+  snmp: {
+    type: 2,
+    main: 1,
+    useip: 1,
+    ip: ip_address,
+    dns: node['fqdn'],
+    port: node['zabbix']['agent']['snmp_port']
   }
 }
 
@@ -76,10 +76,10 @@ zabbix_host node['hostname'] do
   create_missing_groups true
   server_connection connection_info
   parameters(
-    :host => node['hostname'],
-    :groupNames => node['zabbix']['agent']['groups'],
-    :templates => node['zabbix']['agent']['templates'],
-    :interfaces => interface_data
+    host: node['hostname'],
+    groupNames: node['zabbix']['agent']['groups'],
+    templates: node['zabbix']['agent']['templates'],
+    interfaces: interface_data
   )
   action :nothing
 end
