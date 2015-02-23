@@ -1,4 +1,4 @@
-scope :group => :unit
+scope group: :unit
 
 group :unit do
   guard :rubocop do
@@ -6,7 +6,7 @@ group :unit do
     watch(/(?:.+\/)?\.rubocop\.yml$/) { |m| File.dirname(m[0]) }
   end
 
-  guard :rspec, :cmd => 'chef exec rspec --fail-fast', :all_on_start => false do
+  guard :rspec, cmd: 'chef exec rspec --fail-fast', all_on_start: false do
     watch(/{^libraries\/(.+)\.rb$/)
     watch(/^spec\/(.+)_spec\.rb$/) { 'spec' }
     watch(/^(attributes)\/(.+)\.rb$/)   { 'spec' }
