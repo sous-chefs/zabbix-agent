@@ -6,6 +6,13 @@
 #
 # Apache 2.0
 #
+case node['platform']
+when 'redhat', 'centos', 'scientific', 'amazon'
+  package 'redhat-lsb' do
+    action :install
+  end
+end
+
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['zabbix']['agent']['prebuild_file']}" do
   source node['zabbix']['agent']['prebuild_url']
   mode '0644'
@@ -15,9 +22,9 @@ end
 
 bash 'install_program' do
   user 'root'
-  cwd node['zabbix']['inst_dir']
+  cwd node['zabbix']['install_dir']
   code <<-EOH
-    tar -zxf #{Chef::Config[:file_cache_path]}/#{node['zabbix']['agent']['tar_file']}
+    tar -zxf #{Chef::Config[:file_cache_path]}/#{node['zabbix']['agent']['prebuild_file']}
   EOH
   action :nothing
 end

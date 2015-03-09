@@ -22,6 +22,12 @@ user node['zabbix']['agent']['user'] do
   supports manage_home: true
 end
 
+directory node['zabbix']['install_dir'] do
+  user node['zabbix']['agent']['user']
+  group node['zabbix']['agent']['group']
+  mode '755'
+end
+
 # Create root folders
 case node['platform_family']
 when 'windows'

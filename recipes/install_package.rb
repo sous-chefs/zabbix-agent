@@ -14,6 +14,7 @@ when 'ubuntu', 'debian'
     distribution node['lsb']['codename']
     components ['main']
     key node['zabbix']['agent']['package']['repo_key']
+    notifies :run, 'execute[apt-get update]', :immediately
   end
 when 'redhat', 'centos', 'scientific', 'oracle', 'amazon'
   include_recipe 'yum' # ~FC007

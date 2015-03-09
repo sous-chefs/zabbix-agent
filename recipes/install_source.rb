@@ -6,26 +6,25 @@
 #
 # Apache 2.0
 #
-include_recipe 'build-essential'
-
 case node['platform']
 when 'ubuntu', 'debian'
   include_recipe 'apt'
   # install some dependencies
-  %w(fping libcurl3 libiksemel-dev libiksemel3 libsnmp-dev libiksemel-utils libcurl4-openssl-dev).each do |pck|
+  %w(libcurl3 libcurl4-openssl-dev).each do |pck|
     package pck do
       action :install
     end
   end
 
 when 'redhat', 'centos', 'scientific', 'amazon'
-  %w(fping curl-devel iksemel-devel iksemel-utils net-snmp-libs net-snmp-devel openssl-devel redhat-lsb).each do |pck|
+  %w(curl-devel openssl-devel redhat-lsb).each do |pck|
     package pck do
       action :install
     end
   end
 end
 
+include_recipe 'build-essential'
 # --prefix is controlled by install_dir
 configure_options = node['zabbix']['agent']['configure_options'].dup
 configure_options = (configure_options || []).delete_if do |option|
@@ -40,10 +39,10 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{node['zabbix']['agent']['tar_fi
   notifies :run, 'bash[install_program]', :immediately
 end
 
-source_dir = "#{node['zabbix']['inst_dir']}/zabbix-#{node['zabbix']['agent']['version']}"
+source_dir = "#{node['zabbix']['install_dir']}/zabbix-#{node['zabbix']['agent']['version']}"
 bash 'install_program' do
   user 'root'
-  cwd node['zabbix']['inst_dir']
+  cwd node['zabbix']['install_dir']
   code <<-EOH
     tar -zxf #{Chef::Config[:file_cache_path]}/#{node['zabbix']['agent']['tar_file']}
     (cd #{source_dir} && ./configure --enable-agent --prefix=#{node['zabbix']['install_dir']} #{node['zabbix']['agent']['configure_options'].join(' ')})
