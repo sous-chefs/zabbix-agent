@@ -6,9 +6,19 @@ driver_config:
   require_chef_omnibus: true
 
 platforms:
+- name: ubuntu-10.04
 - name: ubuntu-12.04
 - name: ubuntu-14.04
 - name: centos-6.6
+- name: centos-7.0
+- name: debian-6.0.10
+- name: debian-7.8
+# planned for future tested support
+#- name: freebsd-9.3
+#- name: freebsd-10.1
+#- name: fedora-20
+#- name: fedora-21
+#- name: opensuse-13.1
 
 provisioner:
     name: chef_zero
@@ -25,3 +35,11 @@ suites:
     zabbix:
       agent:
         install_method: "source"
+- name: prebuild
+  run_list:
+    - "recipe[zabbix-agent]"
+  attributes:
+    zabbix:
+      agent:
+        install_method: "prebuild"
+        version: "2.4.1" # latest prebuild version although deb/rpm packages are at 2.4.4

@@ -6,10 +6,13 @@
 This cookbook installs and configures the zabbix-agent with sane defaults and very minimal dependancies.
 
 ## Supported OS Distributions
-* RHEL/CentOS 5, 6, 7
-* Ubuntu trusty precise
-* Debian wheezy
-* Would like to add Windows but need a tester
+* RHEL/CentOS 6, 7
+* Ubuntu 10.04 12.04 14.04
+* Debian 6.0.10 7.8
+* (soon) fedora
+* (soon) freebsd
+* (soon) opensuse
+* Would like to add Windows but need a tester or a Vagrant box to test with.
 
 ## USAGE
 Update the metadata.rb and change your package type (apt, yum) from "recommends" to "depends."
@@ -97,7 +100,7 @@ Don't forget to set :
     node['zabbix']['agent']['servers_active'] = ["Your_zabbix_active_server.com"]
 
 #### Package install
-If you do not set any attributes you will get an install of zabbix agent version 2.2.7 with
+If you do not set any attributes you will get an install of zabbix agent version 2.4.4 with
 what should be a working configuration if your DNS has aliases for zabbix.yourdomain.com and
 your hosts search yourdomain.com.
 
@@ -164,6 +167,13 @@ The LWRPs have been moved to the libzabbix cookbook.  https://github.com/TD-4242
 * Create kitchen tests
 
 # CHANGELOG
+### 0.12.0
+  * include kitchen tests for all supported OS types
+  * upgrade to default client version 2.4.4
+  * cleanup source compile dependancies
+  * added debian as supported
+  * added more distributions to kitchen testing
+
 ### 0.11.0
   * Move LWRPs to their own cookbook to clean up zabbix-agent
   * Clean up linting and unit tests
