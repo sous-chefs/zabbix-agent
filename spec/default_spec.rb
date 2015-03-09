@@ -24,6 +24,14 @@ describe 'zabbix-agent::default' do
       expect(chef_run).to create_user('zabbix')
     end
 
+    it 'creates the directory /opt/zabbix owned by root.root and mode 755 to store the application install.' do
+      expect(chef_run).to create_directory('/opt/zabbix').with(
+        user:   'zabbix',
+        group:  'zabbix',
+        mode:   '755'
+      )
+    end
+
     it 'creates the directory /etc/zabbix owned by root.root and mode 755 to store configurations, scripts and UserParamiters' do
       expect(chef_run).to create_directory('/etc/zabbix').with(
         user:   'root',
@@ -102,7 +110,7 @@ describe 'zabbix-agent::default' do
   end
 
   context 'if installed on Ubuntu it' do
-    let(:chef_run) { ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04').converge(described_recipe) }
+    cached(:chef_run) { ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04').converge(described_recipe) }
 
     it 'includes the apt cookbook' do
       expect(chef_run).to include_recipe('apt')
@@ -122,7 +130,7 @@ describe 'zabbix-agent::default' do
   end
 
   context 'if installed on CentOS it' do
-    let(:chef_run) { ChefSpec::ServerRunner.new(platform: 'centos', version: '6.5').converge(described_recipe) }
+    cached(:chef_run) { ChefSpec::ServerRunner.new(platform: 'centos', version: '6.5').converge(described_recipe) }
 
     it 'includes the yum cookbook' do
       expect(chef_run).to include_recipe('yum')
