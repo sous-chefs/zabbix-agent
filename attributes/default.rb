@@ -18,7 +18,7 @@ default['zabbix']['agent']['include_dir']            = ::File.join(node['zabbix'
 default['zabbix']['agent']['config_file']            = ::File.join(node['zabbix']['etc_dir'], 'zabbix_agentd.conf')
 default['zabbix']['agent']['userparams_config_file'] = ::File.join(node['zabbix']['agent']['include_dir'], 'user_params.conf')
 
-default['zabbix']['agent']['version']           = '2.2.7'
+default['zabbix']['agent']['version']           = '2.4.4'
 default['zabbix']['agent']['servers']           = ['zabbix']
 default['zabbix']['agent']['servers_active']    = ['zabbix']
 
@@ -66,8 +66,9 @@ default['zabbix']['agent']['conf']['SourceIP']     = nil
 default['zabbix']['agent']['conf']['StartAgents']  = '3'
 default['zabbix']['agent']['conf']['Timeout']      = '3'
 default['zabbix']['agent']['conf']['UnsafeUserParameters']  = '0'
-# default['zabbix']['agent']['conf']['User']  = 'zabbix'
-default['zabbix']['agent']['conf']['User']          = default['zabbix']['agent']['user']
+if node['zabbix']['agent']['version'].match(/2\.4\..*/)
+  default['zabbix']['agent']['conf']['User']          = default['zabbix']['agent']['user']
+end
 # default['zabbix']['agent']['conf']['UserParameter'] = nil # favor user_parameter in seperate included file
 
 default['zabbix']['install_dir']  = '/opt/zabbix'
