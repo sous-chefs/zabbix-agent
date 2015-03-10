@@ -10,41 +10,47 @@ This cookbook installs and configures the zabbix-agent with sane defaults and ve
 * Ubuntu 10.04 12.04 14.04
 * Debian 6.0.10 7.8
 * (soon) fedora
-* (soon) freebsd
 * (soon) opensuse
-* Would like to add Windows but need a tester or a Vagrant box to test with.
+* (planned) freebsd
+* (planned) Windows
+
+Other similar versions will likely work as well but are not regularly tested.
 
 ## USAGE
-Update the metadata.rb and change your package type (apt, yum) from "recommends" to "depends."
+If you have a supported OS, internet access, and a searchable DNS alias for "zabbix" that will resolve to your zabbix server this cookbook will work with no additional changes.  Just include recipe[zabbix-agent] in your run_list. 
 
-If you have internet access and a searchable DNS alias so "zabbix" will resolve to your zabbix server this cookbook may work with no additional changes.  Just include recipe[zabbix-agent] in your run_list. 
+Otherwise you will need to modify this to point to your zabbix server:
 
-Otherwise you will need to modify:
-
-    node['zabbix']['agent']['servers']
+    node['zabbix']['agent']['servers'] = 'zabbix-server.yourdomain.com'
 
 and
 
-    default['zabbix']['agent']['package']['repo_uri']
-    default['zabbix']['agent']['package']['repo_key']
+    default['zabbix']['agent']['package']['repo_uri'] = 'http://private-repo.yourdomain.com'
+    default['zabbix']['agent']['package']['repo_key'] = 'http://private-repo.yourdomain.com/path-to-repo.key'
 
 or try one of the other install methods
 
 ### zabbix_agentd.conf file
-All attributes in the zabbix_agentd.conf file can be controlled from the ``node['zabbix']['agent']['conf']`` attribute.  This will require a change in attribute naming for upgrades from 0.9.0.
+All attributes in the zabbix_agentd.conf file can be controlled from the:
 
-```
-default['zabbix']['agent']['conf']['Timeout'] = '10'
-```
+    node['zabbix']['agent']['conf']
+
+attribute.  This will require a change in attribute naming for upgrades from 0.9.0.
+
+    default['zabbix']['agent']['conf']['Timeout'] = '10'
 
 or
 
 ```json
+---
 {
   "default_attributes": {
     "zabbix": {
       "agent": {
-          "servers": ["zabbix.example.com"]
+        "conf": {
+          "Server": ["zabbix.example.com"],
+          "Timeout": "10"
+        }
       }
     }
   }
@@ -82,21 +88,20 @@ Alternatively you can just install, or install and configure:
 ```
 
 ### ATTRIBUTES
-
 Install Method options are:
+
     node['zabbix']['agent']['install_method'] = 'package' # Default
-
-Other options are less tested:
-
     node['zabbix']['agent']['install_method'] = 'source'
     node['zabbix']['agent']['install_method'] = 'prebuild'
+    node['zabbix']['agent']['install_method'] = 'cookbook_file' # not yet implemented
     node['zabbix']['agent']['install_method'] = 'chocolatey' # Default for Windows
 
 Version
-    node['zabbix']['agent']['version']
+    node['zabbix']['agent']['version'] # Default 2.4.4 (set to 2.4.1 for latest prebuild)
 
 Don't forget to set :
     node['zabbix']['agent']['servers'] = ["Your_zabbix_server.com","secondaryserver.com"]
+        # defaults to zabbix
     node['zabbix']['agent']['servers_active'] = ["Your_zabbix_active_server.com"]
 
 #### Package install
@@ -115,14 +120,17 @@ to install an alternative branch or tar file you can specify it here
     node['zabbix']['agent']['source_url'] = "http://domain.com/path/to/source.tar.gz"
 
 #### Prebuild install
-Currently untested.  Pull requests and kitchen tests desired.
+The current latest prebuild is behind the source and packaged versions.  You will need to set node['zabbix']['agent']['version'] to the version you wish to be installed.
+
+#### Cookbook file install
+This will install a provided package that can be included in the ./files directory of the cookbook itself and stored on the chef server.
 
 #### Chocolatey install
 Currently untested.  Pull requests and kitchen tests desired.
 
 ### Note :
 A Zabbix agent running on the Zabbix server will need to :
-* use a different account than the on the server uses or it will be able to spy on private data.
+* use a different account than the one the server uses or it will be able to spy on private data.
 * specify the local Zabbix server using the localhost (127.0.0.1, ::1) address.
 
 # RECIPES
@@ -132,11 +140,13 @@ The default recipe installs, configures and starts the zabbix_agentd.
 
 You can control the agent install with the following attributes:
 
+    node['zabbix']['agent']['install_method'] = 'package' # Default
+  or
     node['zabbix']['agent']['install_method'] = 'source'
   or
     node['zabbix']['agent']['install_method'] = 'prebuild'
   or
-    node['zabbix']['agent']['install_method'] = 'package'
+    node['zabbix']['agent']['install_method'] = 'cookbook_file' # not yet implemented
 
 ### service
 Controls the service start/stop/restart
@@ -164,7 +174,8 @@ The LWRPs have been moved to the libzabbix cookbook.  https://github.com/TD-4242
 # TODO
 
 * Verify and test on Windows
-* Create kitchen tests
+* Verify and test on freebsd
+* Add cookbook_file install method
 
 # CHANGELOG
 ### 0.12.0
@@ -172,7 +183,8 @@ The LWRPs have been moved to the libzabbix cookbook.  https://github.com/TD-4242
   * upgrade to default client version 2.4.4
   * cleanup source compile dependancies
   * added debian as supported
-  * added more distributions to kitchen testing
+  * added more distributions and versions to kitchen testing
+  * many bug fixes for diffrent distribution versions
 
 ### 0.11.0
   * Move LWRPs to their own cookbook to clean up zabbix-agent
