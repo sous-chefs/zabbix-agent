@@ -30,6 +30,11 @@ and
 
 or try one of the other install methods
 
+### Other recomended cookbooks
+* libzabbix - in development LWRPs to auto regester and setup monitoring for hosts
+* zabbix-server - install configure Zabbix server - planned
+* zabbix-web - install configure Zabbix web frontend - planned
+
 ### zabbix_agentd.conf file
 All attributes in the zabbix_agentd.conf file can be controlled from the:
 
@@ -122,7 +127,11 @@ to install an alternative branch or tar file you can specify it here
     node['zabbix']['agent']['source_url'] = "http://domain.com/path/to/source.tar.gz"
 
 #### Prebuild install
-The current latest prebuild is behind the source and packaged versions.  You will need to set node['zabbix']['agent']['version'] to the version you wish to be installed.
+The current latest prebuild is behind the source and packaged versions.  You will need to set
+
+    node['zabbix']['agent']['version']
+
+to the version you wish to be installed.
 
 #### Cookbook file install
 This will install a provided package that can be included in the ./files directory of the cookbook itself and stored on the chef server.
