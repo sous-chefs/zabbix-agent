@@ -99,7 +99,8 @@ Install Method options are:
 Version
     node['zabbix']['agent']['version'] # Default 2.4.4 (set to 2.4.1 for latest prebuild)
 
-Don't forget to set :
+Don't forget to set:
+
     node['zabbix']['agent']['servers'] = ["Your_zabbix_server.com","secondaryserver.com"]
         # defaults to zabbix
     node['zabbix']['agent']['servers_active'] = ["Your_zabbix_active_server.com"]
