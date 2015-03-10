@@ -97,13 +97,14 @@ Install Method options are:
     node['zabbix']['agent']['install_method'] = 'chocolatey' # Default for Windows
 
 Version
+
     node['zabbix']['agent']['version'] # Default 2.4.4 (set to 2.4.1 for latest prebuild)
 
-Don't forget to set:
+Servers
 
-    node['zabbix']['agent']['servers'] = ["Your_zabbix_server.com","secondaryserver.com"]
+    node['zabbix']['agent']['conf']['Server'] = ["Your_zabbix_server.com","secondaryserver.com"]
         # defaults to zabbix
-    node['zabbix']['agent']['servers_active'] = ["Your_zabbix_active_server.com"]
+    node['zabbix']['agent']['conf']['ServerActive'] = ["Your_zabbix_active_server.com"]
 
 #### Package install
 If you do not set any attributes you will get an install of zabbix agent version 2.4.4 with
