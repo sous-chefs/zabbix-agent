@@ -57,7 +57,7 @@ Install packages from repo.zabbix.com and run the Agent:
 ```json
 {
   "run_list": [
-    "recipe[zabbix]"
+    "recipe[zabbix-agent]"
   ]
 }
 ```
@@ -68,7 +68,7 @@ Alternatively you can just install, or install and configure:
 ```json
 {
   "run_list": [
-    "recipe[zabbix::install]"
+    "recipe[zabbix-agent::install]"
   ]
 }
 ```
@@ -76,7 +76,7 @@ Alternatively you can just install, or install and configure:
 ```json
 {
   "run_list": [
-    "recipe[zabbix::configure]"
+    "recipe[zabbix-agent::configure]"
   ]
 }
 ```
