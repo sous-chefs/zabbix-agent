@@ -16,7 +16,7 @@ when 'ubuntu', 'debian'
     key node['zabbix']['agent']['package']['repo_key']
     notifies :run, 'execute[apt-get update]', :immediately
   end
-when 'redhat', 'centos', 'scientific', 'oracle', 'amazon'
+when 'redhat', 'centos', 'scientific', 'oracle', 'amazon', 'fedora'
   include_recipe 'yum' # ~FC007
   yum_repository 'zabbix' do
     repositoryid 'zabbix'

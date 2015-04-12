@@ -25,6 +25,22 @@ when 'sysvinit'
     supports status: true, start: true, stop: true, restart: true
     action [:enable, :start]
   end
+when 'systemd'
+  template '/etc/systemd/system/zabbix-agent.service' do
+    source 'zabbix-agent.service.erb'
+    owner 'root'
+    group 'root'
+    mode '644'
+    not_if { node['zabbix']['agent']['install_method'] == 'package' }
+  end
+
+  service 'zabbix-agent' do
+    pattern 'zabbix_agentd'
+    supports status: true, start: true, stop: true, restart: true
+    action [:enable, :start]
+  end
+when 'upstart'
+  # upstart.conf
 when 'windows'
   service 'zabbix-agent' do
     service_name 'Zabbix Agent'

@@ -7,7 +7,7 @@
 # Apache 2.0
 #
 case node['platform']
-when 'redhat', 'centos', 'scientific', 'amazon'
+when 'redhat', 'centos', 'scientific', 'amazon', 'fedora'
   package 'redhat-lsb' do
     action :install
   end

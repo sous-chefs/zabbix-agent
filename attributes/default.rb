@@ -95,6 +95,9 @@ when 'ubuntu', 'debian'
 when 'redhat', 'centos', 'scientific', 'oracle', 'amazon'
   default['zabbix']['agent']['package']['repo_uri'] = 'http://repo.zabbix.com/zabbix/2.4/rhel/$releasever/$basearch/'
   default['zabbix']['agent']['package']['repo_key'] = 'http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX'
+when 'fedora'
+  default['zabbix']['agent']['package']['repo_uri'] = 'http://repo.zabbix.com/zabbix/2.4/rhel/7/$basearch/'
+  default['zabbix']['agent']['package']['repo_key'] = 'http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX'
 end
 
 # prebuild install
@@ -111,6 +114,8 @@ default['zabbix']['agent']['groups']            = ['chef-agent']
 case node['platform_family']
 when 'rhel', 'debian'
   default['zabbix']['agent']['init_style']      = 'sysvinit'
+when 'fedora'
+  default['zabbix']['agent']['init_style']      = 'systemd'
 when 'windows'
   default['zabbix']['agent']['init_style']      = 'windows'
   default['zabbix']['agent']['install_method']  = 'chocolatey'

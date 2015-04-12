@@ -16,7 +16,7 @@ when 'ubuntu', 'debian'
     end
   end
 
-when 'redhat', 'centos', 'scientific', 'amazon'
+when 'redhat', 'centos', 'scientific', 'amazon', 'fedora'
   %w(curl-devel openssl-devel redhat-lsb).each do |pck|
     package pck do
       action :install
