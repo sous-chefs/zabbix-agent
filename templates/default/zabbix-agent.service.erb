@@ -1,0 +1,11 @@
+[Unit]
+Description=zabbix-agent
+After=
+Requires=
+
+[Service]
+TimeoutStartSec=0
+ExecStart=/opt/zabbix/sbin/zabbix_agentd
+
+[Install]
+WantedBy=
