@@ -182,8 +182,24 @@ Needs testing
 
 # LWRPs
 The LWRPs have been moved to the libzabbix cookbook.  https://github.com/TD-4242/cookbook-libzabbix
-# TODO
 
+# Testing
+To run the tests, insure you meet the below dependancies, then just run rake in the root of the cookbook
+
+- Linux, MacOS X
+    - Chef-DK - https://downloads.chef.io/chef-dk/ - 0.4.0
+    - VirtualBox - https://www.virtualbox.org/wiki/Downloads - 4.3.24
+    - Vagrant - https://www.vagrantup.com/downloads - 1.7.2
+        - vagrant plugins:
+            - vagrant-berkshelf
+            - vagrant-omnibus
+            - vagrant-chef-zero
+            - vagrant-share
+            - vagrant-login
+- Windows
+    - not tested, but should work with the same dependancies as above
+
+# TODO
 * Verify and test on Windows
 * Verify and test on freebsd
 * Add cookbook_file install method
