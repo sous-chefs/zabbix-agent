@@ -13,10 +13,6 @@ unless node['platform'] == 'windows'
     gid node['zabbix']['agent']['gid'] if node['zabbix']['agent']['gid']
     system true
   end
-end
-
-# Create zabbix User
-unless node['platform'] == 'windows'
   user node['zabbix']['agent']['user'] do
     shell node['zabbix']['agent']['shell']
     uid node['zabbix']['agent']['uid'] if node['zabbix']['agent']['uid']
@@ -27,7 +23,6 @@ unless node['platform'] == 'windows'
 else
   user node['zabbix']['agent']['user'] do
     not_if { node['zabbix']['agent']['user'] == 'Administrator' }
-    #gid node['zabbix']['agent']['group']
   end
 end
 
