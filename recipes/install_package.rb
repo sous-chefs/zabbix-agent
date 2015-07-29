@@ -7,7 +7,10 @@
 # Apache 2.0
 #
 
-unless node['platform'] == 'windows'
+if node['platform'] == 'windows'
+  include_recipe 'chocolatey'
+  chocolatey 'zabbix-agent'
+else
   case node['platform']
   when 'ubuntu', 'debian'
     include_recipe 'apt'
@@ -39,8 +42,4 @@ unless node['platform'] == 'windows'
     end
   end
   package 'zabbix-agent'
-else
-  include_recipe 'chocolatey'
-  chocolatey 'zabbix-agent'
 end
-

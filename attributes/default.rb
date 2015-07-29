@@ -13,16 +13,16 @@ default['zabbix']['agent']['include_dir']            = ::File.join(node['zabbix'
 default['zabbix']['agent']['config_file']            = ::File.join(node['zabbix']['etc_dir'], 'zabbix_agentd.conf')
 default['zabbix']['agent']['userparams_config_file'] = ::File.join(node['zabbix']['agent']['include_dir'], 'user_params.conf')
 
-unless node['platform'] == 'windows'
+if node['platform'] == 'windows'
+  default['zabbix']['install_dir']      = node['zabbix']['etc_dir']
+  default['zabbix']['log_dir']          = ::File.join(node['zabbix']['etc_dir'], 'log')
+  default['zabbix']['agent']['scripts'] = ::File.join(node['zabbix']['etc_dir'], 'scripts')
+else
   default['zabbix']['install_dir']      = '/opt/zabbix'
   default['zabbix']['lock_dir']         = '/var/lock/subsys'
   default['zabbix']['log_dir']          = '/var/log/zabbix'
   default['zabbix']['run_dir']          = '/var/run/zabbix'
   default['zabbix']['agent']['scripts'] = '/etc/zabbix/scripts'
-else
-  default['zabbix']['install_dir']      = node['zabbix']['etc_dir']
-  default['zabbix']['log_dir']          = ::File.join(node['zabbix']['etc_dir'], 'log')
-  default['zabbix']['agent']['scripts'] = ::File.join(node['zabbix']['etc_dir'], 'scripts')
 end
 
 default['zabbix']['agent']['version']           = '2.4.4'
@@ -30,12 +30,12 @@ default['zabbix']['agent']['servers']           = ['zabbix']
 default['zabbix']['agent']['servers_active']    = ['zabbix']
 
 # primary config options
-unless node['platform'] == 'windows'
-  default['zabbix']['agent']['user']         = 'zabbix'
-  default['zabbix']['agent']['group']        = node['zabbix']['agent']['user']
-else
+if node['platform'] == 'windows'
   default['zabbix']['agent']['user']         = 'Administrator'
   default['zabbix']['agent']['group']        = 'Administrators'
+else
+  default['zabbix']['agent']['user']         = 'zabbix'
+  default['zabbix']['agent']['group']        = node['zabbix']['agent']['user']
 end
 default['zabbix']['agent']['timeout']        = '3'
 default['zabbix']['agent']['listen_port']    = '10050'
