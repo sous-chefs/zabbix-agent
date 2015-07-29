@@ -17,5 +17,5 @@ supports 'debian', '>= 6.0.10'
 depends 'apt'             # For Debian family OSs
 depends 'yum'             # For Redhat family OSs
 depends 'build-essential' # for source build/install
-recommends 'chocolatey'   # For Windows family OSs
+depends 'chocolatey'      # For Windows family OSs
 recommends 'libzabbix'    # LWRPs to connect to zabbix server

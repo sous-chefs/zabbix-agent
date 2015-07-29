@@ -8,22 +8,31 @@
 #
 
 # Manage user and group
-group node['zabbix']['agent']['group'] do
-  gid node['zabbix']['agent']['gid'] if node['zabbix']['agent']['gid']
-  system true
+unless node['platform'] == 'windows'
+  group node['zabbix']['agent']['group'] do
+    gid node['zabbix']['agent']['gid'] if node['zabbix']['agent']['gid']
+    system true
+  end
 end
 
 # Create zabbix User
-user node['zabbix']['agent']['user'] do
-  shell node['zabbix']['agent']['shell']
-  uid node['zabbix']['agent']['uid'] if node['zabbix']['agent']['uid']
-  gid node['zabbix']['agent']['gid'] || node['zabbix']['agent']['group']
-  system true
-  supports manage_home: true
+unless node['platform'] == 'windows'
+  user node['zabbix']['agent']['user'] do
+    shell node['zabbix']['agent']['shell']
+    uid node['zabbix']['agent']['uid'] if node['zabbix']['agent']['uid']
+    gid node['zabbix']['agent']['gid'] || node['zabbix']['agent']['group']
+    system true
+    supports manage_home: true
+  end
+else
+  user node['zabbix']['agent']['user'] do
+    not_if { node['zabbix']['agent']['user'] == 'Administrator' }
+    #gid node['zabbix']['agent']['group']
+  end
 end
 
 directory node['zabbix']['install_dir'] do
-  user node['zabbix']['agent']['user']
+  owner node['zabbix']['agent']['user']
   group node['zabbix']['agent']['group']
   mode '755'
 end
@@ -32,17 +41,17 @@ end
 case node['platform_family']
 when 'windows'
   directory node['zabbix']['etc_dir'] do
-    owner 'Administrator'
+    owner node['zabbix']['agent']['user']
     rights :read, 'Everyone', applies_to_children: true
     recursive true
   end
   directory node['zabbix']['agent']['scripts'] do
-    owner 'Administrator'
+    owner node['zabbix']['agent']['user']
     rights :read, 'Everyone', applies_to_children: true
     recursive true
   end
   directory node['zabbix']['agent']['include_dir'] do
-    owner 'Administrator'
+    owner node['zabbix']['agent']['user']
     rights :read, 'Everyone', applies_to_children: true
     recursive true
     notifies :restart, 'service[zabbix-agent]'
@@ -71,9 +80,11 @@ end
 
 # Define zabbix owned folders
 zabbix_dirs = [
-  node['zabbix']['log_dir'],
-  node['zabbix']['run_dir']
+  node['zabbix']['log_dir']
 ]
+unless node['platform'] == 'windows'
+  zabbix_dirs << node['zabbix']['run_dir']
+end
 
 # Create zabbix folders
 zabbix_dirs.each do |dir|
