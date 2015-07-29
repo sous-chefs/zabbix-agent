@@ -19,16 +19,32 @@ platforms:
 #- name: fedora-20
 #- name: fedora-21
 #- name: opensuse-13.1
+- name: windows-2012r2
+  driver_config:
+    communicator: winrm
+    box_url: https://wrock.blob.core.windows.net/vhds/vbox2012r2.box
+    customize:
+      usbehci: "off"
 
 provisioner:
     name: chef_zero
 
 suites:
 - name: default
+  excludes: windows-2012r2
   run_list:
     - "recipe[zabbix-agent]"
   attributes:
+- name: default_win
+  includes: windows-2012r2
+  run_list:
+    - "recipe[zabbix-agent]"
+  attributes:
+    zabbix:
+      agent:
+        user: vagrant
 - name: source
+  excludes: windows-2012r2
   run_list:
     - "recipe[zabbix-agent]"
   attributes:
@@ -36,6 +52,7 @@ suites:
       agent:
         install_method: "source"
 - name: prebuild
+  excludes: windows-2012r2
   run_list:
     - "recipe[zabbix-agent]"
   attributes:
