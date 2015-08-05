@@ -5,12 +5,7 @@
 # Directories
 case node['platform_family']
 when 'windows'
-  if ENV['ProgramFiles'] == ENV['ProgramFiles(x86)']
-    # if user has never logged into an interactive session then ENV['homedrive'] will be nil
-    default['zabbix']['etc_dir']    = ::File.join((ENV['homedrive'] || 'C:'), 'Program Files', 'Zabbix Agent')
-  else
-    default['zabbix']['etc_dir']    = ::File.join(ENV['ProgramFiles'], 'Zabbix Agent')
-  end
+  default['zabbix']['etc_dir']      = ::File.join(ENV['PROGRAMDATA'], 'zabbix')
 else
   default['zabbix']['etc_dir']      = '/etc/zabbix'
 end
@@ -18,26 +13,44 @@ default['zabbix']['agent']['include_dir']            = ::File.join(node['zabbix'
 default['zabbix']['agent']['config_file']            = ::File.join(node['zabbix']['etc_dir'], 'zabbix_agentd.conf')
 default['zabbix']['agent']['userparams_config_file'] = ::File.join(node['zabbix']['agent']['include_dir'], 'user_params.conf')
 
+if node['platform'] == 'windows'
+  default['zabbix']['install_dir']      = node['zabbix']['etc_dir']
+  default['zabbix']['log_dir']          = ::File.join(node['zabbix']['etc_dir'], 'log')
+  default['zabbix']['agent']['scripts'] = ::File.join(node['zabbix']['etc_dir'], 'scripts')
+else
+  default['zabbix']['install_dir']      = '/opt/zabbix'
+  default['zabbix']['lock_dir']         = '/var/lock/subsys'
+  default['zabbix']['log_dir']          = '/var/log/zabbix'
+  default['zabbix']['run_dir']          = '/var/run/zabbix'
+  default['zabbix']['agent']['scripts'] = '/etc/zabbix/scripts'
+end
+
 default['zabbix']['agent']['version']           = '2.4.4'
 default['zabbix']['agent']['servers']           = ['zabbix']
 default['zabbix']['agent']['servers_active']    = ['zabbix']
 
 # primary config options
-default['zabbix']['agent']['user']           = 'zabbix'
-default['zabbix']['agent']['group']          = node['zabbix']['agent']['user']
+if node['platform'] == 'windows'
+  default['zabbix']['agent']['user']         = 'Administrator'
+  default['zabbix']['agent']['group']        = 'Administrators'
+else
+  default['zabbix']['agent']['user']         = 'zabbix'
+  default['zabbix']['agent']['group']        = node['zabbix']['agent']['user']
+end
 default['zabbix']['agent']['timeout']        = '3'
 default['zabbix']['agent']['listen_port']    = '10050'
 default['zabbix']['agent']['interfaces']     = ['zabbix_agent']
 default['zabbix']['agent']['jmx_port']       = '10052'
 default['zabbix']['agent']['snmp_port']      = '161'
 default['zabbix']['agent']['install_method'] = 'package'
-default['zabbix']['agent']['scripts']        = '/etc/zabbix/scripts'
 default['zabbix']['agent']['shell']          = '/bin/bash'
 default['zabbix']['agent']['user_parameter'] = []
 
 # zabbix_agent.conf file set to documented defaults
 default['zabbix']['agent']['conf']['Alias']       = nil
-default['zabbix']['agent']['conf']['AllowRoot']   = '0'
+unless node['platform'] == 'windows'
+  default['zabbix']['agent']['conf']['AllowRoot'] = '0'
+end
 default['zabbix']['agent']['conf']['BufferSend']  = '5'
 default['zabbix']['agent']['conf']['BufferSize']  = '100'
 default['zabbix']['agent']['conf']['DebugLevel']  = '3'
@@ -46,18 +59,27 @@ default['zabbix']['agent']['conf']['EnableRemoteCommands'] = '1'
 default['zabbix']['agent']['conf']['HostMetadata'] = nil
 default['zabbix']['agent']['conf']['Hostname']     = nil # defaults to HostnameItem
 # default['zabbix']['agent']['conf']['HostnameItem'] = nil # set by system.hostname
-default['zabbix']['agent']['conf']['HostnameItem'] = 'system.run[hostname -f]'
+unless node['platform'] == 'windows'
+  default['zabbix']['agent']['conf']['HostnameItem'] = 'system.run[hostname -f]'
+end
 # default['zabbix']['agent']['conf']['Include']  = nil #default
 default['zabbix']['agent']['conf']['Include']      = default['zabbix']['agent']['include_dir']
 default['zabbix']['agent']['conf']['ListenIP']     = '0.0.0.0'
 default['zabbix']['agent']['conf']['ListenPort']   = '10050'
-default['zabbix']['agent']['conf']['LoadModule']   = nil
+unless node['platform'] == 'windows'
+  default['zabbix']['agent']['conf']['LoadModule']   = nil
+end
 default['zabbix']['agent']['conf']['LogFile']      = nil
 default['zabbix']['agent']['conf']['LogFileSize']  = '1'
 default['zabbix']['agent']['conf']['LogRemoteCommands']  = '0'
 default['zabbix']['agent']['conf']['MaxLinesPerSecond']  = '100'
-# default['zabbix']['agent']['conf']['PidFile']  = '/tmp/zabbix_agentd.pid'
-default['zabbix']['agent']['conf']['PidFile']  = '/var/run/zabbix/zabbix_agentd.pid'
+if node['platform'] == 'windows'
+  default['zabbix']['agent']['conf']['PerfCounter'] = nil
+end
+unless node['platform'] == 'windows'
+  # default['zabbix']['agent']['conf']['PidFile']  = '/tmp/zabbix_agentd.pid'
+  default['zabbix']['agent']['conf']['PidFile']  = '/var/run/zabbix/zabbix_agentd.pid'
+end
 default['zabbix']['agent']['conf']['RefreshActiveChecks']  = '120'
 # default['zabbix']['agent']['conf']['Server']  = nil #default
 default['zabbix']['agent']['conf']['Server']       = 'zabbix'
@@ -66,16 +88,12 @@ default['zabbix']['agent']['conf']['SourceIP']     = nil
 default['zabbix']['agent']['conf']['StartAgents']  = '3'
 default['zabbix']['agent']['conf']['Timeout']      = '3'
 default['zabbix']['agent']['conf']['UnsafeUserParameters']  = '0'
-if node['zabbix']['agent']['version'].match(/2\.4\..*/)
-  default['zabbix']['agent']['conf']['User']          = default['zabbix']['agent']['user']
+unless node['platform'] == 'windows'
+  if node['zabbix']['agent']['version'].match(/2\.4\..*/)
+    default['zabbix']['agent']['conf']['User']          = default['zabbix']['agent']['user']
+  end
 end
 # default['zabbix']['agent']['conf']['UserParameter'] = nil # favor user_parameter in seperate included file
-
-default['zabbix']['install_dir']  = '/opt/zabbix'
-
-default['zabbix']['lock_dir']     = '/var/lock/subsys'
-default['zabbix']['log_dir']      = '/var/log/zabbix'
-default['zabbix']['run_dir']      = '/var/run/zabbix'
 
 # source install
 default['zabbix']['agent']['configure_options'] = ['--with-libcurl']
@@ -118,5 +136,4 @@ when 'fedora'
   default['zabbix']['agent']['init_style']      = 'systemd'
 when 'windows'
   default['zabbix']['agent']['init_style']      = 'windows'
-  default['zabbix']['agent']['install_method']  = 'chocolatey'
 end

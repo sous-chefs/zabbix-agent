@@ -6,38 +6,40 @@
 #
 # Apache 2.0
 #
-case node['platform']
-when 'ubuntu', 'debian'
-  include_recipe 'apt'
-  apt_repository 'zabbix' do
-    uri node['zabbix']['agent']['package']['repo_uri']
-    distribution node['lsb']['codename']
-    components ['main']
-    key node['zabbix']['agent']['package']['repo_key']
-    notifies :run, 'execute[apt-get update]', :immediately
-  end
-when 'redhat', 'centos', 'scientific', 'oracle', 'amazon', 'fedora'
-  include_recipe 'yum' # ~FC007
-  yum_repository 'zabbix' do
-    repositoryid 'zabbix'
-    description 'Zabbix Official Repository'
-    baseurl node['zabbix']['agent']['package']['repo_uri']
-    gpgkey node['zabbix']['agent']['package']['repo_key']
-    sslverify false
-    action :create
-  end
 
-  yum_repository 'zabbix-non-supported' do
-    repositoryid 'zabbix-non-supported'
-    description 'Zabbix Official Repository non-supported - $basearch'
-    baseurl node['zabbix']['agent']['package']['repo_uri']
-    gpgkey node['zabbix']['agent']['package']['repo_key']
-    sslverify false
-    action :create
-  end
-when 'windows'
-  include_recipe 'chocolatey' # ~FC007
+if node['platform'] == 'windows'
+  include_recipe 'chocolatey'
   chocolatey 'zabbix-agent'
-end
+else
+  case node['platform']
+  when 'ubuntu', 'debian'
+    include_recipe 'apt'
+    apt_repository 'zabbix' do
+      uri node['zabbix']['agent']['package']['repo_uri']
+      distribution node['lsb']['codename']
+      components ['main']
+      key node['zabbix']['agent']['package']['repo_key']
+      notifies :run, 'execute[apt-get update]', :immediately
+    end
+  when 'redhat', 'centos', 'scientific', 'oracle', 'amazon', 'fedora'
+    include_recipe 'yum'
+    yum_repository 'zabbix' do
+      repositoryid 'zabbix'
+      description 'Zabbix Official Repository'
+      baseurl node['zabbix']['agent']['package']['repo_uri']
+      gpgkey node['zabbix']['agent']['package']['repo_key']
+      sslverify false
+      action :create
+    end
 
-package 'zabbix-agent'
+    yum_repository 'zabbix-non-supported' do
+      repositoryid 'zabbix-non-supported'
+      description 'Zabbix Official Repository non-supported - $basearch'
+      baseurl node['zabbix']['agent']['package']['repo_uri']
+      gpgkey node['zabbix']['agent']['package']['repo_key']
+      sslverify false
+      action :create
+    end
+  end
+  package 'zabbix-agent'
+end
