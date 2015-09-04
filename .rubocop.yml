@@ -7,7 +7,22 @@ AllCops:
     - Guardfile
   Exclude:
     - vendor/**/*
-    - cookbooks/**/*
 
+ClassLength:
+  Enabled: false
+Documentation:
+  Enabled: false
+Encoding:
+  Enabled: false
+HashSyntax:
+  Enabled: false
 LineLength:
+  Enabled: false
+MethodLength:
+  Enabled: false
+SignalException:
+  Enabled: false
+TrailingComma:
+  Enabled: false
+WordArray:
   Enabled: false
