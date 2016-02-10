@@ -17,4 +17,6 @@ addons:
     - chefdk
 
 script:
+  - ls
+  - pwd
   - rake travis
