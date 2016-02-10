@@ -47,7 +47,7 @@ default['zabbix']['agent']['shell']          = '/bin/bash'
 default['zabbix']['agent']['user_parameter'] = []
 
 # zabbix_agent.conf file set to documented defaults
-default['zabbix']['agent']['conf']['Alias']       = nil
+default['zabbix']['agent']['conf']['Alias'] = nil
 unless node['platform'] == 'windows'
   default['zabbix']['agent']['conf']['AllowRoot'] = '0'
 end
@@ -78,19 +78,19 @@ if node['platform'] == 'windows'
 end
 unless node['platform'] == 'windows'
   # default['zabbix']['agent']['conf']['PidFile']  = '/tmp/zabbix_agentd.pid'
-  default['zabbix']['agent']['conf']['PidFile']  = '/var/run/zabbix/zabbix_agentd.pid'
+  default['zabbix']['agent']['conf']['PidFile'] = '/var/run/zabbix/zabbix_agentd.pid'
 end
-default['zabbix']['agent']['conf']['RefreshActiveChecks']  = '120'
+default['zabbix']['agent']['conf']['RefreshActiveChecks'] = '120'
 # default['zabbix']['agent']['conf']['Server']  = nil #default
 default['zabbix']['agent']['conf']['Server']       = 'zabbix'
 default['zabbix']['agent']['conf']['ServerActive'] = nil
 default['zabbix']['agent']['conf']['SourceIP']     = nil
 default['zabbix']['agent']['conf']['StartAgents']  = '3'
 default['zabbix']['agent']['conf']['Timeout']      = '3'
-default['zabbix']['agent']['conf']['UnsafeUserParameters']  = '0'
+default['zabbix']['agent']['conf']['UnsafeUserParameters'] = '0'
 unless node['platform'] == 'windows'
   if node['zabbix']['agent']['version'].match(/2\.4\..*/)
-    default['zabbix']['agent']['conf']['User']          = default['zabbix']['agent']['user']
+    default['zabbix']['agent']['conf']['User'] = default['zabbix']['agent']['user']
   end
 end
 # default['zabbix']['agent']['conf']['UserParameter'] = nil # favor user_parameter in seperate included file
@@ -124,16 +124,16 @@ arch = node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'
 default['zabbix']['agent']['prebuild_file'] = "zabbix_agents_#{version}.linux2_6.#{arch}.tar.gz"
 
 default['zabbix']['agent']['prebuild_url']  = "#{prebuild_url}#{version}/zabbix_agents_#{version}.linux2_6.#{arch}.tar.gz"
-default['zabbix']['agent']['checksum']         = 'bf2ebb48fbbca66418350f399819966e'
+default['zabbix']['agent']['checksum'] = 'bf2ebb48fbbca66418350f399819966e'
 
 # auto-regestration
-default['zabbix']['agent']['groups']            = ['chef-agent']
+default['zabbix']['agent']['groups'] = ['chef-agent']
 
 case node['platform_family']
 when 'rhel', 'debian'
-  default['zabbix']['agent']['init_style']      = 'sysvinit'
+  default['zabbix']['agent']['init_style'] = 'sysvinit'
 when 'fedora'
-  default['zabbix']['agent']['init_style']      = 'systemd'
+  default['zabbix']['agent']['init_style'] = 'systemd'
 when 'windows'
-  default['zabbix']['agent']['init_style']      = 'windows'
+  default['zabbix']['agent']['init_style'] = 'windows'
 end

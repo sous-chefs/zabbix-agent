@@ -1,6 +1,20 @@
-language: ruby
-bundler_args: --without integration
-rvm:
-  - 2.1.4
-script: 
-  - bundle exec rake travis
+language: generic
+
+sudo: false
+
+env:
+  global:
+  - PATH="/opt/chefdk/bin:/opt/chef/bin:/opt/chef/embedded/bin:/opt/chefdk/embedded/bin:$PATH"
+  matrix:
+  - COOKBOOK_PATH="cookbooks"
+  - COOKBOOK_PATH="community-cookbooks"
+
+addons:
+  apt:
+    sources:
+    - chef-stable-precise
+    packages:
+    - chefdk
+
+script:
+  - rake travis
