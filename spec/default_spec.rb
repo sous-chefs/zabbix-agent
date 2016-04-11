@@ -77,8 +77,8 @@ describe 'zabbix-agent::default' do
       expect(chef_run).to include_recipe('zabbix-agent::install_package')
     end
 
-    it 'installs the zabbix-agent package' do
-      expect(chef_run).to install_package('zabbix-agent')
+    it 'installs/upgrades the zabbix-agent package' do
+      expect(chef_run).to upgrade_package('zabbix-agent')
     end
 
     it 'skips creating user_params.conf by default due to no entries in array' do
@@ -124,8 +124,8 @@ describe 'zabbix-agent::default' do
       )
     end
 
-    it 'installs the zabbix-agent package' do
-      expect(chef_run).to install_package('zabbix-agent')
+    it 'installs/upgrades the zabbix-agent package' do
+      expect(chef_run).to upgrade_package('zabbix-agent')
     end
   end
 
@@ -156,8 +156,8 @@ describe 'zabbix-agent::default' do
       )
     end
 
-    it 'installs the zabbix-agent package' do
-      expect(chef_run).to install_package('zabbix-agent')
+    it 'installs/upgrades the zabbix-agent package' do
+      expect(chef_run).to upgrade_package('zabbix-agent')
     end
   end
 end

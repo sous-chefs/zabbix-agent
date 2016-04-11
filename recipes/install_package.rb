@@ -41,5 +41,10 @@ else
       action :create
     end
   end
-  package 'zabbix-agent'
+  package 'zabbix-agent' do
+    if node.platform_family == 'debian'
+      options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
+    end
+    action :upgrade
+  end
 end
