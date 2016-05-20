@@ -1,13 +1,11 @@
-language: generic
+rvm:
+- 2.1
 
-sudo: false
+sudo: true
 
 env:
   global:
   - PATH="/opt/chefdk/bin:/opt/chef/bin:/opt/chef/embedded/bin:/opt/chefdk/embedded/bin:$PATH"
-  matrix:
-  - COOKBOOK_PATH="cookbooks"
-  - COOKBOOK_PATH="community-cookbooks"
 
 addons:
   apt:
@@ -19,4 +17,4 @@ addons:
 script:
   - ls
   - pwd
-  - rake travis
+  - bundle exec rake travis
