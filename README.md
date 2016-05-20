@@ -101,6 +101,10 @@ Install Method options are:
     node['zabbix']['agent']['install_method'] = 'cookbook_file' # not yet implemented
     node['zabbix']['agent']['install_method'] = 'chocolatey' # Default for Windows
 
+    # skip is preferred if no internet access when provisioning
+    # zabbix agent was already installed via chef during image bake process
+    node['zabbix']['agent']['install_method'] = 'skip'
+
 Version
 
     node['zabbix']['agent']['version'] # Default 2.4.4 (set to 2.4.1 for latest prebuild)

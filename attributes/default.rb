@@ -25,7 +25,7 @@ else
   default['zabbix']['agent']['scripts'] = '/etc/zabbix/scripts'
 end
 
-default['zabbix']['agent']['version']           = '2.4.4'
+default['zabbix']['agent']['version']           = '2.4.6'
 default['zabbix']['agent']['servers']           = ['zabbix']
 default['zabbix']['agent']['servers_active']    = ['zabbix']
 
@@ -110,8 +110,12 @@ case node['platform']
 when 'ubuntu', 'debian'
   default['zabbix']['agent']['package']['repo_uri'] = "http://repo.zabbix.com/zabbix/2.4/#{node['platform']}/"
   default['zabbix']['agent']['package']['repo_key'] = 'http://repo.zabbix.com/zabbix-official-repo.key'
-when 'redhat', 'centos', 'scientific', 'oracle', 'amazon'
+when 'redhat', 'centos', 'scientific', 'oracle'
   default['zabbix']['agent']['package']['repo_uri'] = 'http://repo.zabbix.com/zabbix/2.4/rhel/$releasever/$basearch/'
+  default['zabbix']['agent']['package']['repo_key'] = 'http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX'
+when 'amazon'
+  # current Amazon AMI based on RHEL6 at the moment
+  default['zabbix']['agent']['package']['repo_uri'] = 'http://repo.zabbix.com/zabbix/2.4/rhel/6/$basearch/'
   default['zabbix']['agent']['package']['repo_key'] = 'http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX'
 when 'fedora'
   default['zabbix']['agent']['package']['repo_uri'] = 'http://repo.zabbix.com/zabbix/2.4/rhel/7/$basearch/'
