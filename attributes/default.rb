@@ -3,12 +3,12 @@
 # Attributes:: default
 
 # Directories
-case node['platform_family']
-when 'windows'
-  default['zabbix']['etc_dir']      = ::File.join(ENV['PROGRAMDATA'], 'zabbix')
-else
-  default['zabbix']['etc_dir']      = '/etc/zabbix'
-end
+default['zabbix']['etc_dir'] = case node['platform_family']
+                               when 'windows'
+                                 ::File.join(ENV['PROGRAMDATA'], 'zabbix')
+                               else
+                                 '/etc/zabbix'
+                               end
 default['zabbix']['agent']['include_dir']            = ::File.join(node['zabbix']['etc_dir'], 'zabbix_agentd.d')
 default['zabbix']['agent']['config_file']            = ::File.join(node['zabbix']['etc_dir'], 'zabbix_agentd.conf')
 default['zabbix']['agent']['userparams_config_file'] = ::File.join(node['zabbix']['agent']['include_dir'], 'user_params.conf')
@@ -89,7 +89,7 @@ default['zabbix']['agent']['conf']['StartAgents']  = '3'
 default['zabbix']['agent']['conf']['Timeout']      = '3'
 default['zabbix']['agent']['conf']['UnsafeUserParameters'] = '0'
 unless node['platform'] == 'windows'
-  if node['zabbix']['agent']['version'].match(/2\.4\..*/)
+  if node['zabbix']['agent']['version'] =~ /2\.4\..*/
     default['zabbix']['agent']['conf']['User'] = default['zabbix']['agent']['user']
   end
 end

@@ -1,6 +1,6 @@
 ---
 driver:
-  name: <%= ENV['KI_DRIVER'] || 'vagrant' %>
+  name: 'vagrant'
 
 driver_config:
   require_chef_omnibus: true
@@ -9,8 +9,8 @@ platforms:
 - name: ubuntu-10.04
 - name: ubuntu-12.04
 - name: ubuntu-14.04
-- name: centos-6.6
-- name: centos-7.0
+- name: centos-6.7
+#- name: centos-7.2 # needs systemd support?
 - name: debian-6.0.10
 - name: debian-7.8
 # planned for future tested support
@@ -59,4 +59,3 @@ suites:
     zabbix:
       agent:
         install_method: "prebuild"
-        version: "2.4.1" # latest prebuild version although deb/rpm packages are at 2.4.4

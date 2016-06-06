@@ -107,7 +107,7 @@ Install Method options are:
 
 Version
 
-    node['zabbix']['agent']['version'] # Default 2.4.4 (set to 2.4.1 for latest prebuild)
+    node['zabbix']['agent']['version'] # Default 2.4.4
 
 Servers
 
