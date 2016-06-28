@@ -1,5 +1,4 @@
-rvm:
-- 2.1
+language: generic
 
 sudo: true
 
@@ -17,4 +16,4 @@ addons:
 script:
   - ls
   - pwd
-  - bundle exec rake travis
+  - chef exec rake travis
