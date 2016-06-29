@@ -63,7 +63,7 @@ unless node['platform'] == 'windows'
   default['zabbix']['agent']['conf']['HostnameItem'] = 'system.run[hostname -f]'
 end
 # default['zabbix']['agent']['conf']['Include']  = nil #default
-default['zabbix']['agent']['conf']['Include']      = default['zabbix']['agent']['include_dir']
+default['zabbix']['agent']['conf']['Include']      = ::File.join(default['zabbix']['agent']['include_dir'], '*.conf')
 default['zabbix']['agent']['conf']['ListenIP']     = '0.0.0.0'
 default['zabbix']['agent']['conf']['ListenPort']   = '10050'
 unless node['platform'] == 'windows'
