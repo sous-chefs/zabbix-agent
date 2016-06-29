@@ -13,9 +13,9 @@ describe 'zabbix-agent install method tests' do
       expect(chef_prebuild).to include_recipe('zabbix-agent::install_prebuild')
     end
 
-    it "gets the zabbix binary prebuild archive from 'http://www.zabbix.com/downloads/ and puts it  #{Chef::Config[:file_cache_path]}/zabbix_agents_2.4.4.linux2_6.i386.tar.gz" do
+    it "gets the zabbix binary prebuild archive from 'http://www.zabbix.com/downloads/ and puts it  #{Chef::Config[:file_cache_path]}/zabbix_agents_2.4.6.linux2_6.i386.tar.gz" do
       expect(chef_prebuild).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix_agents_2.4.6.linux2_6.i386.tar.gz").with(
-        source: 'http://www.zabbix.com/downloads/2.4.4/zabbix_agents_2.4.4.linux2_6.i386.tar.gz'
+        source: 'http://www.zabbix.com/downloads/2.4.6/zabbix_agents_2.4.6.linux2_6.i386.tar.gz'
       )
     end
 
@@ -54,7 +54,7 @@ describe 'zabbix-agent install method tests' do
       expect(chef_source).to include_recipe('build-essential')
     end
 
-    it "gets the zabbix source archive from http://downloads.sourceforge.net and puts it in #{Chef::Config[:file_cache_path]}/zabbix-2.4.4.tar.gz" do
+    it "gets the zabbix source archive from http://downloads.sourceforge.net and puts it in #{Chef::Config[:file_cache_path]}/zabbix-2.4.6.tar.gz" do
       expect(chef_source).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix-2.4.6.tar.gz").with(
         source: 'http://downloads.sourceforge.net/project/zabbix//ZABBIX%20Latest%20Stable/2.4.6/zabbix-2.4.6.tar.gz'
       )
@@ -94,7 +94,7 @@ describe 'zabbix-agent install method tests' do
       expect(chef_source).to install_package('redhat-lsb')
     end
 
-    it "gets the zabbix source archive from http://downloads.sourceforge.net and puts it in #{Chef::Config[:file_cache_path]}/zabbix-2.4.4.tar.gz" do
+    it "gets the zabbix source archive from http://downloads.sourceforge.net and puts it in #{Chef::Config[:file_cache_path]}/zabbix-2.4.6.tar.gz" do
       expect(chef_source).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix-2.4.6.tar.gz").with(
         source: 'http://downloads.sourceforge.net/project/zabbix//ZABBIX%20Latest%20Stable/2.4.6/zabbix-2.4.6.tar.gz'
       )
