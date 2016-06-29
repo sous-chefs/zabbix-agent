@@ -1,5 +1,3 @@
-source 'https://api.berkshelf.com'
+source 'https://supermarket.chef.io'
 
 metadata
-
-cookbook 'libzabbix', git: 'https://github.com/TD-4242/cookbook-libzabbix.git'
