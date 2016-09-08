@@ -25,12 +25,12 @@
 . /lib/lsb/init-functions
 
 NAME=zabbix_agentd
-PATH=/bin:/usr/bin:/sbin:/usr/sbin:<%= node.zabbix.install_dir %>/sbin:<%= node.zabbix.install_dir %>/bin
-DAEMON=<%= node.zabbix.install_dir %>/sbin/${NAME}
+PATH=/bin:/usr/bin:/sbin:/usr/sbin:<%= node['zabbix']['install_dir'] %>/sbin:<%= node['zabbix']['install_dir'] %>/bin
+DAEMON=<%= node['zabbix']['install_dir'] %>/sbin/${NAME}
 DESC="Zabbix agent daemon"
-DIR=<%= node.zabbix.run_dir %>
+DIR=<%= node['zabbix']['run_dir'] %>
 PID=<%= node['zabbix']['agent']['pid_file'] %>
-LOCK=<%= node.zabbix.lock_dir %>/$NAME
+LOCK=<%= node['zabbix']['lock_dir'] %>/$NAME
 USER=<%= node['zabbix']['agent']['user'] %>
 GROUP=<%= node['zabbix']['agent']['group'] %>
 

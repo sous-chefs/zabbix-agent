@@ -4,8 +4,8 @@ describe 'zabbix-agent install method tests' do
   context 'with install_method=prebuild it' do
     cached(:chef_prebuild) do
       ChefSpec::ServerRunner.new do |node|
-        node.set['zabbix']['agent']['install_method'] = 'prebuild'
-        node.set['zabbix']['agent']['init_style'] = 'sysvinit'
+        node.override['zabbix']['agent']['install_method'] = 'prebuild'
+        node.override['zabbix']['agent']['init_style'] = 'sysvinit'
       end.converge('zabbix-agent::default')
     end
     # changed node['zabbix']['agent']['install_method'] = prebuild
@@ -41,8 +41,8 @@ describe 'zabbix-agent install method tests' do
   context 'with install_method=source it' do
     cached(:chef_source) do
       ChefSpec::ServerRunner.new(platform: 'centos', version: '6.5') do |node|
-        node.set['zabbix']['agent']['install_method'] = 'source'
-        node.set['zabbix']['agent']['init_style'] = 'sysvinit'
+        node.override['zabbix']['agent']['install_method'] = 'source'
+        node.override['zabbix']['agent']['init_style'] = 'sysvinit'
       end.converge('zabbix-agent::default')
     end
     # changed node['zabbix']['agent']['install_method'] = source
@@ -78,7 +78,7 @@ describe 'zabbix-agent install method tests' do
   context 'with install_method=source and on CentOS platform it' do
     cached(:chef_source) do
       ChefSpec::ServerRunner.new(platform: 'centos', version: '6.5') do |node|
-        node.set['zabbix']['agent']['install_method'] = 'source'
+        node.override['zabbix']['agent']['install_method'] = 'source'
       end.converge('zabbix-agent::install_source')
     end
 

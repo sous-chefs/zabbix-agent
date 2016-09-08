@@ -30,7 +30,7 @@ configure_options = node['zabbix']['agent']['configure_options'].dup
 configure_options = (configure_options || []).delete_if do |option|
   option.match(/\s*--prefix(\s|=).+/)
 end
-node.normal['zabbix']['agent']['configure_options'] = configure_options
+node.override['zabbix']['agent']['configure_options'] = configure_options
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['zabbix']['agent']['tar_file']}" do
   source node['zabbix']['agent']['source_url']
