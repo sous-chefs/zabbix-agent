@@ -4,6 +4,8 @@ maintainer_email 'bill.warner@gmail.com'
 license 'Apache 2.0'
 description 'Installs/Configures Zabbix Agent'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+source_url 'https://github.com/TD-4242/zabbix-agent'
+issues_url 'https://github.com/TD-4242/zabbix-agent/issues'
 version '0.13.3'
 
 # tested on ubuntu 10.04 12.04 and 14.04
