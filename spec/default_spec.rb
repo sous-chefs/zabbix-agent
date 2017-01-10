@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'zabbix-agent::default' do
   context 'with default settings' do
-    cached(:chef_run) do 
+    cached(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04').converge(described_recipe)
     end
 

@@ -39,8 +39,8 @@ when 'systemd'
     supports status: true, start: true, stop: true, restart: true
     action [:enable, :start]
   end
-when 'upstart'
-  # upstart.conf
+  # when 'upstart'
+  #   upstart.conf
 when 'windows'
   service 'zabbix-agent' do
     service_name 'Zabbix Agent'
