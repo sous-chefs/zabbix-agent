@@ -13,7 +13,14 @@ addons:
     packages:
     - chefdk
 
+install: echo "skip bundle install"
+
+services: docker
+
+before_script:
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+
 script:
   - ls
   - pwd
-  - chef exec rake travis
+  - chef exec rake
