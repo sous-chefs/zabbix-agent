@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe 'zabbix-agent::default' do
   context 'with default settings' do
-    cached(:chef_run) { ChefSpec::ServerRunner.converge(described_recipe) }
+    cached(:chef_run) do 
+      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04').converge(described_recipe)
+    end
 
     it 'includes zabbix-agent::service to insure the zabbix agent will run' do
       expect(chef_run).to include_recipe('zabbix-agent::service')
