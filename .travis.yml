@@ -23,4 +23,5 @@ before_script:
 script:
   - ls
   - pwd
+  - chef gem install kitche-docker
   - chef exec rake
