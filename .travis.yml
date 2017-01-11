@@ -19,9 +19,9 @@ services: docker
 
 before_script:
   - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+  - chef gem install kitchen-docker
 
 script:
   - ls
   - pwd
-  - chef gem install kitche-docker
   - chef exec rake
