@@ -28,6 +28,10 @@ platforms:
 #    customize:
 #      usbehci: "off"
 
+verifier:
+  name: inspec
+  format: documentation
+
 provisioner:
     name: chef_zero
 
