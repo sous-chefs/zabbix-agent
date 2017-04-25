@@ -1,16 +1,19 @@
 ---
 driver:
   name: 'docker'
+  disable_upstart: false
+  image: ubuntu-upstart:14.04
+  run_command: /sbin/init
 
 driver_config:
+  provision_command:
+  - curl -L https://www.opscode.com/chef/install.sh | bash -s -- -v 12.19.36
   require_chef_omnibus: true
 
 platforms:
 #- name: ubuntu-10.04
 #- name: ubuntu-12.04
 - name: ubuntu-14.04
-  disable_upstart: false
-  image: ubuntu-upstart-14.04
 #- name: centos-6.7
 #- name: centos-7.2 # needs systemd support?
 #- name: debian-6.0.10
@@ -41,14 +44,14 @@ suites:
   run_list:
     - "recipe[zabbix-agent]"
   attributes:
-- name: default_win
-  includes: windows-2012r2
-  run_list:
-    - "recipe[zabbix-agent]"
-  attributes:
-    zabbix:
-      agent:
-        user: vagrant
+#- name: default_win
+#  includes: windows-2012r2
+#  run_list:
+#    - "recipe[zabbix-agent]"
+#  attributes:
+#    zabbix:
+#      agent:
+#        user: vagrant
 - name: source
   excludes: windows-2012r2
   run_list:
@@ -65,3 +68,4 @@ suites:
     zabbix:
       agent:
         install_method: "prebuild"
+        version: "3.0.4"

@@ -1,3 +1,3 @@
-describe service('zabbix_agentd') do
+describe service('zabbix-agent') do
   it { should be_running }
 end
