@@ -12,6 +12,7 @@ default['zabbix']['etc_dir'] = case node['platform_family']
 default['zabbix']['agent']['include_dir']            = ::File.join(node['zabbix']['etc_dir'], 'zabbix_agentd.d')
 default['zabbix']['agent']['config_file']            = ::File.join(node['zabbix']['etc_dir'], 'zabbix_agentd.conf')
 default['zabbix']['agent']['userparams_config_file'] = ::File.join(node['zabbix']['agent']['include_dir'], 'user_params.conf')
+default['zabbix']['agent']['pid_file']               = '/var/run/zabbix/zabbix_agentd.pid'
 
 if node['platform'] == 'windows'
   default['zabbix']['install_dir']      = node['zabbix']['etc_dir']
@@ -25,7 +26,7 @@ else
   default['zabbix']['agent']['scripts'] = '/etc/zabbix/scripts'
 end
 
-default['zabbix']['agent']['version']           = '2.4.6'
+default['zabbix']['agent']['version']           = '3.0.9'
 default['zabbix']['agent']['servers']           = ['zabbix']
 default['zabbix']['agent']['servers_active']    = ['zabbix']
 
@@ -69,6 +70,7 @@ default['zabbix']['agent']['conf']['ListenPort']   = '10050'
 unless node['platform'] == 'windows'
   default['zabbix']['agent']['conf']['LoadModule']   = nil
 end
+default['zabbix']['agent']['conf']['LogType']      = 'system'
 default['zabbix']['agent']['conf']['LogFile']      = nil
 default['zabbix']['agent']['conf']['LogFileSize']  = '1'
 default['zabbix']['agent']['conf']['LogRemoteCommands']  = '0'
@@ -108,17 +110,17 @@ default['zabbix']['agent']['tar_file'] = tar
 # package install
 case node['platform']
 when 'ubuntu', 'debian'
-  default['zabbix']['agent']['package']['repo_uri'] = "http://repo.zabbix.com/zabbix/2.4/#{node['platform']}/"
+  default['zabbix']['agent']['package']['repo_uri'] = "http://repo.zabbix.com/zabbix/3.0/#{node['platform']}/"
   default['zabbix']['agent']['package']['repo_key'] = 'http://repo.zabbix.com/zabbix-official-repo.key'
 when 'redhat', 'centos', 'scientific', 'oracle'
-  default['zabbix']['agent']['package']['repo_uri'] = 'http://repo.zabbix.com/zabbix/2.4/rhel/$releasever/$basearch/'
+  default['zabbix']['agent']['package']['repo_uri'] = 'http://repo.zabbix.com/zabbix/3.0/rhel/$releasever/$basearch/'
   default['zabbix']['agent']['package']['repo_key'] = 'http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX'
 when 'amazon'
   # current Amazon AMI based on RHEL6 at the moment
-  default['zabbix']['agent']['package']['repo_uri'] = 'http://repo.zabbix.com/zabbix/2.4/rhel/6/$basearch/'
+  default['zabbix']['agent']['package']['repo_uri'] = 'http://repo.zabbix.com/zabbix/3.0/rhel/6/$basearch/'
   default['zabbix']['agent']['package']['repo_key'] = 'http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX'
 when 'fedora'
-  default['zabbix']['agent']['package']['repo_uri'] = 'http://repo.zabbix.com/zabbix/2.4/rhel/7/$basearch/'
+  default['zabbix']['agent']['package']['repo_uri'] = 'http://repo.zabbix.com/zabbix/3.0/rhel/7/$basearch/'
   default['zabbix']['agent']['package']['repo_key'] = 'http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX'
 end
 

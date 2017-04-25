@@ -31,7 +31,7 @@
 #                          installed the spring binstubs per the docs)
 #  * zeus: 'zeus rspec' (requires the server to be started separately)
 #  * 'just' rspec: 'rspec'
-scope :group => :unit
+scope group: :unit
 
 group :unit do
   guard :rubocop do
@@ -39,7 +39,7 @@ group :unit do
     watch(%r{/(?:.+\/)?\.rubocop\.yml$/}) { |m| File.dirname(m[0]) }
   end
 
-  guard :rspec, :cmd => 'chef exec rspec --fail-fast', :all_on_start => false do
+  guard :rspec, cmd: 'chef exec rspec --fail-fast', all_on_start: false do
     watch(%r{/^libraries\/(.+)\.rb$/})
     watch(%r{/^spec\/(.+)_spec\.rb$/}) { 'spec' }
     watch(%r{/^(attributes)\/(.+)\.rb$/}) { 'spec' }

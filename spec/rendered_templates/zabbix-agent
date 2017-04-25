@@ -24,7 +24,7 @@ PATH=/bin:/usr/bin:/sbin:/usr/sbin:/opt/zabbix/sbin:/opt/zabbix/bin
 DAEMON=/opt/zabbix/sbin/${NAME}
 DESC="Zabbix agent daemon"
 DIR=/var/run/zabbix
-PID=
+PID=/var/run/zabbix/zabbix_agentd.pid
 USER=zabbix
 GROUP=zabbix
 
@@ -45,8 +45,7 @@ case "$1" in
 
   stop)
 	echo "Stopping $DESC: $NAME"
-	start-stop-daemon --oknodo --stop  --pidfile $PID \
-		--exec $DAEMON
+	start-stop-daemon --oknodo --stop --pidfile $PID
 	;;
   restart|force-reload)
 	#

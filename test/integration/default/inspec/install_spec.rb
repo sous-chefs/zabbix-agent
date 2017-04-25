@@ -1,8 +1,6 @@
-require 'spec_helper'
-
 describe user('zabbix') do
   it { should exist }
-  it { should belong_to_group 'zabbix' }
+  its('group') { should eq 'zabbix' }
 end
 
 describe group('zabbix') do

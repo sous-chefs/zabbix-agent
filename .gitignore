@@ -10,7 +10,7 @@ _yardoc
 /doc/
 /pkg
 /spec/reports
-/Berksfile*
+Berksfile.lock
 tmp
 *~
 *.tar*

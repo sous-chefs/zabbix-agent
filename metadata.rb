@@ -6,7 +6,7 @@ description 'Installs/Configures Zabbix Agent'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 source_url 'https://github.com/TD-4242/zabbix-agent'
 issues_url 'https://github.com/TD-4242/zabbix-agent/issues'
-version '0.13.3'
+version '0.14.0'
 
 # tested on ubuntu 10.04 12.04 and 14.04
 supports 'ubuntu', '>= 10.04'
@@ -20,4 +20,4 @@ depends 'apt'             # For Debian family OSs
 depends 'yum'             # For Redhat family OSs
 depends 'build-essential' # for source build/install
 depends 'chocolatey'      # For Windows family OSs
-recommends 'libzabbix'    # LWRPs to connect to zabbix server
+# recommends 'libzabbix'    # LWRPs to connect to zabbix server
