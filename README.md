@@ -107,7 +107,7 @@ Install Method options are:
 
 Version
 
-    node['zabbix']['agent']['version'] # Default 2.4.4
+    node['zabbix']['agent']['version'] # Default 3.0.9
 
 Servers
 
@@ -116,7 +116,7 @@ Servers
     node['zabbix']['agent']['conf']['ServerActive'] = ["Your_zabbix_active_server.com"]
 
 #### Package install
-If you do not set any attributes you will get an install of zabbix agent version 2.4.4 with
+If you do not set any attributes you will get an install of zabbix agent version 3.0.9 with
 what should be a working configuration if your DNS has aliases for zabbix.yourdomain.com and
 your hosts search yourdomain.com.
 
@@ -209,6 +209,11 @@ To run the tests, insure you meet the below dependancies, then just run rake in 
 * Add cookbook_file install method
 
 # CHANGELOG
+### 0.14.0
+  * upgrade to default client version 3.0.9
+  * move kitchen to docker so it can be run in travisci
+
+### 0.13.0
 ### 0.12.0
   * include kitchen tests for all supported OS types
   * upgrade to default client version 2.4.4

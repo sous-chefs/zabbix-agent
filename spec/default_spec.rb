@@ -120,7 +120,7 @@ describe 'zabbix-agent::default' do
 
     it 'adds the apt repository for zabbix' do
       expect(chef_run).to add_apt_repository('zabbix').with(
-        uri: 'http://repo.zabbix.com/zabbix/2.4/ubuntu/',
+        uri: 'http://repo.zabbix.com/zabbix/3.0/ubuntu/',
         components: ['main'],
         key: 'http://repo.zabbix.com/zabbix-official-repo.key'
       )
@@ -142,7 +142,7 @@ describe 'zabbix-agent::default' do
       expect(chef_run).to create_yum_repository('zabbix').with(
         repositoryid: 'zabbix',
         description: 'Zabbix Official Repository',
-        baseurl: 'http://repo.zabbix.com/zabbix/2.4/rhel/$releasever/$basearch/',
+        baseurl: 'http://repo.zabbix.com/zabbix/3.0/rhel/$releasever/$basearch/',
         gpgkey: 'http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX',
         sslverify: false
       )
@@ -152,7 +152,7 @@ describe 'zabbix-agent::default' do
       expect(chef_run).to create_yum_repository('zabbix-non-supported').with(
         repositoryid: 'zabbix-non-supported',
         description: 'Zabbix Official Repository non-supported - $basearch',
-        baseurl: 'http://repo.zabbix.com/zabbix/2.4/rhel/$releasever/$basearch/',
+        baseurl: 'http://repo.zabbix.com/zabbix/3.0/rhel/$releasever/$basearch/',
         gpgkey: 'http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX',
         sslverify: false
       )

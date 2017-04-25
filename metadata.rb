@@ -20,4 +20,4 @@ depends 'apt'             # For Debian family OSs
 depends 'yum'             # For Redhat family OSs
 depends 'build-essential' # for source build/install
 depends 'chocolatey'      # For Windows family OSs
-recommends 'libzabbix'    # LWRPs to connect to zabbix server
+# recommends 'libzabbix'    # LWRPs to connect to zabbix server
