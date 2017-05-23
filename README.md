@@ -12,7 +12,7 @@ This cookbook installs and configures the zabbix-agent with sane defaults and ve
 * (soon) fedora
 * (soon) opensuse
 * (planned) freebsd
-* (planned) Windows
+* Windows 2012R2, 2016
 
 Other similar versions will likely work as well but are not regularly tested.
 
@@ -201,10 +201,9 @@ To run the tests, insure you meet the below dependancies, then just run rake in 
             - vagrant-share
             - vagrant-login
 - Windows
-    - not tested, but should work with the same dependancies as above
+    - run `rake windows` to test Windows 2012R2 and 2016
 
 # TODO
-* Verify and test on Windows
 * Verify and test on freebsd
 * Add cookbook_file install method
 

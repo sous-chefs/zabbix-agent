@@ -74,6 +74,24 @@ namespace :integration do
   rescue LoadError
     puts '>>>>> kitchen gem not loaded, omitting tasks' unless ENV['CI']
   end
+
+  begin
+    desc 'Run Windows integration tests with kitchen-vagrant'
+    task :windows do
+      ENV['KITCHEN_YAML'] = './.kitchen.windows.yml'
+      require 'kitchen'
+      Kitchen.logger = Kitchen.default_file_logger
+      Kitchen::Config.new(
+        loader: Kitchen::Loader::YAML.new(
+          project_config: './.kitchen.windows.yml'
+        )
+      ).instances.each do |instance|
+        instance.test(:always)
+      end
+    end
+  rescue LoadError
+    puts '>>>>> kitchen gem not loaded, omitting tasks' unless ENV['CI']
+  end
 end
 
 desc 'Run Test Kitchen integration tests'
@@ -93,6 +111,9 @@ task default: ['unit', 'style', 'integration:vagrant']
 
 desc 'Run all tests including test Kitchen with Docker'
 task docker: ['unit', 'style', 'integration:docker']
+
+desc 'Run Windows integration tests'
+task windows: ['integration:windows']
 
 desc 'print cookbook version'
 task :version do

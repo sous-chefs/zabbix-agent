@@ -1,0 +1,28 @@
+---
+driver:
+  name: vagrant
+
+platforms:
+  - name: windows-2016
+    driver:
+      box: mwrock/Windows2016
+  - name: windows-2012r2
+    driver_config:
+      communicator: winrm
+      box_url: https://wrock.blob.core.windows.net/vhds/vbox2012r2.box
+      customize:
+        usbehci: "off"
+
+verifier:
+  name: inspec
+  format: documentation
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 12.19.36
+
+suites:
+- name: default
+  run_list:
+    - "recipe[zabbix-agent]"
+  attributes:
