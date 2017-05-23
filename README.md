@@ -188,7 +188,7 @@ Needs testing
 The LWRPs have been moved to the libzabbix cookbook.  https://github.com/TD-4242/cookbook-libzabbix
 
 # Testing
-To run the tests, insure you meet the below dependancies, then just run rake in the root of the cookbook
+To run the tests, insure you meet the below dependancies, then just run `rake` in the root of the cookbook
 
 - Linux, MacOS X
     - Chef-DK - https://downloads.chef.io/chef-dk/ - 0.4.0
