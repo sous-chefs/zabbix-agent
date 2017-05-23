@@ -1,12 +1,19 @@
 ---
 driver:
-  name: vagrant
+  name: docker
+  disable_upstart: false
+  image: ubuntu-upstart:14.04
+  run_command: /sbin/init
+
+driver_config:
+  provision_command:
+  - curl -L https://www.opscode.com/chef/install.sh | bash -s -- -v 12.19.36
+  require_chef_omnibus: true
 
 platforms:
 #- name: ubuntu-10.04
 #- name: ubuntu-12.04
-  - name: ubuntu-14.04
-  - name: ubuntu-16.04
+- name: ubuntu-14.04
 #- name: centos-6.7
 #- name: centos-7.2 # needs systemd support?
 #- name: debian-6.0.10
@@ -17,33 +24,36 @@ platforms:
 #- name: fedora-20
 #- name: fedora-21
 #- name: opensuse-13.1
-  - name: windows-2016
-    driver:
-      box: mwrock/Windows2016
-  - name: windows-2012r2
-    driver_config:
-      communicator: winrm
-      box_url: https://wrock.blob.core.windows.net/vhds/vbox2012r2.box
-      customize:
-        usbehci: "off"
+#- name: windows-2012r2
+#  driver_config:
+#    communicator: winrm
+#    box_url: https://wrock.blob.core.windows.net/vhds/vbox2012r2.box
+#    customize:
+#      usbehci: "off"
 
 verifier:
   name: inspec
   format: documentation
 
 provisioner:
-  name: chef_zero
-  require_chef_omnibus: 12.19.36
+    name: chef_zero
 
 suites:
 - name: default
+  excludes: windows-2012r2
   run_list:
     - "recipe[zabbix-agent]"
   attributes:
+#- name: default_win
+#  includes: windows-2012r2
+#  run_list:
+#    - "recipe[zabbix-agent]"
+#  attributes:
+#    zabbix:
+#      agent:
+#        user: vagrant
 - name: source
-  excludes:
-    - windows-2012r2
-    - windows-2016
+  excludes: windows-2012r2
   run_list:
     - "recipe[zabbix-agent]"
   attributes:
@@ -51,9 +61,7 @@ suites:
       agent:
         install_method: "source"
 - name: prebuild
-  excludes:
-    - windows-2012r2
-    - windows-2016
+  excludes: windows-2012r2
   run_list:
     - "recipe[zabbix-agent]"
   attributes:
