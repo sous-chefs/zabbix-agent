@@ -1,17 +1,15 @@
 ---
 driver:
   name: vagrant
+  gui: false
 
 platforms:
   - name: windows-2016
     driver:
       box: mwrock/Windows2016
   - name: windows-2012r2
-    driver_config:
-      communicator: winrm
+    driver:
       box: mwrock/Windows2012R2
-      customize:
-        usbehci: "off"
 
 verifier:
   name: inspec
