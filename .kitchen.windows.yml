@@ -9,7 +9,7 @@ platforms:
   - name: windows-2012r2
     driver_config:
       communicator: winrm
-      box_url: https://wrock.blob.core.windows.net/vhds/vbox2012r2.box
+      box: mwrock/Windows2012R2
       customize:
         usbehci: "off"
 
