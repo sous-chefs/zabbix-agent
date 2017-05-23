@@ -27,8 +27,10 @@ else
 end
 
 directory node['zabbix']['install_dir'] do
-  owner node['zabbix']['agent']['user']
-  group node['zabbix']['agent']['group']
+  unless node.platform_family?('windows') && node['zabbix']['agent']['user'] == 'Administrator'
+    owner node['zabbix']['agent']['user']
+    group node['zabbix']['agent']['group']
+  end
   mode '755'
 end
 
@@ -36,17 +38,17 @@ end
 case node['platform_family']
 when 'windows'
   directory node['zabbix']['etc_dir'] do
-    owner node['zabbix']['agent']['user']
+    owner node['zabbix']['agent']['user'] unless node['zabbix']['agent']['user'] == 'Administrator'
     rights :read, 'Everyone', applies_to_children: true
     recursive true
   end
   directory node['zabbix']['agent']['scripts'] do
-    owner node['zabbix']['agent']['user']
+    owner node['zabbix']['agent']['user'] unless node['zabbix']['agent']['user'] == 'Administrator'
     rights :read, 'Everyone', applies_to_children: true
     recursive true
   end
   directory node['zabbix']['agent']['include_dir'] do
-    owner node['zabbix']['agent']['user']
+    owner node['zabbix']['agent']['user'] unless node['zabbix']['agent']['user'] == 'Administrator'
     rights :read, 'Everyone', applies_to_children: true
     recursive true
     notifies :restart, 'service[zabbix-agent]'
@@ -82,8 +84,10 @@ zabbix_dirs << node['zabbix']['run_dir'] unless node['platform'] == 'windows'
 # Create zabbix folders
 zabbix_dirs.each do |dir|
   directory dir do
-    owner node['zabbix']['agent']['user']
-    group node['zabbix']['agent']['group']
+    unless node.platform_family?('windows') && node['zabbix']['agent']['user'] == 'Administrator'
+      owner node['zabbix']['agent']['user']
+      group node['zabbix']['agent']['group']
+    end
     mode '755'
     recursive true
     # Only execute this if zabbix can't write to it. This handles cases of

@@ -1,20 +1,38 @@
-describe user('zabbix') do
-  it { should exist }
-  its('group') { should eq 'zabbix' }
+unless os.windows?
+  describe user('zabbix') do
+    it { should exist }
+    its('group') { should eq 'zabbix' }
+  end
+
+  describe group('zabbix') do
+    it { should exist }
+  end
 end
 
-describe group('zabbix') do
-  it { should exist }
-end
-
-describe file('/etc/zabbix/scripts') do
+zabbix_config_dir = if os.windows?
+                      'C:/programdata/zabbix'
+                    else
+                      '/etc/zabbix'
+                    end
+describe file(File.join(zabbix_config_dir, 'scripts')) do
   it { should be_directory }
 end
 
-describe file('/etc/zabbix/zabbix_agentd.d') do
+describe file(File.join(zabbix_config_dir, 'zabbix_agentd.d')) do
   it { should be_directory }
 end
 
-describe file('/var/log/zabbix') do
+zabbix_log_dir = if os.windows?
+                   'C:/programdata/zabbix/log'
+                 else
+                   '/var/log/zabbix'
+                 end
+describe file(zabbix_log_dir) do
   it { should be_directory }
+end
+
+if os.windows?
+  describe file('C:\zabbix\agent') do
+    it { should_not be_directory }
+  end
 end

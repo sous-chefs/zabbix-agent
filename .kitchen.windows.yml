@@ -1,0 +1,26 @@
+---
+driver:
+  name: vagrant
+  gui: false
+
+platforms:
+  - name: windows-2016
+    driver:
+      box: mwrock/Windows2016
+  - name: windows-2012r2
+    driver:
+      box: mwrock/Windows2012R2
+
+verifier:
+  name: inspec
+  format: documentation
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 12.19.36
+
+suites:
+- name: default
+  run_list:
+    - "recipe[zabbix-agent]"
+  attributes:
