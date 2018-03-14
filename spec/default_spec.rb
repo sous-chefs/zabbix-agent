@@ -122,7 +122,7 @@ describe 'zabbix-agent::default' do
       expect(chef_run).to add_apt_repository('zabbix').with(
         uri: 'http://repo.zabbix.com/zabbix/3.0/ubuntu/',
         components: ['main'],
-        key: 'http://repo.zabbix.com/zabbix-official-repo.key'
+        key: ['http://repo.zabbix.com/zabbix-official-repo.key']
       )
     end
 
