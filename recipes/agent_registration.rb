@@ -8,7 +8,7 @@
 connection_info = {
   url: "http://#{zabbix_server['zabbix']['web']['fqdn']}/api_jsonrpc.php",
   user: zabbix_server['zabbix']['web']['login'],
-  password: zabbix_server['zabbix']['web']['password'],
+  password: zabbix_server['zabbix']['web']['password']
 }
 
 ip_address = node['ipaddress']
@@ -29,7 +29,7 @@ interface_definitions = {
     useip: 1,
     ip: ip_address,
     dns: node['fqdn'],
-    port: node['zabbix']['agent']['zabbix_agent_port'],
+    port: node['zabbix']['agent']['zabbix_agent_port']
   },
   jmx: {
     type: 4,
@@ -37,7 +37,7 @@ interface_definitions = {
     useip: 1,
     ip: ip_address,
     dns: node['fqdn'],
-    port: node['zabbix']['agent']['jmx_port'],
+    port: node['zabbix']['agent']['jmx_port']
   },
   snmp: {
     type: 2,
@@ -45,8 +45,8 @@ interface_definitions = {
     useip: 1,
     ip: ip_address,
     dns: node['fqdn'],
-    port: node['zabbix']['agent']['snmp_port'],
-  },
+    port: node['zabbix']['agent']['snmp_port']
+  }
 }
 
 interface_list = node['zabbix']['agent']['interfaces']

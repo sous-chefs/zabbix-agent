@@ -19,7 +19,7 @@ namespace :style do
       FoodCritic::Rake::LintTask.new(:chef) do |t|
         puts 'Running Foodcritic...'
         t.options = {
-          fail_tags: ['any'],
+          fail_tags: ['any']
         }
       end
     end
@@ -104,7 +104,7 @@ desc 'Run all unit tests'
 task unit: ['unit:rspec']
 
 desc 'Run style and unit tests for light CI'
-task travis: %w(berkshelf style unit)
+task travis: %w[berkshelf style unit]
 
 desc 'Run all tests including test Kitchen with Vagrant'
 task default: ['unit', 'style', 'integration:vagrant']
