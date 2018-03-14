@@ -19,7 +19,7 @@ namespace :style do
       FoodCritic::Rake::LintTask.new(:chef) do |t|
         puts 'Running Foodcritic...'
         t.options = {
-          fail_tags: ['any']
+          fail_tags: ['any'],
         }
       end
     end

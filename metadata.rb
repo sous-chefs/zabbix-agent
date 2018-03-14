@@ -10,6 +10,9 @@ version '0.14.1'
 
 chef_version '>= 12.7.0' if respond_to?(:chef_version)
 
+issues_url 'https://github.com/TD-4242/zabbix-agent/issues'
+source_url 'https://github.com/TD-4242/zabbix-agent'
+
 # tested on ubuntu 10.04 12.04 and 14.04
 supports 'ubuntu', '>= 10.04'
 # tested on centos 6.6 and 7.0

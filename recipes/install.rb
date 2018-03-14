@@ -27,7 +27,7 @@ else
 end
 
 directory node['zabbix']['install_dir'] do
-  unless node.platform_family?('windows') && node['zabbix']['agent']['user'] == 'Administrator'
+  unless platform_family?('windows') && node['zabbix']['agent']['user'] == 'Administrator'
     owner node['zabbix']['agent']['user']
     group node['zabbix']['agent']['group']
   end
@@ -77,14 +77,14 @@ end
 
 # Define zabbix owned folders
 zabbix_dirs = [
-  node['zabbix']['log_dir']
+  node['zabbix']['log_dir'],
 ]
 zabbix_dirs << node['zabbix']['run_dir'] unless node['platform'] == 'windows'
 
 # Create zabbix folders
 zabbix_dirs.each do |dir|
   directory dir do
-    unless node.platform_family?('windows') && node['zabbix']['agent']['user'] == 'Administrator'
+    unless platform_family?('windows') && node['zabbix']['agent']['user'] == 'Administrator'
       owner node['zabbix']['agent']['user']
       group node['zabbix']['agent']['group']
     end
