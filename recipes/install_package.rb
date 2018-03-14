@@ -9,7 +9,7 @@
 
 if node['platform'] == 'windows'
   include_recipe 'chocolatey'
-  chocolatey 'zabbix-agent'
+  chocolatey_package 'zabbix-agent'
 else
   case node['platform']
   when 'ubuntu', 'debian'
