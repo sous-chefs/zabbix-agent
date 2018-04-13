@@ -104,7 +104,7 @@ desc 'Run all unit tests'
 task unit: ['unit:rspec']
 
 desc 'Run style and unit tests for light CI'
-task travis: %w(berkshelf style unit)
+task travis: %w[berkshelf style unit]
 
 desc 'Run all tests including test Kitchen with Vagrant'
 task default: ['unit', 'style', 'integration:vagrant']
