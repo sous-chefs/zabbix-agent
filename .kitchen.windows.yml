@@ -17,10 +17,13 @@ verifier:
 
 provisioner:
   name: chef_zero
-  require_chef_omnibus: 12.19.36
+  require_chef_omnibus: latest
 
 suites:
 - name: default
   run_list:
     - "recipe[zabbix-agent]"
   attributes:
+    zabbix:
+      agent:
+        version: 2.4.4

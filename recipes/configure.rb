@@ -8,6 +8,8 @@
 #
 include_recipe 'zabbix-agent::install'
 
+node.default['zabbix']['agent']['conf'].delete('LogType') if node['zabbix']['agent']['version'].to_i < 3
+
 # Install configuration
 template 'zabbix_agentd.conf' do
   path node['zabbix']['agent']['config_file']
