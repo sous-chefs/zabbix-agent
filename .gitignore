@@ -27,3 +27,4 @@ vendor
 .kitchen/
 .kitchen.local.yml
 cookbooks
+.idea
