@@ -35,4 +35,9 @@ if os.windows?
   describe file('C:\zabbix\agent') do
     it { should_not be_directory }
   end
+
+  describe file('C:\Program Files\Zabbix Agent\zabbix_agentd.exe') do
+    it { should be_file }
+    its('product_version') { should eq '2.4.4' }
+  end
 end

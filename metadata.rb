@@ -6,7 +6,7 @@ description 'Installs/Configures Zabbix Agent'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 source_url 'https://github.com/TD-4242/zabbix-agent'
 issues_url 'https://github.com/TD-4242/zabbix-agent/issues'
-version '0.14.1'
+version '0.14.2'
 
 chef_version '>= 12.7.0' if respond_to?(:chef_version)
 

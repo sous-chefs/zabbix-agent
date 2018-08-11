@@ -95,11 +95,10 @@ Alternatively you can just install, or install and configure:
 ### ATTRIBUTES
 Install Method options are:
 
-    node['zabbix']['agent']['install_method'] = 'package' # Default
+    node['zabbix']['agent']['install_method'] = 'package' # Default. Uses Chocolatey on Windows
     node['zabbix']['agent']['install_method'] = 'source'
     node['zabbix']['agent']['install_method'] = 'prebuild'
     node['zabbix']['agent']['install_method'] = 'cookbook_file' # not yet implemented
-    node['zabbix']['agent']['install_method'] = 'chocolatey' # Default for Windows
 
     # skip is preferred if no internet access when provisioning
     # zabbix agent was already installed via chef during image bake process
@@ -120,6 +119,12 @@ If you do not set any attributes you will get an install of zabbix agent version
 what should be a working configuration if your DNS has aliases for zabbix.yourdomain.com and
 your hosts search yourdomain.com.
 
+On Windows, the version of the package can be specified using
+
+    node['zabbix']['agent']['version']
+
+The version needs be be avaible in the [Chocolatey Repo](https://chocolatey.org/packages/zabbix-agent).
+
 #### Source install
 If you do not specify source\_url attributes for agent it will be set to download the specified branch and version from the official Zabbix source repository. If you want to upgrade later, you need to either nil out the source\_url attributes or set them to the URL you wish to download from.
 
@@ -139,9 +144,6 @@ to the version you wish to be installed.
 
 #### Cookbook file install
 This will install a provided package that can be included in the ./files directory of the cookbook itself and stored on the chef server.
-
-#### Chocolatey install
-Currently untested.  Pull requests and kitchen tests desired.
 
 ### Note :
 A Zabbix agent running on the Zabbix server will need to :
