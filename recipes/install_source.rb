@@ -10,14 +10,14 @@ case node['platform']
 when 'ubuntu', 'debian'
   include_recipe 'apt'
   # install some dependencies
-  %w[libcurl3 libcurl4-openssl-dev].each do |pck|
+  %w(libcurl3 libcurl4-openssl-dev).each do |pck|
     package pck do
       action :install
     end
   end
 
 when 'redhat', 'centos', 'scientific', 'amazon', 'fedora'
-  %w[curl-devel openssl-devel redhat-lsb].each do |pck|
+  %w(curl-devel openssl-devel redhat-lsb).each do |pck|
     package pck do
       action :install
     end
