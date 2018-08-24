@@ -1,17 +1,14 @@
 name 'zabbix-agent'
-maintainer 'Bill Warner'
-maintainer_email 'bill.warner@gmail.com'
+maintainer 'Sous Chefs'
+maintainer_email 'help@sous-chefs.org'
 license 'Apache 2.0'
 description 'Installs/Configures Zabbix Agent'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-source_url 'https://github.com/TD-4242/zabbix-agent'
-issues_url 'https://github.com/TD-4242/zabbix-agent/issues'
+source_url 'https://github.com/sous-chefs/zabbix-agent'
+issues_url 'https://github.com/sous-chefs/zabbix-agent/issues'
 version '0.14.1'
 
 chef_version '>= 12.7.0' if respond_to?(:chef_version)
-
-issues_url 'https://github.com/TD-4242/zabbix-agent/issues'
-source_url 'https://github.com/TD-4242/zabbix-agent'
 
 # tested on ubuntu 10.04 12.04 and 14.04
 supports 'ubuntu', '>= 10.04'
