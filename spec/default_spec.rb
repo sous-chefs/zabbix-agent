@@ -132,7 +132,7 @@ describe 'zabbix-agent::default' do
   end
 
   context 'if installed on CentOS it' do
-    cached(:chef_run) { ChefSpec::ServerRunner.new(platform: 'centos', version: '6.5').converge(described_recipe) }
+    cached(:chef_run) { ChefSpec::ServerRunner.new(platform: 'centos', version: '6.9').converge(described_recipe) }
 
     it 'includes the yum cookbook' do
       expect(chef_run).to include_recipe('yum')

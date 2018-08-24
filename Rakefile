@@ -28,6 +28,7 @@ namespace :style do
   end
 
   begin
+    require 'cookstyle'
     require 'rubocop/rake_task'
     desc 'Run Ruby style checks'
     RuboCop::RakeTask.new(:ruby)
