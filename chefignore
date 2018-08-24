@@ -79,6 +79,7 @@ tmp
 CONTRIBUTING
 CHANGELOG*
 cookbooks*
+graph.png
 
 # Strainer #
 ############
@@ -95,3 +96,4 @@ Vagrantfile
 # Travis #
 ##########
 .travis.yml
+

@@ -23,7 +23,7 @@ when 'sysvinit'
   service 'zabbix-agent' do
     pattern 'zabbix_agentd'
     supports status: true, start: true, stop: true, restart: true
-    action %i[enable start]
+    action %i(enable start)
   end
 when 'systemd'
   template '/etc/systemd/system/zabbix-agent.service' do
@@ -37,7 +37,7 @@ when 'systemd'
   service 'zabbix-agent' do
     pattern 'zabbix_agentd'
     supports status: true, start: true, stop: true, restart: true
-    action %i[enable start]
+    action %i(enable start)
   end
   # when 'upstart'
   #   upstart.conf
@@ -53,6 +53,6 @@ else
   service 'zabbix-agent' do
     pattern 'zabbix_agentd'
     supports status: true, start: true, stop: true, restart: true
-    action %i[enable start]
+    action %i(enable start)
   end
 end

@@ -77,7 +77,7 @@ end
 
 # Define zabbix owned folders
 zabbix_dirs = [
-  node['zabbix']['log_dir']
+  node['zabbix']['log_dir'],
 ]
 zabbix_dirs << node['zabbix']['run_dir'] unless node['platform'] == 'windows'
 
