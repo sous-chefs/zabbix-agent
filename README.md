@@ -1,7 +1,6 @@
 # Chef Cookbook - zabbix-agent
-[![CK Version](http://img.shields.io/cookbook/v/zabbix-agent.svg)](https://supermarket.getchef.com/cookbooks/zabbix-agent)
-[![Build Status](https://secure.travis-ci.org/TD-4242/zabbix-agent.png)](http://travis-ci.org/TD-4242/zabbix-agent)
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/TD-4242/zabbix-agent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Cookbook Version](http://img.shields.io/cookbook/v/zabbix-agent.svg)](https://supermarket.getchef.com/cookbooks/zabbix-agent)
+[![CircleCI](https://circleci.com/gh/sous-chefs/zabbix-agent.svg?style=svg)](https://circleci.com/gh/sous-chefs/zabbix-agent)
 
 This cookbook installs and configures the zabbix-agent with sane defaults and very minimal dependancies.
 
