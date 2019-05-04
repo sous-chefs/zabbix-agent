@@ -202,40 +202,27 @@ To run the tests, insure you meet the below dependancies, then just run `rake` i
 - Windows
     - run `rake windows` to test Windows 2012R2 and 2016
 
-# TODO
-* Verify and test on freebsd
-* Add cookbook_file install method
+## Contributors
 
-# CHANGELOG
-### 0.14.0
-  * upgrade to default client version 3.0.9
-  * move kitchen to docker so it can be run in travisci
+This project exists thanks to all the people who contribute.
+<img src="https://opencollective.com/sous-chefs/contributors.svg?width=890&button=false" /></a>
 
-### 0.13.0
-### 0.12.0
-  * include kitchen tests for all supported OS types
-  * upgrade to default client version 2.4.4
-  * cleanup source compile dependancies
-  * added debian as supported
-  * added more distributions and versions to kitchen testing
-  * many bug fixes for diffrent distribution versions
 
-### 0.11.0
-  * Move LWRPs to their own cookbook to clean up zabbix-agent
-  * Clean up linting and unit tests
+### Backers
 
-### 0.10.0
-  * Upgrading from 0.9.0 may require some slight changes to attribute names that control the configuration file.
-  * Migrate zabbix_agentd.conf to a fully dynamically generated template
-  * Include many more tests
-  * General clean-up of code
-  
-### 0.9.0
-  * Major refactor of all code.  
-  * Rename cookbook to zabbix-agent, strip out all server, web, java-gateway dependencies.
-  * Add default code path chefspec tests
-  * Update kitchen tests
-  * Added package install from repo.zabbix.com
-  * Rename many cookbooks to follow a Install->Configure->Service design pattern.
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/sous-chefs#backer)]
+<a href="https://opencollective.com/sous-chefs#backers" target="_blank"><img src="https://opencollective.com/sous-chefs/backers.svg?width=890"></a>
 
-### 0.8.0 forked from https://github.com/laradji/zabbix see this page for historical change log
+### Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/sous-chefs#sponsor)]
+<a href="https://opencollective.com/sous-chefs/sponsor/0/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/1/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/2/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/3/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/4/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/5/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/6/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/7/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/8/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/9/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/9/avatar.svg"></a>
