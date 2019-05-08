@@ -1,6 +1,10 @@
 # Chef Cookbook - zabbix-agent
-[![Cookbook Version](http://img.shields.io/cookbook/v/zabbix-agent.svg)](https://supermarket.getchef.com/cookbooks/zabbix-agent)
-[![CircleCI](https://circleci.com/gh/sous-chefs/zabbix-agent.svg?style=svg)](https://circleci.com/gh/sous-chefs/zabbix-agent)
+
+[![Cookbook Version](https://img.shields.io/cookbook/v/zabbix-agent.svg)](https://supermarket.chef.io/cookbooks/zabbix-agent)
+[![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/zabbix-agent/master.svg)](https://circleci.com/gh/sous-chefs/zabbix-agent)
+[![OpenCollective](https://opencollective.com/sous-chefs/backers/badge.svg)](#backers)
+[![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
 This cookbook installs and configures the zabbix-agent with sane defaults and very minimal dependancies.
 
@@ -202,40 +206,27 @@ To run the tests, insure you meet the below dependancies, then just run `rake` i
 - Windows
     - run `rake windows` to test Windows 2012R2 and 2016
 
-# TODO
-* Verify and test on freebsd
-* Add cookbook_file install method
+## Contributors
 
-# CHANGELOG
-### 0.14.0
-  * upgrade to default client version 3.0.9
-  * move kitchen to docker so it can be run in travisci
+This project exists thanks to all the people who [contribute.](https://opencollective.com/sous-chefs/contributors.svg?width=890&button=false)
 
-### 0.13.0
-### 0.12.0
-  * include kitchen tests for all supported OS types
-  * upgrade to default client version 2.4.4
-  * cleanup source compile dependancies
-  * added debian as supported
-  * added more distributions and versions to kitchen testing
-  * many bug fixes for diffrent distribution versions
+### Backers
 
-### 0.11.0
-  * Move LWRPs to their own cookbook to clean up zabbix-agent
-  * Clean up linting and unit tests
+Thank you to all our backers!
 
-### 0.10.0
-  * Upgrading from 0.9.0 may require some slight changes to attribute names that control the configuration file.
-  * Migrate zabbix_agentd.conf to a fully dynamically generated template
-  * Include many more tests
-  * General clean-up of code
-  
-### 0.9.0
-  * Major refactor of all code.  
-  * Rename cookbook to zabbix-agent, strip out all server, web, java-gateway dependencies.
-  * Add default code path chefspec tests
-  * Update kitchen tests
-  * Added package install from repo.zabbix.com
-  * Rename many cookbooks to follow a Install->Configure->Service design pattern.
+![https://opencollective.com/sous-chefs#backers](https://opencollective.com/sous-chefs/backers.svg?width=600&avatarHeight=40)
 
-### 0.8.0 forked from https://github.com/laradji/zabbix see this page for historical change log
+### Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
+
+![https://opencollective.com/sous-chefs/sponsor/0/website](https://opencollective.com/sous-chefs/sponsor/0/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/1/website](https://opencollective.com/sous-chefs/sponsor/1/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/2/website](https://opencollective.com/sous-chefs/sponsor/2/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/3/website](https://opencollective.com/sous-chefs/sponsor/3/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/4/website](https://opencollective.com/sous-chefs/sponsor/4/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/5/website](https://opencollective.com/sous-chefs/sponsor/5/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/6/website](https://opencollective.com/sous-chefs/sponsor/6/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/7/website](https://opencollective.com/sous-chefs/sponsor/7/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/8/website](https://opencollective.com/sous-chefs/sponsor/8/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/9/website](https://opencollective.com/sous-chefs/sponsor/9/avatar.svg?avatarHeight=100)
