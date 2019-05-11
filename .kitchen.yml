@@ -24,23 +24,23 @@ platforms:
   - name: ubuntu-18.04
 
 suites:
-- name: default
-  run_list:
-  - "recipe[zabbix-agent]"
+  - name: default
+    run_list:
+      - "recipe[zabbix-agent]"
 
-- name: source
-  run_list:
-  - "recipe[zabbix-agent]"
-  attributes:
-    zabbix:
-      agent:
-        install_method: "source"
+  - name: source
+    run_list:
+      - "recipe[zabbix-agent]"
+    attributes:
+      zabbix:
+        agent:
+          install_method: "source"
 
-- name: prebuild
-  run_list:
-  - "recipe[zabbix-agent]"
-  attributes:
-    zabbix:
-      agent:
-        install_method: "prebuild"
-        version: "3.0.4"
+  - name: prebuild
+    run_list:
+      - "recipe[zabbix-agent]"
+    attributes:
+      zabbix:
+        agent:
+          install_method: "prebuild"
+          version: "3.0.4"
