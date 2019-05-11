@@ -28,6 +28,7 @@ workflows:
       - kitchen/dokken-single:
           name: default
           suite: default
+          channel: stable
           requires:
             *lint_and_unit
 
@@ -35,6 +36,7 @@ workflows:
       - kitchen/dokken-single:
           name: source
           suite: source
+          channel: stable
           requires:
             *lint_and_unit
 
@@ -42,7 +44,6 @@ workflows:
       - kitchen/dokken-single:
           name: prebuild
           suite: prebuild
+          channel: stable
           requires:
             *lint_and_unit
-    environment:
-      CHEF_LICENSE: "accept-no-persist"
