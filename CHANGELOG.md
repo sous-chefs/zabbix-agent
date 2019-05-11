@@ -30,10 +30,10 @@
 - Migrate zabbix_agentd.conf to a fully dynamically generated template
 - Include many more tests
 - General clean-up of code
-  
+
 ## 0.9.0
 
-- Major refactor of all code.  
+- Major refactor of all code.
 - Rename cookbook to zabbix-agent, strip out all server, web, java-gateway dependencies.
 - Add default code path chefspec tests
 - Update kitchen tests

@@ -24,12 +24,16 @@ If you have a supported OS, internet access, and a searchable DNS alias for "zab
 
 Otherwise you will need to modify this to point to your zabbix server:
 
-    node['zabbix']['agent']['servers'] = 'zabbix-server.yourdomain.com'
+```ruby
+node['zabbix']['agent']['servers'] = 'zabbix-server.yourdomain.com'
+```
 
 and
 
-    default['zabbix']['agent']['package']['repo_uri'] = 'http://private-repo.yourdomain.com'
-    default['zabbix']['agent']['package']['repo_key'] = 'http://private-repo.yourdomain.com/path-to-repo.key'
+```ruby
+default['zabbix']['agent']['package']['repo_uri'] = 'http://private-repo.yourdomain.com'
+default['zabbix']['agent']['package']['repo_key'] = 'http://private-repo.yourdomain.com/path-to-repo.key'
+```
 
 or try one of the other install methods
 
@@ -43,11 +47,15 @@ or try one of the other install methods
 
 All attributes in the zabbix_agentd.conf file can be controlled from the:
 
-    node['zabbix']['agent']['conf']
+```ruby
+node['zabbix']['agent']['conf']
+```
 
 attribute.  This will require a change in attribute naming for upgrades from 0.9.0.
 
-    default['zabbix']['agent']['conf']['Timeout'] = '10'
+```ruby
+default['zabbix']['agent']['conf']['Timeout'] = '10'
+```
 
 or
 
@@ -105,25 +113,31 @@ or
 
 Install Method options are:
 
-    node['zabbix']['agent']['install_method'] = 'package' # Default
-    node['zabbix']['agent']['install_method'] = 'source'
-    node['zabbix']['agent']['install_method'] = 'prebuild'
-    node['zabbix']['agent']['install_method'] = 'cookbook_file' # not yet implemented
-    node['zabbix']['agent']['install_method'] = 'chocolatey' # Default for Windows
+```ruby
+node['zabbix']['agent']['install_method'] = 'package' # Default
+node['zabbix']['agent']['install_method'] = 'source'
+node['zabbix']['agent']['install_method'] = 'prebuild'
+node['zabbix']['agent']['install_method'] = 'cookbook_file' # not yet implemented
+node['zabbix']['agent']['install_method'] = 'chocolatey' # Default for Windows
 
-    # skip is preferred if no internet access when provisioning
-    # zabbix agent was already installed via chef during image bake process
-    node['zabbix']['agent']['install_method'] = 'skip'
+# skip is preferred if no internet access when provisioning
+# zabbix agent was already installed via chef during image bake process
+node['zabbix']['agent']['install_method'] = 'skip'
+```
 
 Version
 
-    node['zabbix']['agent']['version'] # Default 3.0.9
+```ruby
+node['zabbix']['agent']['version'] # Default 3.0.9
+```
 
 Servers
 
-    node['zabbix']['agent']['conf']['Server'] = ["Your_zabbix_server.com","secondaryserver.com"]
-        # defaults to zabbix
-    node['zabbix']['agent']['conf']['ServerActive'] = ["Your_zabbix_active_server.com"]
+```ruby
+node['zabbix']['agent']['conf']['Server'] = ["Your_zabbix_server.com","secondaryserver.com"]
+# defaults to zabbix
+node['zabbix']['agent']['conf']['ServerActive'] = ["Your_zabbix_active_server.com"]
+```
 
 #### Package install
 
@@ -135,18 +149,24 @@ your hosts search yourdomain.com.
 
 If you do not specify source\_url attributes for agent it will be set to download the specified branch and version from the official Zabbix source repository. If you want to upgrade later, you need to either nil out the source\_url attributes or set them to the URL you wish to download from.
 
-    node['zabbix']['agent']['version']
-    node['zabbix']['agent']['configure_options']
+```ruby
+node['zabbix']['agent']['version']
+node['zabbix']['agent']['configure_options']
+```
 
 to install an alternative branch or tar file you can specify it here
 
-    node['zabbix']['agent']['source_url'] = "http://domain.com/path/to/source.tar.gz"
+```ruby
+node['zabbix']['agent']['source_url'] = "http://domain.com/path/to/source.tar.gz"
+```
 
 #### Prebuild install
 
 The current latest prebuild is behind the source and packaged versions.  You will need to set
 
-    node['zabbix']['agent']['version']
+```ruby
+node['zabbix']['agent']['version']
+```
 
 to the version you wish to be installed.
 
@@ -173,13 +193,27 @@ The default recipe installs, configures and starts the zabbix_agentd.
 
 You can control the agent install with the following attributes:
 
+```ruby
     node['zabbix']['agent']['install_method'] = 'package' # Default
-  or
+```
+
+or
+
+```ruby
     node['zabbix']['agent']['install_method'] = 'source'
-  or
+```
+
+or
+
+```ruby
     node['zabbix']['agent']['install_method'] = 'prebuild'
-  or
+```
+
+or
+
+```ruby
     node['zabbix']['agent']['install_method'] = 'cookbook_file' # not yet implemented
+```
 
 ### service
 
