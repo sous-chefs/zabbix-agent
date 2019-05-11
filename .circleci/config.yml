@@ -1,9 +1,9 @@
 ---
-lint_and_unit: &lint_and_unit
-  - delivery
-  - danger
-  - lint-yaml
-  - lint-markdown
+# lint_and_unit: &lint_and_unit
+#   - delivery
+#   - danger
+#   - lint-yaml
+#   - lint-markdown
 
 # version: 2.1
 # orbs:
@@ -186,21 +186,21 @@ workflows:
           name: default
           suite: default
           channel: stable
-          requires:
-            *lint_and_unit
+        #   requires:
+            # *lint_and_unit
 
       # source install tests
       - kitchen/dokken-single:
           name: source
           suite: source
           channel: stable
-          requires:
-            *lint_and_unit
+        #   requires:
+            # *lint_and_unit
 
       # prebuild tests
       - kitchen/dokken-single:
           name: prebuild
           suite: prebuild
           channel: stable
-          requires:
-            *lint_and_unit
+        #   requires:
+        #     *lint_and_unit
