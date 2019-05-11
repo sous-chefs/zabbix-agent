@@ -26,86 +26,21 @@ workflows:
       # Use dokken-single as we don't support CentOS-6
       # Test default config
       - kitchen/dokken-single:
-          name: default-centos-7
-          platform: centos-7
-          suite: default
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: default-debian-8
-          platform: debian-8
-          suite: default
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: default-debian-9
-          platform: debian-9
-          suite: default
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: default-ubuntu-16.04
-          platform: ubuntu-1604
-          suite: default
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: default-ubuntu-18.04
-          platform: ubuntu-1804
+          name: default
           suite: default
           requires:
             *lint_and_unit
 
       # source install tests
       - kitchen/dokken-single:
-          name: source-centos-7
-          platform: centos-7
+          name: source
           suite: source
-          requires: [default-centos-7]
-      - kitchen/dokken-single:
-          name: source-debian-8
-          platform: debian-8
-          suite: source
-          requires: [default-debian-8]
-      - kitchen/dokken-single:
-          name: source-debian-9
-          platform: debian-9
-          suite: source
-          requires: [default-debian-9]
-      - kitchen/dokken-single:
-          name: source-ubuntu-16.04
-          platform: ubuntu-1604
-          suite: source
-          requires: [default-ubuntu-16.04]
-      - kitchen/dokken-single:
-          name: source-ubuntu-18.04
-          platform: ubuntu-1804
-          suite: source
-          requires: [default-ubuntu-18.04]
+          requires:
+            *lint_and_unit
 
       # prebuild tests
       - kitchen/dokken-single:
-          name: prebuild-centos-7
-          platform: centos-7
+          name: prebuild
           suite: prebuild
-          requires: [source-centos-7]
-      - kitchen/dokken-single:
-          name: prebuild-debian-8
-          platform: debian-8
-          suite: prebuild
-          requires: [source-debian-8]
-      - kitchen/dokken-single:
-          name: prebuild-debian-9
-          platform: debian-9
-          suite: prebuild
-          requires: [source-debian-9]
-      - kitchen/dokken-single:
-          name: prebuild-ubuntu-16.04
-          platform: ubuntu-1604
-          suite: prebuild
-          requires: [source-ubuntu-16.04]
-      - kitchen/dokken-single:
-          name: prebuild-ubuntu-18.04
-          platform: ubuntu-1804
-          suite: prebuild
-          requires: [source-ubuntu-18.04]
+          requires:
+            *lint_and_unit
