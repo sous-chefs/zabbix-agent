@@ -1,67 +1,42 @@
 ---
 driver:
-  name: docker
-  disable_upstart: false
-  image: ubuntu-upstart:14.04
-  run_command: /sbin/init
+  name: vagrant
 
-driver_config:
-  provision_command:
-  - curl -L https://www.opscode.com/chef/install.sh | bash -s -- -v 12.19.36
-  require_chef_omnibus: true
-
-platforms:
-#- name: ubuntu-10.04
-#- name: ubuntu-12.04
-- name: ubuntu-14.04
-#- name: centos-6.7
-#- name: centos-7.2 # needs systemd support?
-#- name: debian-6.0.10
-#- name: debian-7.8
-# planned for future tested support
-#- name: freebsd-9.3
-#- name: freebsd-10.1
-#- name: fedora-20
-#- name: fedora-21
-#- name: opensuse-13.1
-#- name: windows-2012r2
-#  driver_config:
-#    communicator: winrm
-#    box_url: https://wrock.blob.core.windows.net/vhds/vbox2012r2.box
-#    customize:
-#      usbehci: "off"
+provisioner:
+  name: chef_solo
+  product_name: chef
+  enforce_idempotency: true
+  multiple_converge: 2
+  solo_rb:
+    treat_deprecation_warnings_as_errors: true
 
 verifier:
   name: inspec
-  format: documentation
 
-provisioner:
-    name: chef_zero
+platforms:
+  - name: amazonlinux-2
+    driver_config:
+      box: ywatase/amzn2
+  - name: centos-7
+  - name: debian-8
+  - name: debian-9
+  - name: ubuntu-16.04
+  - name: ubuntu-18.04
 
 suites:
 - name: default
-  excludes: windows-2012r2
   run_list:
     - "recipe[zabbix-agent]"
-  attributes:
-#- name: default_win
-#  includes: windows-2012r2
-#  run_list:
-#    - "recipe[zabbix-agent]"
-#  attributes:
-#    zabbix:
-#      agent:
-#        user: vagrant
+
 - name: source
-  excludes: windows-2012r2
   run_list:
     - "recipe[zabbix-agent]"
   attributes:
     zabbix:
       agent:
         install_method: "source"
+
 - name: prebuild
-  excludes: windows-2012r2
   run_list:
     - "recipe[zabbix-agent]"
   attributes:

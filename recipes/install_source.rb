@@ -24,7 +24,7 @@ when 'redhat', 'centos', 'scientific', 'amazon', 'fedora'
   end
 end
 
-include_recipe 'build-essential'
+build_essential 'build-essentials'
 # --prefix is controlled by install_dir
 configure_options = node['zabbix']['agent']['configure_options'].dup
 configure_options = (configure_options || []).delete_if do |option|
