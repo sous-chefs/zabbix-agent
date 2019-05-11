@@ -10,13 +10,11 @@ This cookbook installs and configures the zabbix-agent with sane defaults and ve
 
 ## Supported OS Distributions
 
-- RHEL/CentOS 6, 7
-- Ubuntu 10.04 12.04 14.04
-- Debian 6.0.10 7.8
-- (soon) fedora
-- (soon) opensuse
-- (planned) freebsd
-- Windows 2012R2, 2016
+- RHEL
+- CentOS
+- Ubuntu
+- Debian
+- Windows
 
 Other similar versions will likely work as well but are not regularly tested.
 

@@ -26,11 +26,11 @@ platforms:
 suites:
 - name: default
   run_list:
-    - "recipe[zabbix-agent]"
+  - "recipe[zabbix-agent]"
 
 - name: source
   run_list:
-    - "recipe[zabbix-agent]"
+  - "recipe[zabbix-agent]"
   attributes:
     zabbix:
       agent:
@@ -38,7 +38,7 @@ suites:
 
 - name: prebuild
   run_list:
-    - "recipe[zabbix-agent]"
+  - "recipe[zabbix-agent]"
   attributes:
     zabbix:
       agent:
