@@ -30,8 +30,6 @@ workflows:
           suite: default
           requires:
             *lint_and_unit
-        environment:
-          CHEF_LICENSE: "accept-no-persist"
 
       # source install tests
       - kitchen/dokken-single:
@@ -46,3 +44,5 @@ workflows:
           suite: prebuild
           requires:
             *lint_and_unit
+    environment:
+      CHEF_LICENSE: "accept-no-persist"
