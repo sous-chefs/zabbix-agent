@@ -169,19 +169,19 @@ workflows:
   kitchen:
     jobs:
       # Lint and Unit Test
-      - kitchen/yamllint:
+      - yamllint:
           name: lint-yaml
-      - kitchen/mdlint:
+      - mdlint:
           name: lint-markdown
-      - kitchen/danger:
+      - danger:
           name: danger
           context: Danger
-      - kitchen/delivery:
+      - delivery:
           name: delivery
 
       # Use dokken-single as we don't support CentOS-6
       # Test default config
-      - kitchen/dokken-single:
+      - dokken-single:
           name: default
           suite: default
           channel: stable
@@ -189,7 +189,7 @@ workflows:
             *lint_and_unit
 
       # source install tests
-      - kitchen/dokken-single:
+      - dokken-single:
           name: source
           suite: source
           channel: stable
@@ -197,7 +197,7 @@ workflows:
             *lint_and_unit
 
       # prebuild tests
-      - kitchen/dokken-single:
+      - dokken-single:
           name: prebuild
           suite: prebuild
           channel: stable
