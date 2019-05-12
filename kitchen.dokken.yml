@@ -14,20 +14,12 @@ provisioner:
   name: dokken
 
 platforms:
-  - name: amazonlinux-2
-    driver:
-      image: dokken/amazonlinux-2
-      pid_one_command: /usr/lib/systemd/systemd
-      intermediate_instructions:
-        - RUN export CHEF_LICENSE="accept"
-
   - name: debian-8
     driver:
       image: dokken/debian-8
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
-        - RUN export CHEF_LICENSE="accept"
 
   - name: debian-9
     driver:
@@ -35,14 +27,11 @@ platforms:
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
-        - RUN export CHEF_LICENSE="accept"
 
   - name: centos-7
     driver:
       image: dokken/centos-7
       pid_one_command: /usr/lib/systemd/systemd
-      intermediate_instructions:
-        - RUN export CHEF_LICENSE="accept"
 
   - name: ubuntu-16.04
     driver:
@@ -50,7 +39,6 @@ platforms:
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
-        - RUN export CHEF_LICENSE="accept"
 
   - name: ubuntu-18.04
     driver:
@@ -58,4 +46,3 @@ platforms:
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
-        - RUN export CHEF_LICENSE="accept"
