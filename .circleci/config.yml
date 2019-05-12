@@ -156,6 +156,6 @@ workflows:
     jobs:
       # Use dokken-single as we don't support CentOS-6
       # Test default config
-      - kitchen/dokken-single:
+      - dokken-single:
           name: default
           suite: default
