@@ -126,7 +126,7 @@ jobs:
       - run:
           command: |
             printenv
-            CHEF_LICENSE="accept-no-persist" kitchen test <<parameters.suite>>
+            kitchen test <<parameters.suite>>
       - store_artifacts:
           path: .kitchen/logs
           when: always
