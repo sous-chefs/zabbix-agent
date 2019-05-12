@@ -159,5 +159,5 @@ workflows:
       # Use dokken-single as we don't support CentOS-6
       # Test default config
       - dokken-single:
-          name: default
-          suite: default
+          name: default-centos-7
+          suite: default-centos-7
