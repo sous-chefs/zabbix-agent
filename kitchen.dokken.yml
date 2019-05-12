@@ -5,7 +5,7 @@ driver:
   privileged: true
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
   env: 
-    - CHEF_LICENSE: "accept-no-persist"
+    - CHEF_LICENSE=accept-no-persist
 
 transport:
   name: dokken
