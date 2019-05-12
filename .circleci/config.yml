@@ -1,205 +1,46 @@
 ---
-version: 2.1
-
 lint_and_unit: &lint_and_unit
   - delivery
   - danger
   - lint-yaml
   - lint-markdown
 
-# version: 2.1
-# orbs:
-#   kitchen: sous-chefs/kitchen@2.0.1
-
-executors:
-  delivery:
-    docker: [image: "chef/chefdk:4.0.5"]
-  ruby:
-    docker: [image: "circleci/ruby"]
-  python:
-    docker: [image: "circleci/python"]
-  chef:
-    machine:
-      image: "circleci/classic:201808-01"
-
-commands:
-  install_chef:
-    description: Installs Chef Development Kit
-    parameters:
-      channel:
-        description: ChefDK channel stable or current
-        type: string
-        default: current
-    steps:
-      - run:
-          name: Install Chef
-          command: |
-            while sudo fuser /var/{lib/{dpkg,apt/lists},cache/apt/archives}/lock >/dev/null 2>&1; do
-              sudo lsof /var/lib/dpkg/lock
-              sleep 1
-            done
-            curl -L https://omnitruck.chef.io/install.sh |
-                    sudo bash -s -- -c <<parameters.channel>> -P chefdk
-
-jobs:
-  danger:
-    executor: ruby
-    steps:
-      - checkout
-      - run:
-          name: Install Danger
-          command: gem install danger
-      - run:
-          name: Run Danger
-          command: danger
-  delivery:
-    executor: delivery
-    steps:
-      - checkout
-      - run:
-          name: Run delivery
-          command: delivery local all
-  dokken:
-    executor: chef
-    parameters:
-      suite:
-        description: Test Kitchen suite name
-        type: string
-      channel:
-        description: ChefDK channel stable or current
-        type: string
-        default: current
-      timeout:
-        description: Set the command timeout
-        type: string
-        default: 1h
-    environment:
-      KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-      CHEF_LICENSE: "accept-no-persist"
-    steps:
-      - checkout
-      - install_chef:
-          channel: <<parameters.channel>>
-      - run:
-          name: env settings
-          command: printenv
-      - run:
-          name: amazonlinux
-          no_output_timeout: <<parameters.timeout>>
-          command: kitchen test <<parameters.suite>>-amazonlinux
-      - run:
-          name: amazonlinux-2
-          no_output_timeout: <<parameters.timeout>>
-          command: kitchen test <<parameters.suite>>-amazonlinux-2
-      - run:
-          name: centos-6
-          no_output_timeout: <<parameters.timeout>>
-          command: kitchen test <<parameters.suite>>-centos-6
-      - run:
-          name: centos-7
-          no_output_timeout: <<parameters.timeout>>
-          command: kitchen test <<parameters.suite>>-centos-7
-      - run:
-          name: debian-8
-          no_output_timeout: <<parameters.timeout>>
-          command: kitchen test <<parameters.suite>>-debian-8
-      - run:
-          name: debian-9
-          no_output_timeout: <<parameters.timeout>>
-          command: kitchen test <<parameters.suite>>-debian-9
-      - run:
-          name: ubuntu-16.04
-          no_output_timeout: <<parameters.timeout>>
-          command: kitchen test <<parameters.suite>>-ubuntu-1604
-      - run:
-          name: ubuntu-18.04
-          no_output_timeout: <<parameters.timeout>>
-          command: kitchen test <<parameters.suite>>-ubuntu-1804
-      - store_artifacts:
-          path: .kitchen/logs
-          when: always
-
-  dokken-single:
-    executor: chef
-    parameters:
-      suite:
-        description: Test Kitchen suite name
-        type: string
-      channel:
-        description: ChefDK channel stable or current
-        type: string
-        default: current
-    environment:
-      KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-      CHEF_LICENSE: "accept-no-persist"
-    steps:
-      - checkout
-      - install_chef:
-          channel: <<parameters.channel>>
-      - run:
-          command: kitchen test <<parameters.suite>>
-      - store_artifacts:
-          path: .kitchen/logs
-          when: always
-  mdlint:
-    executor: ruby
-    steps:
-      - checkout
-      - run:
-          name: Install Markdown Linter
-          command: gem install mdl
-      - run:
-          name: Run Markdown Linter
-          command: mdl ./
-  yamllint:
-    executor: python
-    steps:
-      - checkout
-      - run:
-          name: Install YamlLint
-          command: pip install --user yamllint
-      - run:
-          name: Run YamlLint
-          command: |
-            export PATH=/home/circleci/.local/bin:$PATH
-            yamllint .
-
+version: 2.1
+orbs:
+  kitchen: sous-chefs/kitchen@2.0.2
 
 workflows:
   kitchen:
     jobs:
       # Lint and Unit Test
-      - yamllint:
+      - kitchen/yamllint:
           name: lint-yaml
-      - mdlint:
+      - kitchen/mdlint:
           name: lint-markdown
-      - danger:
+      - kitchen/danger:
           name: danger
           context: Danger
-      - delivery:
+      - kitchen/delivery:
           name: delivery
 
       # Use dokken-single as we don't support CentOS-6
       # Test default config
-      - dokken-single:
+      - kitchen/dokken-single:
           name: default
           suite: default
-          channel: stable
           requires:
             *lint_and_unit
 
       # source install tests
-      - dokken-single:
+      - kitchen/dokken-single:
           name: source
           suite: source
-          channel: stable
           requires:
             *lint_and_unit
 
       # prebuild tests
-      - dokken-single:
+      - kitchen/dokken-single:
           name: prebuild
           suite: prebuild
-          channel: stable
-          requires:a
+          requires:
             *lint_and_unit
