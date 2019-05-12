@@ -124,7 +124,9 @@ jobs:
       - install_chef:
           channel: <<parameters.channel>>
       - run:
-          command: CHEF_LICENSE="accept-no-persist" kitchen test <<parameters.suite>>
+          command: |
+            printenv
+            CHEF_LICENSE="accept-no-persist" kitchen test <<parameters.suite>>
       - store_artifacts:
           path: .kitchen/logs
           when: always
