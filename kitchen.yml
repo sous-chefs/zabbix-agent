@@ -1,0 +1,43 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+  product_name: chef
+  enforce_idempotency: true
+  multiple_converge: 2
+  solo_rb:
+    treat_deprecation_warnings_as_errors: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7
+  - name: debian-8
+  - name: debian-9
+  - name: ubuntu-16.04
+  - name: ubuntu-18.04
+
+suites:
+  - name: default
+    run_list:
+      - "recipe[zabbix-agent]"
+
+  - name: source
+    run_list:
+      - "recipe[zabbix-agent]"
+    attributes:
+      zabbix:
+        agent:
+          install_method: "source"
+
+  - name: prebuild
+    run_list:
+      - "recipe[zabbix-agent]"
+    attributes:
+      zabbix:
+        agent:
+          install_method: "prebuild"
+          version: "3.0.4"

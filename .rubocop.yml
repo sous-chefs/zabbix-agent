@@ -1,15 +1,4 @@
+---
 AllCops:
-  Include:
-    - Berksfile
-    - Gemfile
-    - Rakefile
-    - Thorfile
-    - Guardfile
   Exclude:
-    - vendor/**/*
-
-LineLength:
-  Enabled: false
-
-Metrics/BlockLength:
-  Max: 200
+    - 'Dangerfile'
