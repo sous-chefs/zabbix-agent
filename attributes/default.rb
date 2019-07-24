@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: zabbix
+# Cookbook:: zabbix
 # Attributes:: default
 
 # Directories
