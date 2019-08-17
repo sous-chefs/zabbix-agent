@@ -114,10 +114,6 @@ describe 'zabbix-agent::default' do
   context 'if installed on Ubuntu it' do
     cached(:chef_run) { ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04').converge(described_recipe) }
 
-    it 'includes the apt cookbook' do
-      expect(chef_run).to include_recipe('apt')
-    end
-
     it 'adds the apt repository for zabbix' do
       expect(chef_run).to add_apt_repository('zabbix').with(
         uri: 'http://repo.zabbix.com/zabbix/3.0/ubuntu/',
@@ -133,10 +129,6 @@ describe 'zabbix-agent::default' do
 
   context 'if installed on CentOS it' do
     cached(:chef_run) { ChefSpec::ServerRunner.new(platform: 'centos', version: '6.9').converge(described_recipe) }
-
-    it 'includes the yum cookbook' do
-      expect(chef_run).to include_recipe('yum')
-    end
 
     it 'adds the yum repository for zabbix' do
       expect(chef_run).to create_yum_repository('zabbix').with(

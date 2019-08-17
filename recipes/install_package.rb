@@ -7,22 +7,23 @@
 # Apache 2.0
 #
 
-if node['platform'] == 'windows'
+case node['platform_family']
+when 'windows'
   include_recipe 'chocolatey'
   chocolatey_package 'zabbix-agent'
-else
-  case node['platform']
-  when 'ubuntu', 'debian'
-    include_recipe 'apt'
+when 'debian'
     apt_repository 'zabbix' do
       uri node['zabbix']['agent']['package']['repo_uri']
       distribution node['lsb']['codename']
       components ['main']
       key node['zabbix']['agent']['package']['repo_key']
-      notifies :run, 'execute[apt-get update]', :immediately
     end
-  when 'redhat', 'centos', 'scientific', 'oracle', 'amazon', 'fedora'
-    include_recipe 'yum'
+
+    package 'zabbix-agent' do
+      options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
+      action :upgrade
+    end
+when 'rhel', 'amazon', 'fedora'
     yum_repository 'zabbix' do
       repositoryid 'zabbix'
       description 'Zabbix Official Repository'
@@ -42,9 +43,6 @@ else
     end
   end
   package 'zabbix-agent' do
-    if node['platform_family'] == 'debian'
-      options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
-    end
     action :upgrade
   end
 end

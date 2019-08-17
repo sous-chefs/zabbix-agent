@@ -12,6 +12,4 @@ chef_version      '>= 14'
   supports os
 end
 
-depends 'apt'
-depends 'yum'
 depends 'chocolatey'
