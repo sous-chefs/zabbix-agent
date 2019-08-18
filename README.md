@@ -22,7 +22,7 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 Other similar versions will likely work as well but are not regularly tested.
 
-## Useage
+## Usage
 
 If you have a supported OS, internet access, and a searchable DNS alias for "zabbix" that will resolve to your zabbix server this cookbook will work with no additional changes.  Just include recipe[zabbix-agent] in your run_list.
 
