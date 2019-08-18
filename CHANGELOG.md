@@ -2,8 +2,16 @@
 
 ## Unreleased
 
+- Require Chef Infra Client 14 or later
+- Use the build_essential resource and remove the dependency on the build-essential cookbook
+- Removed the apt-get update before adding the Zabbix apt repository as this is not necessary
+- Removed the include_recipe 'yum' before setting up the Zabbix yum repo as this is not necessary
+- Removed dependency on apt and yum cookbooks
 - Enable circleci testing
 - Change testing to dokken
+- Remove ChefSpec matchers file which is no longer necessary with ChefSpec 7.1
+- Use multi-package installs where available to speed up package installation
+
 
 ## 0.14.0
 
