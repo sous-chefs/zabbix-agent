@@ -12,7 +12,6 @@
 - Remove ChefSpec matchers file which is no longer necessary with ChefSpec 7.1
 - Use multi-package installs where available to speed up package installation
 
-
 ## 0.14.0
 
 - upgrade to default client version 3.0.9
