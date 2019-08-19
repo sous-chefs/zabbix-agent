@@ -133,8 +133,8 @@ task :bump do
   # run_command "git commit metadata.rb -m 'version bumped to #{version}'"
 end
 
-VERSION_WITH_NAME_REGEX = /version\s*'\d+\.\d+\.\d+'/
-VERSION_REGEX = /\d+\.\d+\.\d+/
+VERSION_WITH_NAME_REGEX = /version\s*'\d+\.\d+\.\d+'/.freeze
+VERSION_REGEX = /\d+\.\d+\.\d+/.freeze
 
 def cookbook_version
   # Read in the metadata file
