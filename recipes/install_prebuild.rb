@@ -1,17 +1,13 @@
 # Author:: Nacer Laradji (<nacer.laradji@gmail.com>)
-# Cookbook Name:: zabbix
+# Cookbook:: zabbix
 # Recipe:: agent_prebuild
 #
-# Copyright 2011, Efactures
+# Copyright:: 2011, Efactures
 #
 # Apache 2.0
 #
-case node['platform']
-when 'redhat', 'centos', 'scientific', 'amazon', 'fedora'
-  package 'redhat-lsb' do
-    action :install
-  end
-end
+
+package 'redhat-lsb' if platform_family?('rhel', 'amazon', 'fedora')
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['zabbix']['agent']['prebuild_file']}" do
   source node['zabbix']['agent']['prebuild_url']

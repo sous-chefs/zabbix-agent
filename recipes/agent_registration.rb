@@ -1,5 +1,5 @@
 # Author:: Guilhem Lettron (<guilhem.lettron@youscribe.com>)
-# Cookbook Name:: zabbix-agent
+# Cookbook:: zabbix-agent
 # Recipe:: agent_registration
 #
 # Apache 2.0

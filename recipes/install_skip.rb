@@ -1,5 +1,5 @@
 # Author:: Philip Oliva (<philoliva8@gmail.com>)
-# Cookbook Name:: zabbix-agent
+# Cookbook:: zabbix-agent
 # Recipe:: install_skip
 #
 # Apache 2.0
