@@ -12,7 +12,7 @@ include_recipe 'zabbix-agent::install'
 template 'zabbix_agentd.conf' do
   path node['zabbix']['agent']['config_file']
   source 'zabbix_agentd.conf.erb'
-  unless node['platform_family'] == 'windows'
+  unless platform_family?('windows')
     owner 'root'
     group 'root'
     mode '644'
@@ -25,7 +25,7 @@ end
 template 'user_params.conf' do
   path node['zabbix']['agent']['userparams_config_file']
   source 'user_params.conf.erb'
-  unless node['platform_family'] == 'windows'
+  unless platform_family?('windows')
     owner 'root'
     group 'root'
     mode '644'

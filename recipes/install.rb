@@ -8,7 +8,7 @@
 #
 
 # Manage user and group
-if node['platform'] == 'windows'
+if platform?('windows')
   user node['zabbix']['agent']['user'] do
     not_if { node['zabbix']['agent']['user'] == 'Administrator' }
   end
@@ -79,7 +79,7 @@ end
 zabbix_dirs = [
   node['zabbix']['log_dir'],
 ]
-zabbix_dirs << node['zabbix']['run_dir'] unless node['platform'] == 'windows'
+zabbix_dirs << node['zabbix']['run_dir'] unless platform?('windows')
 
 # Create zabbix folders
 zabbix_dirs.each do |dir|
