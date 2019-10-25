@@ -132,14 +132,12 @@ default['zabbix']['agent']['prebuild_file'] = "zabbix_agents_#{version}.linux2_6
 default['zabbix']['agent']['prebuild_url']  = "#{prebuild_url}#{version}/zabbix_agents_#{version}.linux2_6.#{arch}.tar.gz"
 default['zabbix']['agent']['checksum'] = 'bf2ebb48fbbca66418350f399819966e'
 
-# auto-regestration
+# auto-registration
 default['zabbix']['agent']['groups'] = ['chef-agent']
 
-case node['platform_family']
-when 'rhel', 'debian'
-  default['zabbix']['agent']['init_style'] = 'sysvinit'
-when 'fedora'
-  default['zabbix']['agent']['init_style'] = 'systemd'
-when 'windows'
-  default['zabbix']['agent']['init_style'] = 'windows'
-end
+default['zabbix']['agent']['init_style'] = case node['os']
+                                           when 'windows'
+                                             'windows'
+                                           when 'linux'
+                                             node['init_package'] == 'systemd' ? 'systemd' : 'sysvinit'
+                                           end
