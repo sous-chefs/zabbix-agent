@@ -1,8 +1,8 @@
 # Author:: Nacer Laradji (<nacer.laradji@gmail.com>)
-# Cookbook Name:: zabbix
+# Cookbook:: zabbix
 # Recipe:: agent_common
 #
-# Copyright 2011, Efactures
+# Copyright:: 2011, Efactures
 #
 # Apache 2.0
 #

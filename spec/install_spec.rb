@@ -78,16 +78,8 @@ describe 'zabbix-agent install method tests' do
       end.converge('zabbix-agent::install_source')
     end
 
-    it 'installs the package curl-devel' do
-      expect(chef_source).to install_package('curl-devel')
-    end
-
-    it 'installs the package openssl-devel' do
-      expect(chef_source).to install_package('openssl-devel')
-    end
-
-    it 'installs the package redhat-lsb' do
-      expect(chef_source).to install_package('redhat-lsb')
+    it 'installs the packages curl-devel, openssl-devel, and redhat-lsb' do
+      expect(chef_source).to install_package(%w(curl-devel openssl-devel redhat-lsb))
     end
 
     it "gets the zabbix source archive from http://downloads.sourceforge.net and puts it in #{Chef::Config[:file_cache_path]}/zabbix-3.0.9.tar.gz" do

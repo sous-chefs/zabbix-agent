@@ -1,27 +1,20 @@
 # Author:: Nacer Laradji (<nacer.laradji@gmail.com>)
-# Cookbook Name:: zabbix
+# Cookbook:: zabbix
 # Recipe:: agent_source
 #
-# Copyright 2011, Efactures
+# Copyright:: 2011, Efactures
 #
 # Apache 2.0
 #
-case node['platform']
-when 'ubuntu', 'debian'
-  include_recipe 'apt'
-  # install some dependencies
-  %w(libcurl3 libcurl4-openssl-dev).each do |pck|
-    package pck do
-      action :install
-    end
-  end
+case node['platform_family']
+when 'debian'
+  apt_update
 
-when 'redhat', 'centos', 'scientific', 'amazon', 'fedora'
-  %w(curl-devel openssl-devel redhat-lsb).each do |pck|
-    package pck do
-      action :install
-    end
-  end
+  # install some dependencies
+  package %w(libcurl3 libcurl4-openssl-dev)
+
+when 'rhel', 'amazon', 'fedora'
+  package %w(curl-devel openssl-devel redhat-lsb)
 end
 
 build_essential 'build-essentials'
