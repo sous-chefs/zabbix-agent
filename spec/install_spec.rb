@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'zabbix-agent install method tests' do
   context 'with install_method=prebuild it' do
     cached(:chef_prebuild) do
-      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04') do |node|
+      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '18.04') do |node|
         node.override['zabbix']['agent']['install_method'] = 'prebuild'
         node.override['zabbix']['agent']['init_style'] = 'sysvinit'
       end.converge('zabbix-agent::default')

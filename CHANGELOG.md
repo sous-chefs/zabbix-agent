@@ -13,6 +13,7 @@
 - Use multi-package installs where available to speed up package installation
 - Use platform? and platform_family? helpers
 - Simplify the logic for installation redhat-lsb package in the prebuilt recipe
+- Resolved deprecation warnings in ChefSpec
 
 ## 0.14.0
 
