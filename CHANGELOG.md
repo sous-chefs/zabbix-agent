@@ -3,6 +3,9 @@
 ## Unreleased
 
 - Require Chef Infra Client 14 or later
+- Use the system's native init system to determine what init system to run the service under instead of defaulting to sysv-init
+- Switch Fedora to use RHEL 8 packages from RHEL 7 packages
+- Switch platform checks to platform_family to expand platform support
 - Use the build_essential resource and remove the dependency on the build-essential cookbook
 - Removed the apt-get update before adding the Zabbix apt repository as this is not necessary and allows us to remove the apt dependency
 - Removed the include_recipe 'yum' before setting up the Zabbix yum repo as this is not necessary
