@@ -132,7 +132,7 @@ node['zabbix']['agent']['install_method'] = 'skip'
 Version
 
 ```ruby
-node['zabbix']['agent']['version'] # Default 3.0.9
+node['zabbix']['agent']['version'] # Default 3.0.28
 ```
 
 Servers
@@ -145,7 +145,7 @@ node['zabbix']['agent']['conf']['ServerActive'] = ["Your_zabbix_active_server.co
 
 #### Package install
 
-If you do not set any attributes you will get an install of zabbix agent version 3.0.9 with
+If you do not set any attributes you will get an install of zabbix agent version 3.0.28 with
 what should be a working configuration if your DNS has aliases for zabbix.yourdomain.com and
 your hosts search yourdomain.com.
 

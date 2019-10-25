@@ -26,7 +26,7 @@ else
   default['zabbix']['agent']['scripts'] = '/etc/zabbix/scripts'
 end
 
-default['zabbix']['agent']['version']           = '3.0.9'
+default['zabbix']['agent']['version']           = '3.0.28'
 default['zabbix']['agent']['servers']           = ['zabbix']
 default['zabbix']['agent']['servers_active']    = ['zabbix']
 
