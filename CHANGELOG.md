@@ -11,6 +11,7 @@
 - Change testing to dokken
 - Remove ChefSpec matchers file which is no longer necessary with ChefSpec 7.1
 - Use multi-package installs where available to speed up package installation
+- Use platform? and platform_family? helpers where possible to simplify the codebase
 
 ## 0.14.0
 
