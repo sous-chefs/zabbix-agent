@@ -14,7 +14,7 @@ default['zabbix']['agent']['config_file']            = ::File.join(node['zabbix'
 default['zabbix']['agent']['userparams_config_file'] = ::File.join(node['zabbix']['agent']['include_dir'], 'user_params.conf')
 default['zabbix']['agent']['pid_file']               = '/var/run/zabbix/zabbix_agentd.pid'
 
-if node['platform'] == 'windows'
+if platform?('windows')
   default['zabbix']['install_dir']      = node['zabbix']['etc_dir']
   default['zabbix']['log_dir']          = ::File.join(node['zabbix']['etc_dir'], 'log')
   default['zabbix']['agent']['scripts'] = ::File.join(node['zabbix']['etc_dir'], 'scripts')
@@ -31,7 +31,7 @@ default['zabbix']['agent']['servers']           = ['zabbix']
 default['zabbix']['agent']['servers_active']    = ['zabbix']
 
 # primary config options
-if node['platform'] == 'windows'
+if platform?('windows')
   default['zabbix']['agent']['user']         = 'Administrator'
   default['zabbix']['agent']['group']        = 'Administrators'
 else
@@ -49,7 +49,7 @@ default['zabbix']['agent']['user_parameter'] = []
 
 # zabbix_agent.conf file set to documented defaults
 default['zabbix']['agent']['conf']['Alias'] = nil
-unless node['platform'] == 'windows'
+unless platform?('windows')
   default['zabbix']['agent']['conf']['AllowRoot'] = '0'
 end
 default['zabbix']['agent']['conf']['BufferSend']  = '5'
@@ -60,14 +60,14 @@ default['zabbix']['agent']['conf']['EnableRemoteCommands'] = '1'
 default['zabbix']['agent']['conf']['HostMetadata'] = nil
 default['zabbix']['agent']['conf']['Hostname']     = nil # defaults to HostnameItem
 # default['zabbix']['agent']['conf']['HostnameItem'] = nil # set by system.hostname
-unless node['platform'] == 'windows'
+unless platform?('windows')
   default['zabbix']['agent']['conf']['HostnameItem'] = 'system.run[hostname -f]'
 end
 # default['zabbix']['agent']['conf']['Include']  = nil #default
 default['zabbix']['agent']['conf']['Include']      = ::File.join(default['zabbix']['agent']['include_dir'], '*.conf')
 default['zabbix']['agent']['conf']['ListenIP']     = '0.0.0.0'
 default['zabbix']['agent']['conf']['ListenPort']   = '10050'
-unless node['platform'] == 'windows'
+unless platform?('windows')
   default['zabbix']['agent']['conf']['LoadModule']   = nil
 end
 default['zabbix']['agent']['conf']['LogType']      = 'system'
@@ -75,10 +75,10 @@ default['zabbix']['agent']['conf']['LogFile']      = nil
 default['zabbix']['agent']['conf']['LogFileSize']  = '1'
 default['zabbix']['agent']['conf']['LogRemoteCommands']  = '0'
 default['zabbix']['agent']['conf']['MaxLinesPerSecond']  = '100'
-if node['platform'] == 'windows'
+if platform?('windows')
   default['zabbix']['agent']['conf']['PerfCounter'] = nil
 end
-unless node['platform'] == 'windows'
+unless platform?('windows')
   # default['zabbix']['agent']['conf']['PidFile']  = '/tmp/zabbix_agentd.pid'
   default['zabbix']['agent']['conf']['PidFile'] = '/var/run/zabbix/zabbix_agentd.pid'
 end
@@ -90,7 +90,7 @@ default['zabbix']['agent']['conf']['SourceIP']     = nil
 default['zabbix']['agent']['conf']['StartAgents']  = '3'
 default['zabbix']['agent']['conf']['Timeout']      = '3'
 default['zabbix']['agent']['conf']['UnsafeUserParameters'] = '0'
-unless node['platform'] == 'windows'
+unless platform?('windows')
   if node['zabbix']['agent']['version'] =~ /2\.4\..*/
     default['zabbix']['agent']['conf']['User'] = default['zabbix']['agent']['user']
   end
