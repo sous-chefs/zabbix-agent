@@ -6,10 +6,10 @@ driver:
 platforms:
   - name: windows-2016
     driver:
-      box: mwrock/Windows2016
+      box: tas50/windows_2016
   - name: windows-2012r2
     driver:
-      box: mwrock/Windows2012R2
+      box: tas50/windows_2012r2
 
 verifier:
   name: inspec

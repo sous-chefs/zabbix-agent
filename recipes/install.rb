@@ -1,14 +1,14 @@
 # Author:: Nacer Laradji (<nacer.laradji@gmail.com>)
-# Cookbook Name:: zabbix
+# Cookbook:: zabbix
 # Recipe:: agent_common
 #
-# Copyright 2011, Efactures
+# Copyright:: 2011, Efactures
 #
 # Apache 2.0
 #
 
 # Manage user and group
-if node['platform'] == 'windows'
+if platform?('windows')
   user node['zabbix']['agent']['user'] do
     not_if { node['zabbix']['agent']['user'] == 'Administrator' }
   end
@@ -79,7 +79,7 @@ end
 zabbix_dirs = [
   node['zabbix']['log_dir'],
 ]
-zabbix_dirs << node['zabbix']['run_dir'] unless node['platform'] == 'windows'
+zabbix_dirs << node['zabbix']['run_dir'] unless platform?('windows')
 
 # Create zabbix folders
 zabbix_dirs.each do |dir|
