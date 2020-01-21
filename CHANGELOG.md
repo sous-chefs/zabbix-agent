@@ -13,7 +13,8 @@
 - Use multi-package installs where available to speed up package installation
 - Use platform? and platform_family? helpers where possible to simplify the codebase
 - Simplify the apt_repository usage by removing `distribution` property
-- Migrate to actions
+- Fix source installs on Debian 10+ and Ubuntu 18.04+
+- Migrate to Github actions for testing
 
 ## 0.14.0
 
