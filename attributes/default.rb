@@ -25,7 +25,7 @@ else
   default['zabbix']['agent']['scripts'] = '/etc/zabbix/scripts'
 end
 
-default['zabbix']['agent']['version']           = '3.0.9'
+default['zabbix']['agent']['version']           = '3.0.29'
 default['zabbix']['agent']['servers']           = ['zabbix']
 default['zabbix']['agent']['servers_active']    = ['zabbix']
 
@@ -124,11 +124,11 @@ when 'fedora'
 end
 
 # prebuild install
-prebuild_url = 'http://www.zabbix.com/downloads/'
+prebuild_url = 'https://www.zabbix.com/downloads/'
 arch = node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'
-default['zabbix']['agent']['prebuild_file'] = "zabbix_agents_#{version}.linux2_6.#{arch}.tar.gz"
+default['zabbix']['agent']['prebuild_file'] = "zabbix_agent-#{version}-linux-3.0-#{arch}-static.tar.gz"
 
-default['zabbix']['agent']['prebuild_url']  = "#{prebuild_url}#{version}/zabbix_agents_#{version}.linux2_6.#{arch}.tar.gz"
+default['zabbix']['agent']['prebuild_url']  = "#{prebuild_url}#{version}/zabbix_agent-#{version}-linux-3.0-#{arch}-static.tar.gz"
 default['zabbix']['agent']['checksum'] = 'bf2ebb48fbbca66418350f399819966e'
 
 # auto-regestration
