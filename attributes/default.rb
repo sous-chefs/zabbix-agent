@@ -135,9 +135,7 @@ default['zabbix']['agent']['checksum'] = 'bf2ebb48fbbca66418350f399819966e'
 default['zabbix']['agent']['groups'] = ['chef-agent']
 
 case node['platform_family']
-when 'rhel', 'debian'
-  default['zabbix']['agent']['init_style'] = 'sysvinit'
-when 'fedora'
+when 'fedora', 'rhel', 'debian'
   default['zabbix']['agent']['init_style'] = 'systemd'
 when 'windows'
   default['zabbix']['agent']['init_style'] = 'windows'

@@ -6,6 +6,7 @@
 - Upgrade the default client version to 3.0.29 as 3.0.9 isn't on the Zabbix site anymore
 - Fix prebuilt installs since the packages on the Zabbix site have changed name format
 - Use the Linux 3.x prebuilt binaries not 2.6 binaries
+- Use systemd not sys-v init scripts to start the agent on Debian / RHEL based systems now
 - Use the build_essential resource and remove the dependency on the build-essential cookbook
 - Removed the apt-get update before adding the Zabbix apt repository as this is not necessary
 - Removed the include_recipe 'yum' before setting up the Zabbix yum repo as this is not necessary
