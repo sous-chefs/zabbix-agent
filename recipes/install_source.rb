@@ -11,7 +11,12 @@ when 'debian'
   apt_update
 
   # install some dependencies
-  package %w(libcurl3 libcurl4-openssl-dev)
+  if (platform?('debian') && node['platform_version'].to_i >= 10) ||
+     (platform?('ubuntu') && node['platform_version'].to_i >= 18)
+    package %w(libcurl4 libcurl4-openssl-dev)
+  else
+    package %w(libcurl3 libcurl4-openssl-dev)
+  end
 
 when 'rhel', 'amazon', 'fedora'
   package %w(curl-devel openssl-devel redhat-lsb)

@@ -40,4 +40,4 @@ suites:
       zabbix:
         agent:
           install_method: "prebuild"
-          version: "3.0.4"
+          version: "3.0.29"

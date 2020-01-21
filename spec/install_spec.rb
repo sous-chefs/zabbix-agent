@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'zabbix-agent install method tests' do
   context 'with install_method=prebuild it' do
     cached(:chef_prebuild) do
-      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '14.04') do |node|
+      ChefSpec::ServerRunner.new(platform: 'ubuntu') do |node|
         node.override['zabbix']['agent']['install_method'] = 'prebuild'
         node.override['zabbix']['agent']['init_style'] = 'sysvinit'
       end.converge('zabbix-agent::default')
@@ -13,14 +13,14 @@ describe 'zabbix-agent install method tests' do
       expect(chef_prebuild).to include_recipe('zabbix-agent::install_prebuild')
     end
 
-    it "gets the zabbix binary prebuild archive from 'http://www.zabbix.com/downloads/ and puts it  #{Chef::Config[:file_cache_path]}/zabbix_agents_3.0.9.linux2_6.amd64.tar.gz" do
-      expect(chef_prebuild).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix_agents_3.0.9.linux2_6.amd64.tar.gz").with(
-        source: 'http://www.zabbix.com/downloads/3.0.9/zabbix_agents_3.0.9.linux2_6.amd64.tar.gz'
+    it "gets the zabbix binary prebuild archive from 'http://www.zabbix.com/downloads/ and puts it  #{Chef::Config[:file_cache_path]}/zabbix_agent-3.0.29-linux-3.0-amd64-static.tar.gz" do
+      expect(chef_prebuild).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix_agent-3.0.29-linux-3.0-amd64-static.tar.gz").with(
+        source: 'https://www.zabbix.com/downloads/3.0.29/zabbix_agent-3.0.29-linux-3.0-amd64-static.tar.gz'
       )
     end
 
     it 'notifies the bash install_program when the archive is downloaded' do
-      get_file = chef_prebuild.remote_file("#{Chef::Config[:file_cache_path]}/zabbix_agents_3.0.9.linux2_6.amd64.tar.gz")
+      get_file = chef_prebuild.remote_file("#{Chef::Config[:file_cache_path]}/zabbix_agent-3.0.29-linux-3.0-amd64-static.tar.gz")
       expect(get_file).to notify('bash[install_program]').to(:run).immediately
     end
 
@@ -40,7 +40,7 @@ describe 'zabbix-agent install method tests' do
 
   context 'with install_method=source it' do
     cached(:chef_source) do
-      ChefSpec::ServerRunner.new(platform: 'centos', version: '6.9') do |node|
+      ChefSpec::ServerRunner.new(platform: 'centos', version: '6') do |node|
         node.override['zabbix']['agent']['install_method'] = 'source'
         node.override['zabbix']['agent']['init_style'] = 'sysvinit'
       end.converge('zabbix-agent::default')
@@ -50,14 +50,14 @@ describe 'zabbix-agent install method tests' do
       expect(chef_source).to include_recipe('zabbix-agent::install_source')
     end
 
-    it "gets the zabbix source archive from http://downloads.sourceforge.net and puts it in #{Chef::Config[:file_cache_path]}/zabbix-3.0.9.tar.gz" do
-      expect(chef_source).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix-3.0.9.tar.gz").with(
-        source: 'http://downloads.sourceforge.net/project/zabbix//ZABBIX%20Latest%20Stable/3.0.9/zabbix-3.0.9.tar.gz'
+    it "gets the zabbix source archive from http://downloads.sourceforge.net and puts it in #{Chef::Config[:file_cache_path]}/zabbix-3.0.29.tar.gz" do
+      expect(chef_source).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix-3.0.29.tar.gz").with(
+        source: 'http://downloads.sourceforge.net/project/zabbix//ZABBIX%20Latest%20Stable/3.0.29/zabbix-3.0.29.tar.gz'
       )
     end
 
-    it 'the download of the zabbix source archive zabbix-3.0.9.tar.gz notifies the bash install_program' do
-      get_file = chef_source.remote_file("#{Chef::Config[:file_cache_path]}/zabbix-3.0.9.tar.gz")
+    it 'the download of the zabbix source archive zabbix-3.0.29.tar.gz notifies the bash install_program' do
+      get_file = chef_source.remote_file("#{Chef::Config[:file_cache_path]}/zabbix-3.0.29.tar.gz")
       expect(get_file).to notify('bash[install_program]').to(:run).immediately
     end
 
@@ -73,7 +73,7 @@ describe 'zabbix-agent install method tests' do
 
   context 'with install_method=source and on CentOS platform it' do
     cached(:chef_source) do
-      ChefSpec::ServerRunner.new(platform: 'centos', version: '6.9') do |node|
+      ChefSpec::ServerRunner.new(platform: 'centos', version: '6') do |node|
         node.override['zabbix']['agent']['install_method'] = 'source'
       end.converge('zabbix-agent::install_source')
     end
@@ -82,10 +82,58 @@ describe 'zabbix-agent install method tests' do
       expect(chef_source).to install_package(%w(curl-devel openssl-devel redhat-lsb))
     end
 
-    it "gets the zabbix source archive from http://downloads.sourceforge.net and puts it in #{Chef::Config[:file_cache_path]}/zabbix-3.0.9.tar.gz" do
-      expect(chef_source).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix-3.0.9.tar.gz").with(
-        source: 'http://downloads.sourceforge.net/project/zabbix//ZABBIX%20Latest%20Stable/3.0.9/zabbix-3.0.9.tar.gz'
+    it "gets the zabbix source archive from http://downloads.sourceforge.net and puts it in #{Chef::Config[:file_cache_path]}/zabbix-3.0.29.tar.gz" do
+      expect(chef_source).to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix-3.0.29.tar.gz").with(
+        source: 'http://downloads.sourceforge.net/project/zabbix//ZABBIX%20Latest%20Stable/3.0.29/zabbix-3.0.29.tar.gz'
       )
+    end
+  end
+
+  context 'with install_method=source and on Ubuntu 16.04 it' do
+    cached(:chef_source) do
+      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04') do |node|
+        node.override['zabbix']['agent']['install_method'] = 'source'
+      end.converge('zabbix-agent::install_source')
+    end
+
+    it 'installs the packages libcurl3 and libcurl4-openssl-dev' do
+      expect(chef_source).to install_package(%w(libcurl3 libcurl4-openssl-dev))
+    end
+  end
+
+  context 'with install_method=source and on Ubuntu 18.04 it' do
+    cached(:chef_source) do
+      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '18.04') do |node|
+        node.override['zabbix']['agent']['install_method'] = 'source'
+      end.converge('zabbix-agent::install_source')
+    end
+
+    it 'installs the packages libcurl4 and libcurl4-openssl-dev' do
+      expect(chef_source).to install_package(%w(libcurl4 libcurl4-openssl-dev))
+    end
+  end
+
+  context 'with install_method=source and on Debian 9 it' do
+    cached(:chef_source) do
+      ChefSpec::ServerRunner.new(platform: 'debian', version: '9') do |node|
+        node.override['zabbix']['agent']['install_method'] = 'source'
+      end.converge('zabbix-agent::install_source')
+    end
+
+    it 'installs the packages libcurl3 and libcurl4-openssl-dev' do
+      expect(chef_source).to install_package(%w(libcurl3 libcurl4-openssl-dev))
+    end
+  end
+
+  context 'with install_method=source and on Debian 10 it' do
+    cached(:chef_source) do
+      ChefSpec::ServerRunner.new(platform: 'debian', version: '10') do |node|
+        node.override['zabbix']['agent']['install_method'] = 'source'
+      end.converge('zabbix-agent::install_source')
+    end
+
+    it 'installs the packages libcurl4 and libcurl4-openssl-dev' do
+      expect(chef_source).to install_package(%w(libcurl4 libcurl4-openssl-dev))
     end
   end
 end

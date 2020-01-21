@@ -6,8 +6,7 @@
 #
 # Apache 2.0
 #
-case node['platform']
-when 'redhat', 'centos', 'scientific', 'amazon', 'fedora'
+if platform_family?('rhel', 'amazon', 'fedora')
   package 'redhat-lsb' do
     action :install
   end
