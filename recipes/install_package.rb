@@ -14,7 +14,6 @@ when 'windows'
 when 'debian'
   apt_repository 'zabbix' do
     uri node['zabbix']['agent']['package']['repo_uri']
-    distribution node['lsb']['codename']
     components ['main']
     key node['zabbix']['agent']['package']['repo_key']
   end

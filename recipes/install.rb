@@ -35,8 +35,7 @@ directory node['zabbix']['install_dir'] do
 end
 
 # Create root folders
-case node['platform_family']
-when 'windows'
+if platform_family?('windows')
   directory node['zabbix']['etc_dir'] do
     owner node['zabbix']['agent']['user'] unless node['zabbix']['agent']['user'] == 'Administrator'
     rights :read, 'Everyone', applies_to_children: true

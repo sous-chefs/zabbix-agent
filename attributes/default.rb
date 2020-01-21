@@ -3,8 +3,7 @@
 # Attributes:: default
 
 # Directories
-default['zabbix']['etc_dir'] = case node['platform_family']
-                               when 'windows'
+default['zabbix']['etc_dir'] = if platform_family?('windows')
                                  ::File.join(ENV['PROGRAMDATA'], 'zabbix')
                                else
                                  '/etc/zabbix'
