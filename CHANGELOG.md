@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 0.15.0 (01-20-2020)
 
 - Require Chef Infra Client 14 or later
 - Upgrade the default client version to 3.0.29 as 3.0.9 isn't on the Zabbix site anymore
