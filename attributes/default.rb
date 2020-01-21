@@ -107,11 +107,11 @@ default['zabbix']['agent']['source_url'] = "#{download_url}/#{branch}/#{version}
 default['zabbix']['agent']['tar_file'] = tar
 
 # package install
-case node['platform']
-when 'ubuntu', 'debian'
+case node['platform_family']
+when 'debian'
   default['zabbix']['agent']['package']['repo_uri'] = "http://repo.zabbix.com/zabbix/3.0/#{node['platform']}/"
   default['zabbix']['agent']['package']['repo_key'] = 'http://repo.zabbix.com/zabbix-official-repo.key'
-when 'redhat', 'centos', 'scientific', 'oracle'
+when 'rhel'
   default['zabbix']['agent']['package']['repo_uri'] = 'http://repo.zabbix.com/zabbix/3.0/rhel/$releasever/$basearch/'
   default['zabbix']['agent']['package']['repo_key'] = 'http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX'
 when 'amazon'

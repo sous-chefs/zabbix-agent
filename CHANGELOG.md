@@ -18,6 +18,7 @@
 - Simplify the apt_repository usage by removing `distribution` property
 - Fix source installs on Debian 10+ and Ubuntu 18.04+
 - Migrate to Github actions for testing
+- Use platform_family not platform to better support derivative OS releases like Oracle Linux
 
 ## 0.14.0
 
