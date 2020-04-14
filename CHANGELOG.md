@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Unreleased
+
+- resolved cookstyle error: recipes/configure.rb:34:3 refactor: `ChefStyle/NegatingOnlyIf`
+
 ## 0.15.0 (01-20-2020)
 
 - Require Chef Infra Client 14 or later
