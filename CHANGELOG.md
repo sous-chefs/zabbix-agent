@@ -1,10 +1,10 @@
 # CHANGELOG
 
-## Unreleased
+## 0.15.1 (2020-05-05)
 
 - resolved cookstyle error: recipes/configure.rb:34:3 refactor: `ChefStyle/NegatingOnlyIf`
 
-## 0.15.0 (01-20-2020)
+## 0.15.0 (2020-20-01)
 
 - Require Chef Infra Client 14 or later
 - Upgrade the default client version to 3.0.29 as 3.0.9 isn't on the Zabbix site anymore
