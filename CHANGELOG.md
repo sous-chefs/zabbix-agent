@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Unreleased
+
+- resolved cookstyle error: spec/default_spec.rb:131:25 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
+
 ## 0.15.1 (2020-05-05)
 
 - resolved cookstyle error: recipes/configure.rb:34:3 refactor: `ChefStyle/NegatingOnlyIf`
