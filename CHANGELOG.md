@@ -3,6 +3,7 @@
 ## Unreleased
 
 - resolved cookstyle error: spec/default_spec.rb:131:25 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
+- resolved cookstyle error: recipes/agent_registration.rb:77:3: `ChefDeprecations/LogResourceNotifications`
 
 ## 0.15.1 (2020-05-05)
 

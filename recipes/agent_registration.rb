@@ -72,7 +72,7 @@ libzabbix_host node['hostname'] do
   action :nothing
 end
 
-log 'Delay agent registration to wait for server to be started' do
+notify_group 'Delay agent registration to wait for server to be started' do
   level :debug
   notifies :create_or_update, "zabbix_host[#{node['hostname']}]", :delayed
 end
