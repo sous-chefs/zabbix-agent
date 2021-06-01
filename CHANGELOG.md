@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 0.15.2 - *2021-06-01*
 
 - resolved cookstyle error: spec/default_spec.rb:131:25 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
 
