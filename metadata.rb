@@ -5,7 +5,7 @@ license           'Apache-2.0'
 description       'Installs/Configures Zabbix Agent'
 source_url        'https://github.com/sous-chefs/zabbix-agent'
 issues_url        'https://github.com/sous-chefs/zabbix-agent/issues'
-version           '0.15.3'
+version           '0.15.5'
 chef_version      '>= 14'
 
 %w(ubuntu redhat centos debian windows).each do |os|

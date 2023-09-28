@@ -9,6 +9,13 @@
 - resolved cookstyle error: .delivery/project.toml:7:9 convention: `Style/StringLiterals`
 - resolved cookstyle error: .delivery/project.toml:8:14 convention: `Style/StringLiterals`
 - resolved cookstyle error: .delivery/project.toml:9:11 convention: `Style/StringLiterals`
+
+## 0.15.5 - *2023-09-28*
+
+- Standardise files with files in sous-chefs/repo-management
+
+## 0.15.4 - *2023-02-14*
+
 ## 0.15.3 - *2021-08-31*
 
 - Standardise files with files in sous-chefs/repo-management
