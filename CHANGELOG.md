@@ -1,5 +1,7 @@
 # CHANGELOG
 
+## Unreleased
+
 ## 0.15.7 - *2023-10-26*
 
 - Fix notification triggers
