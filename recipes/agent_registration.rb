@@ -70,9 +70,9 @@ libzabbix_host node['hostname'] do
     interfaces: interface_data
   )
   action :nothing
+  notifies :create_or_update, "zabbix_host[#{node['hostname']}]", :immediately
 end
 
-log 'Delay agent registration to wait for server to be started' do
-  level :debug
+notify_group 'Delay notifications' do
   notifies :create_or_update, "zabbix_host[#{node['hostname']}]", :delayed
 end
