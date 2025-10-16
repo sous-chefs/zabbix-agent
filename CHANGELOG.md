@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [0.15.12](https://github.com/sous-chefs/zabbix-agent/compare/0.15.11...v0.15.12) (2025-10-16)
+
+
+### Bug Fixes
+
+* **ci:** Update workflows to use release pipeline ([#87](https://github.com/sous-chefs/zabbix-agent/issues/87)) ([efec3c6](https://github.com/sous-chefs/zabbix-agent/commit/efec3c6faf88bbbf250f53a7963a48072b6bc314))
+
 ## 0.15.7 - *2023-10-26*
 
 * Fix notification triggers
