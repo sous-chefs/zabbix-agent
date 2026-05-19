@@ -69,12 +69,12 @@ module ZabbixAgent
       when 'debian'
         if (platform?('debian') && node['platform_version'].to_i >= 10) ||
            (platform?('ubuntu') && node['platform_version'].to_i >= 18)
-          %w(libcurl4 libcurl4-openssl-dev libpcre2-dev pkg-config)
+          %w(libcurl4 libcurl4-openssl-dev libpcre2-dev pkg-config tar)
         else
-          %w(libcurl3 libcurl4-openssl-dev libpcre3-dev pkg-config)
+          %w(libcurl3 libcurl4-openssl-dev libpcre3-dev pkg-config tar)
         end
       when 'rhel', 'amazon'
-        %w(curl-devel openssl-devel pcre2-devel pkgconf-pkg-config)
+        %w(curl-devel openssl-devel pcre2-devel pkgconf-pkg-config tar)
       else
         []
       end

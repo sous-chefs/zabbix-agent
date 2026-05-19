@@ -82,7 +82,7 @@ describe 'zabbix_agent' do
       end
     end
 
-    it { is_expected.to install_package(%w(libcurl4 libcurl4-openssl-dev libpcre2-dev pkg-config)) }
+    it { is_expected.to install_package(%w(libcurl4 libcurl4-openssl-dev libpcre2-dev pkg-config tar)) }
     it { is_expected.to install_build_essential('install build tools') }
     it { is_expected.to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix-7.0.26.tar.gz") }
     it { is_expected.to run_execute('build zabbix agent from source') }
@@ -99,7 +99,7 @@ describe 'zabbix_agent' do
       end
     end
 
-    it { is_expected.to install_package(%w(curl-devel openssl-devel pcre2-devel pkgconf-pkg-config)) }
+    it { is_expected.to install_package(%w(curl-devel openssl-devel pcre2-devel pkgconf-pkg-config tar)) }
     it { is_expected.not_to install_package('redhat-lsb') }
   end
 
