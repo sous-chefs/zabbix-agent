@@ -50,7 +50,7 @@ The source install workflow downloads official source archives from
 | Platform Family | Packages |
 | --- | --- |
 | Debian | build-essential, libcurl4, libcurl4-openssl-dev, libpcre2-dev, pkg-config |
-| RHEL | gcc/make toolchain, curl-devel, openssl-devel, pcre2-devel, pkgconf-pkg-config, redhat-lsb |
+| RHEL | gcc/make toolchain, curl-devel, openssl-devel, pcre2-devel, pkgconf-pkg-config |
 
 ## Known Issues
 

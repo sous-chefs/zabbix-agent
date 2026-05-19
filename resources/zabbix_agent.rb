@@ -197,11 +197,6 @@ action_class do
   end
 
   def install_prebuild_method
-    package 'redhat-lsb' do
-      action :install
-      only_if { platform_family?('rhel', 'amazon') }
-    end
-
     archive = "#{Chef::Config[:file_cache_path]}/zabbix_agent-#{new_resource.version}-linux-3.0-#{new_resource.prebuild_arch}-static.tar.gz"
 
     remote_file archive do
@@ -214,6 +209,7 @@ action_class do
       destination new_resource.install_dir
       overwrite true
       action :extract
+      not_if { ::File.exist?(::File.join(new_resource.install_dir, 'sbin/zabbix_agentd')) }
     end
   end
 

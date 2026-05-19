@@ -74,7 +74,7 @@ module ZabbixAgent
           %w(libcurl3 libcurl4-openssl-dev libpcre3-dev pkg-config)
         end
       when 'rhel', 'amazon'
-        %w(curl-devel openssl-devel pcre2-devel pkgconf-pkg-config redhat-lsb)
+        %w(curl-devel openssl-devel pcre2-devel pkgconf-pkg-config)
       else
         []
       end

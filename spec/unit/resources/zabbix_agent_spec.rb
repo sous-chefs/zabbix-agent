@@ -90,6 +90,19 @@ describe 'zabbix_agent' do
     it { is_expected.not_to start_service('zabbix-agent') }
   end
 
+  context 'with source install on almalinux' do
+    platform 'almalinux', '9'
+
+    recipe do
+      zabbix_agent 'source' do
+        install_method 'source'
+      end
+    end
+
+    it { is_expected.to install_package(%w(curl-devel openssl-devel pcre2-devel pkgconf-pkg-config)) }
+    it { is_expected.not_to install_package('redhat-lsb') }
+  end
+
   context 'with prebuild install' do
     platform 'ubuntu', '24.04'
 
@@ -101,6 +114,7 @@ describe 'zabbix_agent' do
 
     it { is_expected.to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix_agent-7.0.26-linux-3.0-amd64-static.tar.gz") }
     it { is_expected.to extract_archive_file("#{Chef::Config[:file_cache_path]}/zabbix_agent-7.0.26-linux-3.0-amd64-static.tar.gz").with(destination: '/opt/zabbix') }
+    it { is_expected.not_to install_package('redhat-lsb') }
     it { is_expected.not_to enable_service('zabbix-agent') }
     it { is_expected.not_to start_service('zabbix-agent') }
   end

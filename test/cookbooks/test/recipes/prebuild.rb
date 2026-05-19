@@ -16,5 +16,6 @@ zabbix_agent 'prebuild' do
     'ServerActive' => '127.0.0.1',
     'Timeout' => '3'
   )
+  user_parameters ['test.ping,echo 1']
   action %i(create start)
 end
