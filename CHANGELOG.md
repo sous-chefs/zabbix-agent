@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## [1.0.0](https://github.com/sous-chefs/zabbix-agent/compare/v0.15.12...v1.0.0) (2026-05-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate zabbix-agent to custom resources ([#92](https://github.com/sous-chefs/zabbix-agent/issues/92))
+
+### Features
+
+* migrate zabbix-agent to custom resources ([#92](https://github.com/sous-chefs/zabbix-agent/issues/92)) ([0111494](https://github.com/sous-chefs/zabbix-agent/commit/0111494f46773b83fbbf6bc093eb8a88f0b3f6e8))
+
+
+### Bug Fixes
+
+* 116 ([bdabe08](https://github.com/sous-chefs/zabbix-agent/commit/bdabe08c1ddaa0ad26692a999efafadf99445d15))
+* 117 ([c5531a7](https://github.com/sous-chefs/zabbix-agent/commit/c5531a7507acc5e37f04def776e0f7912401c32a))
+* 118 ([6fefd65](https://github.com/sous-chefs/zabbix-agent/commit/6fefd656e1bc1eed2b4a44690f746d134ac9fb6b))
+* **ci:** Update workflows to use release pipeline ([#87](https://github.com/sous-chefs/zabbix-agent/issues/87)) ([efec3c6](https://github.com/sous-chefs/zabbix-agent/commit/efec3c6faf88bbbf250f53a7963a48072b6bc314))
+
 ## [0.15.12](https://github.com/sous-chefs/zabbix-agent/compare/0.15.11...v0.15.12) (2025-10-16)
 
 

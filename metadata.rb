@@ -7,7 +7,7 @@ license           'Apache-2.0'
 description       'Provides zabbix_agent resources'
 source_url        'https://github.com/sous-chefs/zabbix-agent'
 issues_url        'https://github.com/sous-chefs/zabbix-agent/issues'
-version           '0.15.12'
+version           '1.0.0'
 chef_version      '>= 15.3'
 
 supports 'almalinux', '>= 8.0'
