@@ -17,5 +17,5 @@ zabbix_agent 'default' do
     'Timeout' => '3'
   )
   user_parameters ['test.ping,echo 1']
-  action %i(create start)
+  action :create
 end

@@ -36,6 +36,10 @@ end
 
 Supported values are `package`, `source`, `prebuild`, `chocolatey`, and `skip`.
 
+Package installs use the service supplied by the installed package. Source and prebuilt installs
+build/extract and configure the agent only; this cookbook does not create or override a system
+service unit.
+
 ## Configuration
 
 The old `node['zabbix']['agent']['conf']` hash maps directly to the `config` property. User

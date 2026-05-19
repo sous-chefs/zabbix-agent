@@ -86,7 +86,8 @@ describe 'zabbix_agent' do
     it { is_expected.to install_build_essential('install build tools') }
     it { is_expected.to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix-7.0.26.tar.gz") }
     it { is_expected.to run_execute('build zabbix agent from source') }
-    it { is_expected.to create_systemd_unit('zabbix-agent.service') }
+    it { is_expected.not_to enable_service('zabbix-agent') }
+    it { is_expected.not_to start_service('zabbix-agent') }
   end
 
   context 'with prebuild install' do
@@ -100,7 +101,8 @@ describe 'zabbix_agent' do
 
     it { is_expected.to create_remote_file("#{Chef::Config[:file_cache_path]}/zabbix_agent-7.0.26-linux-3.0-amd64-static.tar.gz") }
     it { is_expected.to extract_archive_file("#{Chef::Config[:file_cache_path]}/zabbix_agent-7.0.26-linux-3.0-amd64-static.tar.gz").with(destination: '/opt/zabbix') }
-    it { is_expected.to create_systemd_unit('zabbix-agent.service') }
+    it { is_expected.not_to enable_service('zabbix-agent') }
+    it { is_expected.not_to start_service('zabbix-agent') }
   end
 
   context 'with skip install' do

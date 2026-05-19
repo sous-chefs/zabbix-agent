@@ -121,7 +121,7 @@ action_class do
       mode '0755' unless windows?
       rights :read, 'Everyone', applies_to_children: true if windows?
       recursive true
-      notifies :restart, "service[#{new_resource.service_name}]", :delayed
+      notifies :restart, "service[#{new_resource.service_name}]", :delayed if service_manageable?
     end
 
     [new_resource.log_dir, (windows? ? nil : new_resource.run_dir)].compact.each do |dir|
@@ -240,7 +240,7 @@ action_class do
       group 'root' unless windows?
       mode '0644' unless windows?
       variables config: new_resource.config
-      notifies :restart, "service[#{new_resource.service_name}]", :delayed
+      notifies :restart, "service[#{new_resource.service_name}]", :delayed if service_manageable?
     end
 
     template new_resource.userparams_config_file do
@@ -250,35 +250,27 @@ action_class do
       group 'root' unless windows?
       mode '0644' unless windows?
       variables user_parameters: new_resource.user_parameters
-      notifies :restart, "service[#{new_resource.service_name}]", :delayed
+      notifies :restart, "service[#{new_resource.service_name}]", :delayed if service_manageable?
       not_if { new_resource.user_parameters.empty? }
     end
   end
 
-  def define_service
-    if windows?
-      service new_resource.service_name do
-        service_name 'Zabbix Agent'
-        supports restart: true
-        action :nothing
-      end
-    elsif new_resource.install_method == 'package'
-      service new_resource.service_name do
-        pattern 'zabbix_agentd'
-        supports status: true, start: true, stop: true, restart: true
-        action new_resource.service_actions
-      end
-    else
-      systemd_unit "#{new_resource.service_name}.service" do
-        content systemd_unit_content
-        action [:create, :enable]
-      end
+  def service_manageable?
+    windows? || new_resource.install_method == 'package'
+  end
 
-      service new_resource.service_name do
-        pattern 'zabbix_agentd'
+  def define_service(service_action = new_resource.service_actions)
+    return unless service_manageable?
+
+    service new_resource.service_name do
+      service_name 'Zabbix Agent' if windows?
+      pattern 'zabbix_agentd' unless windows?
+      if windows?
+        supports restart: true
+      else
         supports status: true, start: true, stop: true, restart: true
-        action new_resource.service_actions
       end
+      action service_action
     end
   end
 end
@@ -291,24 +283,15 @@ action :create do
 end
 
 action :start do
-  service new_resource.service_name do
-    service_name 'Zabbix Agent' if windows?
-    action new_resource.service_actions
-  end
+  define_service
 end
 
 action :stop do
-  service new_resource.service_name do
-    service_name 'Zabbix Agent' if windows?
-    action [:stop, :disable]
-  end
+  define_service [:stop, :disable]
 end
 
 action :restart do
-  service new_resource.service_name do
-    service_name 'Zabbix Agent' if windows?
-    action :restart
-  end
+  define_service :restart
 end
 
 action :remove do
@@ -316,11 +299,7 @@ action :remove do
     service_name 'Zabbix Agent' if windows?
     action [:stop, :disable]
     ignore_failure true
-  end
-
-  systemd_unit "#{new_resource.service_name}.service" do
-    action :delete
-    only_if { !windows? && new_resource.install_method != 'package' }
+    only_if { service_manageable? }
   end
 
   package new_resource.package_name do

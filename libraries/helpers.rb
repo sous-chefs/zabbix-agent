@@ -64,23 +64,6 @@ module ZabbixAgent
       node.dig('kernel', 'machine') == 'x86_64' ? 'amd64' : 'i386'
     end
 
-    def systemd_unit_content
-      {
-        Unit: {
-          Description: 'Zabbix Agent',
-          After: 'network.target',
-        },
-        Service: {
-          Type: 'simple',
-          ExecStart: "#{new_resource.install_dir}/sbin/zabbix_agentd -f -c #{new_resource.config_file}",
-          Restart: 'on-failure',
-        },
-        Install: {
-          WantedBy: 'multi-user.target',
-        },
-      }
-    end
-
     def source_dependencies
       case node['platform_family']
       when 'debian'

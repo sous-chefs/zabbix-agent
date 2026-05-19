@@ -15,8 +15,8 @@ Official Zabbix 7.0 APT repository directories are published for:
 
 The repository also still exposes older Debian and Ubuntu releases, but this cookbook only tests
 current non-EOL suites. Local arm64 Dokken verification did not find an Ubuntu 24.04
-`zabbix-agent` package candidate, so the default local Kitchen suite verifies the source install
-path.
+`zabbix-agent` package candidate, so the default local Kitchen suite verifies the source build and
+configuration path.
 
 ### DNF/YUM (RHEL family)
 
@@ -54,8 +54,10 @@ The source install workflow downloads official source archives from
 
 ## Known Issues
 
-* Source and prebuilt installs create a cookbook-managed systemd unit. SysV init and upstart are
-  not supported by this full migration.
+* Package installs manage the package-supplied service with Chef's built-in `service` resource.
+  The cookbook does not create or override service units.
+* Source and prebuilt installs build/extract and configure the agent only. They do not create a
+  system service because no service is supplied by those installation artifacts.
 * The old `agent_registration` recipe depended on external libzabbix resources without declaring a
   cookbook dependency. It is available as `zabbix_agent_registration` for consumers that provide
   the required libzabbix resource in their wrapper cookbook.

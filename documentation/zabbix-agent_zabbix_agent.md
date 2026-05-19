@@ -1,16 +1,18 @@
 # zabbix_agent
 
-Installs, configures, and manages the Zabbix agent service.
+Installs and configures the Zabbix agent. Package installs manage the package-supplied service
+with Chef's built-in `service` resource; source and prebuilt installs do not create or override a
+system service unit.
 
 ## Actions
 
 | Action | Description |
 | --- | --- |
 | `:create` | Installs and configures the agent |
-| `:start` | Enables and starts the service |
-| `:stop` | Stops and disables the service |
-| `:restart` | Restarts the service |
-| `:remove` | Removes service, package, repository, and configuration artifacts |
+| `:start` | Enables and starts the package-supplied service |
+| `:stop` | Stops and disables the package-supplied service |
+| `:restart` | Restarts the package-supplied service |
+| `:remove` | Removes package, repository, and configuration artifacts |
 
 ## Properties
 
@@ -46,8 +48,8 @@ Installs, configures, and manages the Zabbix agent service.
 | `gid` | Integer, String, nil | `nil` | Optional service group GID |
 | `config` | Hash | Zabbix defaults | Rendered `zabbix_agentd.conf` entries |
 | `user_parameters` | Array | `[]` | Rendered `UserParameter` lines |
-| `service_name` | String | `'zabbix-agent'` | Service name |
-| `service_actions` | Array | `[:enable, :start]` | Actions applied during `:create` |
+| `service_name` | String | `'zabbix-agent'` | Package-supplied service name |
+| `service_actions` | Array | `[:enable, :start]` | Service actions applied during `:create` for package installs |
 
 ## Examples
 
@@ -70,7 +72,7 @@ zabbix_agent 'source' do
   install_method 'source'
   version '7.0.26'
   configure_options ['--with-libcurl', '--with-libpcre2']
-  action %i(create start)
+  action :create
 end
 ```
 
@@ -81,6 +83,6 @@ zabbix_agent 'prebuilt' do
   install_method 'prebuild'
   version '7.0.26'
   prebuild_arch 'amd64'
-  action %i(create start)
+  action :create
 end
 ```

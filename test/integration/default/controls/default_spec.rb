@@ -33,13 +33,3 @@ control 'zabbix-agent-userparams-01' do
     its('content') { should match(/^UserParameter=test\.ping,echo 1$/) }
   end
 end
-
-control 'zabbix-agent-service-01' do
-  impact 1.0
-  title 'Zabbix agent service is enabled and running'
-
-  describe service('zabbix-agent') do
-    it { should be_enabled }
-    it { should be_running }
-  end
-end

@@ -63,9 +63,12 @@ zabbix_agent 'source' do
   install_method 'source'
   version '7.0.26'
   configure_options ['--with-libcurl', '--with-libpcre2']
-  action %i(create start)
+  action :create
 end
 ```
+
+Source installs build and configure the agent only. They do not create or override a system service
+unit.
 
 ### Prebuilt Static Install
 
@@ -74,9 +77,12 @@ zabbix_agent 'prebuild' do
   install_method 'prebuild'
   version '7.0.26'
   prebuild_arch 'amd64'
-  action %i(create start)
+  action :create
 end
 ```
+
+Prebuilt installs extract and configure the agent only. They do not create or override a system
+service unit.
 
 ## Contributors
 
