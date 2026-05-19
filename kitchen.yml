@@ -2,42 +2,56 @@
 driver:
   name: vagrant
 
+x-run_lists:
+  default: &default_run_list
+    - recipe[test::default]
+  source: &source_run_list
+    - recipe[test::source]
+  prebuild: &prebuild_run_list
+    - recipe[test::prebuild]
+
+x-verifiers:
+  default: &default_verifier
+    inspec_tests:
+      - path: test/integration/default
+
 provisioner:
-  name: chef_solo
+  name: chef_infra
   product_name: chef
+  product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
+  channel: stable
   enforce_idempotency: true
   multiple_converge: 2
-  solo_rb:
-    treat_deprecation_warnings_as_errors: true
+  deprecations_as_errors: true
+  chef_license: accept
 
 verifier:
   name: inspec
+  sudo: true
 
 platforms:
-  - name: centos-7
-  - name: debian-9
-  - name: debian-10
-  - name: ubuntu-16.04
-  - name: ubuntu-18.04
+  - name: almalinux-8
+  - name: almalinux-9
+  - name: amazonlinux-2023
+  - name: centos-stream-9
+  - name: debian-12
+  - name: debian-13
+  - name: oraclelinux-8
+  - name: oraclelinux-9
+  - name: rockylinux-8
+  - name: rockylinux-9
+  - name: ubuntu-22.04
+  - name: ubuntu-24.04
 
 suites:
   - name: default
-    run_list:
-      - "recipe[zabbix-agent]"
+    run_list: *default_run_list
+    verifier: *default_verifier
 
   - name: source
-    run_list:
-      - "recipe[zabbix-agent]"
-    attributes:
-      zabbix:
-        agent:
-          install_method: "source"
+    run_list: *source_run_list
+    verifier: *default_verifier
 
   - name: prebuild
-    run_list:
-      - "recipe[zabbix-agent]"
-    attributes:
-      zabbix:
-        agent:
-          install_method: "prebuild"
-          version: "3.0.29"
+    run_list: *prebuild_run_list
+    verifier: *default_verifier

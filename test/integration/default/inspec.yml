@@ -1,0 +1,7 @@
+---
+name: default
+title: zabbix-agent default tests
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Verify zabbix-agent installation and configuration
+version: 1.0.0
