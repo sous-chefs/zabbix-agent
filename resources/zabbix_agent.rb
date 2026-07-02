@@ -176,7 +176,7 @@ action_class do
   def install_source_method
     if platform_family?('debian')
       apt_update 'update package lists before source install' do
-        action :update
+        action :periodic
       end
     end
 
