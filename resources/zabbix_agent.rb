@@ -174,6 +174,12 @@ action_class do
   end
 
   def install_source_method
+    if platform_family?('debian')
+      apt_update 'update package lists before source install' do
+        action :periodic
+      end
+    end
+
     package source_dependencies unless source_dependencies.empty?
 
     build_essential 'install build tools'
