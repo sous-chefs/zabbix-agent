@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [1.0.1](https://github.com/sous-chefs/zabbix-agent/compare/v1.0.0...v1.0.1) (2026-07-09)
+
+
+### Bug Fixes
+
+* migrate to Policyfile ([#101](https://github.com/sous-chefs/zabbix-agent/issues/101)) ([1f86d2c](https://github.com/sous-chefs/zabbix-agent/commit/1f86d2cdae5eeb6177a1acb59b8d41acd61c4312))
+
 ## [1.0.0](https://github.com/sous-chefs/zabbix-agent/compare/v0.15.12...v1.0.0) (2026-05-19)
 
 
