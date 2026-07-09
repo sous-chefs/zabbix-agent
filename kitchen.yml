@@ -16,7 +16,7 @@ x-verifiers:
       - path: test/integration/default
 
 provisioner:
-  name: chef_infra
+  name: policyfile_zero
   product_name: chef
   product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
   channel: stable
@@ -24,6 +24,7 @@ provisioner:
   multiple_converge: 2
   deprecations_as_errors: true
   chef_license: accept
+  policyfile: Policyfile.rb
 
 verifier:
   name: inspec
@@ -45,13 +46,16 @@ platforms:
 
 suites:
   - name: default
-    run_list: *default_run_list
+    provisioner:
+      named_run_list: default
     verifier: *default_verifier
 
   - name: source
-    run_list: *source_run_list
+    provisioner:
+      named_run_list: source
     verifier: *default_verifier
 
   - name: prebuild
-    run_list: *prebuild_run_list
+    provisioner:
+      named_run_list: prebuild
     verifier: *default_verifier
